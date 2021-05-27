@@ -227,4 +227,5 @@ public class pelanggan {
             Logger.getLogger(pelanggan.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
+
 }

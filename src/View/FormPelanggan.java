@@ -10,6 +10,9 @@ import static java.lang.Boolean.TRUE;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -39,6 +42,7 @@ public class FormPelanggan extends javax.swing.JFrame {
         control=new Controller.pelanggan(this);
         control.PelangganTabel();
         control.MemberTabel();
+        btnDelete.setVisible(false);
     }
     private void comboBox()
     {
@@ -316,7 +320,7 @@ public class FormPelanggan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnReset);
-        btnReset.setBounds(490, 420, 70, 40);
+        btnReset.setBounds(490, 420, 80, 40);
 
         btnInsert.setText("Insert");
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
@@ -334,7 +338,7 @@ public class FormPelanggan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDelete);
-        btnDelete.setBounds(440, 470, 70, 40);
+        btnDelete.setBounds(430, 470, 80, 40);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setText("Daftar Pelanggan");
@@ -425,8 +429,7 @@ public class FormPelanggan extends javax.swing.JFrame {
 
     private void formpelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formpelangganMouseClicked
         change2plg();
-        new FormPelanggan().setVisible(true);
-        dispose();
+        control.clear();
     }//GEN-LAST:event_formpelangganMouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -477,11 +480,17 @@ public class FormPelanggan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void TablePelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePelangganMouseClicked
+        change2plg();
         control.onMouseClickTablePelanggan();
+        btnInsert.setText("UPDATE");
+        btnDelete.setVisible(true);
     }//GEN-LAST:event_TablePelangganMouseClicked
 
     private void TableMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableMemberMouseClicked
-       control.onMouseClickTableMember();
+        change2member();
+        control.onMouseClickTableMember();
+        btnInsert.setText("UPDATE");
+        btnDelete.setVisible(true);
     }//GEN-LAST:event_TableMemberMouseClicked
 
     /**
