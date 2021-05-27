@@ -140,7 +140,7 @@ public class FormLogin extends javax.swing.JFrame {
            rs=pst.executeQuery();
            if(rs.next()){
                JOptionPane.showMessageDialog(null, "Login Berhasil");
-               new FormMember().setVisible(true);
+               
            }
            else{
                JOptionPane.showMessageDialog(null, "Username dan Password Salah");

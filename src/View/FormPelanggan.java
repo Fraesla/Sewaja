@@ -9,12 +9,12 @@ package View;
  *
  * @author Lenovo
  */
-public class FormMember extends javax.swing.JFrame {
+public class FormPelanggan extends javax.swing.JFrame {
 
     /**
      * Creates new form FoemMember
      */
-    public FormMember() {
+    public FormPelanggan() {
         initComponents();
     }
 
@@ -44,13 +44,13 @@ public class FormMember extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
+        cbMember = new javax.swing.JComboBox();
         btnInsert = new javax.swing.JButton();
-        FormPelanggan = new javax.swing.JLabel();
+        formMember = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -64,7 +64,7 @@ public class FormMember extends javax.swing.JFrame {
         jLabel13.setBounds(20, 190, 170, 14);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
-        jLabel2.setText("MEMBER");
+        jLabel2.setText("PELANGGAN");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(20, 150, 250, 50);
 
@@ -121,26 +121,26 @@ public class FormMember extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setText("Nama Pelanggan");
         getContentPane().add(jLabel11);
-        jLabel11.setBounds(380, 300, 170, 30);
+        jLabel11.setBounds(380, 250, 170, 30);
         getContentPane().add(jTextField2);
-        jTextField2.setBounds(380, 330, 180, 30);
+        jTextField2.setBounds(380, 280, 180, 30);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("Kode Pelanggan");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(380, 240, 170, 30);
+        jLabel10.setBounds(380, 180, 170, 30);
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(380, 210, 180, 30);
+        jTextField1.setBounds(380, 220, 180, 30);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("ID Member");
         getContentPane().add(jLabel12);
-        jLabel12.setBounds(380, 180, 170, 30);
+        jLabel12.setBounds(380, 320, 170, 20);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setText("No.Telepon");
         getContentPane().add(jLabel14);
-        jLabel14.setBounds(380, 360, 170, 30);
+        jLabel14.setBounds(380, 390, 170, 30);
 
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -149,9 +149,18 @@ public class FormMember extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnReset);
-        btnReset.setBounds(490, 440, 70, 40);
+        btnReset.setBounds(490, 470, 70, 40);
         getContentPane().add(jTextField3);
-        jTextField3.setBounds(380, 390, 180, 30);
+        jTextField3.setBounds(380, 420, 180, 30);
+
+        cbMember.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMemberActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbMember);
+        cbMember.setBounds(380, 350, 180, 30);
 
         btnInsert.setText("Insert");
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
@@ -160,17 +169,17 @@ public class FormMember extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnInsert);
-        btnInsert.setBounds(380, 440, 70, 40);
+        btnInsert.setBounds(380, 470, 70, 40);
 
-        FormPelanggan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        FormPelanggan.setText("Input Pelanggan");
-        FormPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+        formMember.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        formMember.setText("Daftar Member ?");
+        formMember.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                FormPelangganMouseClicked(evt);
+                formMemberMouseClicked(evt);
             }
         });
-        getContentPane().add(FormPelanggan);
-        FormPelanggan.setBounds(390, 510, 120, 17);
+        getContentPane().add(formMember);
+        formMember.setBounds(390, 540, 120, 17);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -197,8 +206,6 @@ public class FormMember extends javax.swing.JFrame {
         jLabel17.setText("Daftar Member");
         getContentPane().add(jLabel17);
         jLabel17.setBounds(780, 320, 140, 30);
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(380, 270, 180, 30);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,6 +230,10 @@ public class FormMember extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMemberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMemberActionPerformed
+
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnResetActionPerformed
@@ -231,9 +242,9 @@ public class FormMember extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInsertActionPerformed
 
-    private void FormPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FormPelangganMouseClicked
-       new FormPelanggan().setVisible(true);
-    }//GEN-LAST:event_FormPelangganMouseClicked
+    private void formMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMemberMouseClicked
+        new FormMember().setVisible(true);
+    }//GEN-LAST:event_formMemberMouseClicked
 
     /**
      * @param args the command line arguments
@@ -252,18 +263,14 @@ public class FormMember extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -272,15 +279,16 @@ public class FormMember extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormMember().setVisible(true);
+                new FormPelanggan().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FormPelanggan;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnReset;
+    private javax.swing.JComboBox cbMember;
+    private javax.swing.JLabel formMember;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -304,6 +312,5 @@ public class FormMember extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }
