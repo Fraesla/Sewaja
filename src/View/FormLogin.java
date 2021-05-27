@@ -45,6 +45,7 @@ public class FormLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtpass = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
+        back = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,6 +121,15 @@ public class FormLogin extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(590, 160, 400, 330);
 
+        back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+        getContentPane().add(back);
+        back.setBounds(10, 10, 55, 23);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Login (2).png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1152, 648);
@@ -140,17 +150,23 @@ public class FormLogin extends javax.swing.JFrame {
            rs=pst.executeQuery();
            if(rs.next()){
                JOptionPane.showMessageDialog(null, "Login Berhasil");
-               
+               new FormUtama().setVisible(true);
            }
            else{
                JOptionPane.showMessageDialog(null, "Username dan Password Salah");
                new FormAwal().setVisible(true);
            }
+           dispose();
        }
        catch(Exception e){
-           JOptionPane.showMessageDialog(null, e);
+           JOptionPane.showMessageDialog(null, "Database ada belum dihidupkan");
        }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+       new FormAwal().setVisible(true);
+       dispose();
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,8 +202,8 @@ public class FormLogin extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
