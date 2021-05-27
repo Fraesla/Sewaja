@@ -14,10 +14,38 @@ public class FormPelanggan extends javax.swing.JFrame {
     /**
      * Creates new form FoemMember
      */
+    boolean x;
     public FormPelanggan() {
         initComponents();
+        change2plg();
     }
-
+private void change2member(){
+        kode.setText("Id Member");
+        nama.setText("Nama Member");
+        idtelp.setText("No. Telp");
+        telpalamat.setText("Alamat");
+        jLabel1.setText("MEMBER");
+        cbMember.setVisible(false);
+        txtIdTelp.setVisible(true);
+        formpelanggan.setVisible(true);
+        formMember.setVisible(false);
+        btnInsert.setText("INSERT");
+        x = true;
+    }
+    
+    private void change2plg(){
+        kode.setText("Kode Pelanggan");
+        nama.setText("Nama Pelanggan");
+        idtelp.setText("Id Member");
+        telpalamat.setText("No. Telpon");
+        jLabel1.setText("PELANGGAN");
+        cbMember.setVisible(true);
+        txtIdTelp.setVisible(false);
+        formpelanggan.setVisible(false);
+        formMember.setVisible(true);
+        btnInsert.setText("INSERT");
+        x = false;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,20 +64,23 @@ public class FormPelanggan extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        kode = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        btnReset = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        nama = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        idtelp = new javax.swing.JLabel();
         cbMember = new javax.swing.JComboBox();
-        btnInsert = new javax.swing.JButton();
+        txtIdTelp = new javax.swing.JTextField();
+        telpalamat = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         formMember = new javax.swing.JLabel();
+        formpelanggan = new javax.swing.JLabel();
+        btnReset = new javax.swing.JButton();
+        btnInsert = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -118,58 +149,41 @@ public class FormPelanggan extends javax.swing.JFrame {
         getContentPane().add(jLabel9);
         jLabel9.setBounds(20, 410, 80, 30);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel11.setText("Nama Pelanggan");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(380, 250, 170, 30);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(380, 280, 180, 30);
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setText("Kode Pelanggan");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(380, 180, 170, 30);
+        kode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        kode.setText("Kode Pelanggan");
+        getContentPane().add(kode);
+        kode.setBounds(380, 130, 170, 30);
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(380, 220, 180, 30);
+        jTextField1.setBounds(380, 170, 180, 30);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel12.setText("ID Member");
-        getContentPane().add(jLabel12);
-        jLabel12.setBounds(380, 320, 170, 20);
+        nama.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nama.setText("Nama Pelanggan");
+        getContentPane().add(nama);
+        nama.setBounds(380, 200, 170, 30);
+        getContentPane().add(jTextField2);
+        jTextField2.setBounds(380, 230, 180, 30);
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel14.setText("No.Telepon");
-        getContentPane().add(jLabel14);
-        jLabel14.setBounds(380, 390, 170, 30);
+        idtelp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        idtelp.setText("ID Member");
+        getContentPane().add(idtelp);
+        idtelp.setBounds(380, 270, 170, 20);
 
-        btnReset.setText("Reset");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReset);
-        btnReset.setBounds(490, 470, 70, 40);
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(380, 420, 180, 30);
-
-        cbMember.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMemberActionPerformed(evt);
             }
         });
         getContentPane().add(cbMember);
-        cbMember.setBounds(380, 350, 180, 30);
+        cbMember.setBounds(380, 300, 180, 30);
+        getContentPane().add(txtIdTelp);
+        txtIdTelp.setBounds(380, 300, 180, 30);
 
-        btnInsert.setText("Insert");
-        btnInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsertActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnInsert);
-        btnInsert.setBounds(380, 470, 70, 40);
+        telpalamat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        telpalamat.setText("No.Telepon");
+        getContentPane().add(telpalamat);
+        telpalamat.setBounds(380, 340, 170, 30);
+        getContentPane().add(jTextField3);
+        jTextField3.setBounds(380, 370, 180, 30);
 
         formMember.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         formMember.setText("Daftar Member ?");
@@ -179,7 +193,44 @@ public class FormPelanggan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(formMember);
-        formMember.setBounds(390, 540, 120, 17);
+        formMember.setBounds(420, 520, 120, 17);
+
+        formpelanggan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        formpelanggan.setText("Input Pelanggan");
+        formpelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formpelangganMouseClicked(evt);
+            }
+        });
+        getContentPane().add(formpelanggan);
+        formpelanggan.setBounds(420, 520, 120, 17);
+
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnReset);
+        btnReset.setBounds(490, 420, 70, 40);
+
+        btnInsert.setText("Insert");
+        btnInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnInsert);
+        btnInsert.setBounds(380, 420, 80, 40);
+
+        jToggleButton1.setText("Delete");
+        getContentPane().add(jToggleButton1);
+        jToggleButton1.setBounds(440, 470, 70, 40);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel16.setText("Daftar Pelanggan");
+        getContentPane().add(jLabel16);
+        jLabel16.setBounds(780, 120, 140, 30);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,17 +246,12 @@ public class FormPelanggan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(630, 210, 452, 90);
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel16.setText("Daftar Pelanggan");
-        getContentPane().add(jLabel16);
-        jLabel16.setBounds(780, 170, 140, 30);
+        jScrollPane1.setBounds(630, 160, 452, 90);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Daftar Member");
         getContentPane().add(jLabel17);
-        jLabel17.setBounds(780, 320, 140, 30);
+        jLabel17.setBounds(780, 270, 140, 30);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -221,11 +267,11 @@ public class FormPelanggan extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(630, 360, 452, 90);
+        jScrollPane2.setBounds(630, 310, 452, 90);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Pelanggan (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1152, 660);
+        jLabel1.setBounds(0, -10, 1152, 670);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -243,8 +289,13 @@ public class FormPelanggan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void formMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMemberMouseClicked
-        new FormMember().setVisible(true);
+        change2member();
     }//GEN-LAST:event_formMemberMouseClicked
+
+    private void formpelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formpelangganMouseClicked
+        // TODO add your handling code here:
+        change2plg();
+    }//GEN-LAST:event_formpelangganMouseClicked
 
     /**
      * @param args the command line arguments
@@ -289,12 +340,10 @@ public class FormPelanggan extends javax.swing.JFrame {
     private javax.swing.JButton btnReset;
     private javax.swing.JComboBox cbMember;
     private javax.swing.JLabel formMember;
+    private javax.swing.JLabel formpelanggan;
+    private javax.swing.JLabel idtelp;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -312,5 +361,10 @@ public class FormPelanggan extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JLabel kode;
+    private javax.swing.JLabel nama;
+    private javax.swing.JLabel telpalamat;
+    private javax.swing.JTextField txtIdTelp;
     // End of variables declaration//GEN-END:variables
 }
