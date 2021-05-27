@@ -29,13 +29,13 @@ public class FormPembayaran extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        home = new javax.swing.JLabel();
+        pelanggan = new javax.swing.JLabel();
+        penyewaan = new javax.swing.JLabel();
+        pemesanan = new javax.swing.JLabel();
+        pembayaran = new javax.swing.JLabel();
+        report = new javax.swing.JLabel();
+        logout = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,55 +51,90 @@ public class FormPembayaran extends javax.swing.JFrame {
         getContentPane().add(jLabel13);
         jLabel13.setBounds(20, 190, 170, 14);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setText("Home");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 210, 70, 20);
+        home.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        home.setText("Home");
+        home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeMouseClicked(evt);
+            }
+        });
+        getContentPane().add(home);
+        home.setBounds(20, 210, 70, 20);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel5.setText("Pelanggan");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(20, 250, 130, 30);
+        pelanggan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pelanggan.setText("Pelanggan");
+        pelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pelangganMouseClicked(evt);
+            }
+        });
+        getContentPane().add(pelanggan);
+        pelanggan.setBounds(20, 250, 130, 30);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel6.setText("Penyewaan");
-        jLabel6.setMaximumSize(new java.awt.Dimension(109, 29));
-        jLabel6.setMinimumSize(new java.awt.Dimension(109, 29));
-        jLabel6.setPreferredSize(new java.awt.Dimension(109, 29));
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(20, 290, 140, 30);
+        penyewaan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        penyewaan.setText("Penyewaan");
+        penyewaan.setMaximumSize(new java.awt.Dimension(109, 29));
+        penyewaan.setMinimumSize(new java.awt.Dimension(109, 29));
+        penyewaan.setPreferredSize(new java.awt.Dimension(109, 29));
+        penyewaan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                penyewaanMouseClicked(evt);
+            }
+        });
+        getContentPane().add(penyewaan);
+        penyewaan.setBounds(20, 290, 140, 30);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel7.setText("Pemesanan");
-        jLabel7.setMaximumSize(new java.awt.Dimension(109, 29));
-        jLabel7.setMinimumSize(new java.awt.Dimension(109, 29));
-        jLabel7.setPreferredSize(new java.awt.Dimension(109, 29));
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(20, 330, 130, 30);
+        pemesanan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pemesanan.setText("Pemesanan");
+        pemesanan.setMaximumSize(new java.awt.Dimension(109, 29));
+        pemesanan.setMinimumSize(new java.awt.Dimension(109, 29));
+        pemesanan.setPreferredSize(new java.awt.Dimension(109, 29));
+        pemesanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pemesananMouseClicked(evt);
+            }
+        });
+        getContentPane().add(pemesanan);
+        pemesanan.setBounds(20, 330, 130, 30);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel8.setText("Pembayaran");
-        jLabel8.setMaximumSize(new java.awt.Dimension(109, 29));
-        jLabel8.setMinimumSize(new java.awt.Dimension(109, 29));
-        jLabel8.setPreferredSize(new java.awt.Dimension(109, 29));
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(20, 370, 140, 30);
+        pembayaran.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pembayaran.setText("Pembayaran");
+        pembayaran.setMaximumSize(new java.awt.Dimension(109, 29));
+        pembayaran.setMinimumSize(new java.awt.Dimension(109, 29));
+        pembayaran.setPreferredSize(new java.awt.Dimension(109, 29));
+        pembayaran.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pembayaranMouseClicked(evt);
+            }
+        });
+        getContentPane().add(pembayaran);
+        pembayaran.setBounds(20, 370, 140, 30);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel9.setText("Report");
-        jLabel9.setMaximumSize(new java.awt.Dimension(109, 29));
-        jLabel9.setMinimumSize(new java.awt.Dimension(109, 29));
-        jLabel9.setPreferredSize(new java.awt.Dimension(109, 29));
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(20, 410, 80, 30);
+        report.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        report.setText("Report");
+        report.setMaximumSize(new java.awt.Dimension(109, 29));
+        report.setMinimumSize(new java.awt.Dimension(109, 29));
+        report.setPreferredSize(new java.awt.Dimension(109, 29));
+        report.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportMouseClicked(evt);
+            }
+        });
+        getContentPane().add(report);
+        report.setBounds(20, 410, 80, 30);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setText("Keluar");
-        jLabel3.setMaximumSize(new java.awt.Dimension(109, 29));
-        jLabel3.setMinimumSize(new java.awt.Dimension(109, 29));
-        jLabel3.setPreferredSize(new java.awt.Dimension(109, 29));
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 450, 70, 30);
+        logout.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        logout.setText("Keluar");
+        logout.setMaximumSize(new java.awt.Dimension(109, 29));
+        logout.setMinimumSize(new java.awt.Dimension(109, 29));
+        logout.setPreferredSize(new java.awt.Dimension(109, 29));
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
+        getContentPane().add(logout);
+        logout.setBounds(20, 450, 70, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Pelanggan (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -107,6 +142,40 @@ public class FormPembayaran extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
+      new FormUtama().setVisible(true);
+      dispose();
+    }//GEN-LAST:event_homeMouseClicked
+
+    private void pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pelangganMouseClicked
+      new FormPelanggan().setVisible(true);
+      dispose();
+    }//GEN-LAST:event_pelangganMouseClicked
+
+    private void penyewaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penyewaanMouseClicked
+      new FormPenyewaan().setVisible(true);
+      dispose();
+    }//GEN-LAST:event_penyewaanMouseClicked
+
+    private void pemesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pemesananMouseClicked
+      new FormPemesanan().setVisible(true);
+      dispose();
+    }//GEN-LAST:event_pemesananMouseClicked
+
+    private void pembayaranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pembayaranMouseClicked
+      new FormPembayaran().setVisible(true);
+      dispose();
+    }//GEN-LAST:event_pembayaranMouseClicked
+
+    private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportMouseClicked
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+       new FormAwal().setVisible(true);
+       dispose();
+    }//GEN-LAST:event_logoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -144,15 +213,15 @@ public class FormPembayaran extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel home;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel logout;
+    private javax.swing.JLabel pelanggan;
+    private javax.swing.JLabel pembayaran;
+    private javax.swing.JLabel pemesanan;
+    private javax.swing.JLabel penyewaan;
+    private javax.swing.JLabel report;
     // End of variables declaration//GEN-END:variables
 }

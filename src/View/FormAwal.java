@@ -28,6 +28,7 @@ public class FormAwal extends javax.swing.JFrame {
     private void initComponents() {
 
         btnLogin = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,6 +45,17 @@ public class FormAwal extends javax.swing.JFrame {
         getContentPane().add(btnLogin);
         btnLogin.setBounds(483, 430, 140, 50);
 
+        exit.setBackground(new java.awt.Color(255, 0, 0));
+        exit.setForeground(new java.awt.Color(255, 255, 255));
+        exit.setText("X");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(exit);
+        exit.setBounds(1070, 10, 39, 30);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Tampilan Awal (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1152, 648);
@@ -55,6 +67,10 @@ public class FormAwal extends javax.swing.JFrame {
         new FormLogin().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        dispose();
+    }//GEN-LAST:event_exitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,6 +109,7 @@ public class FormAwal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton exit;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
