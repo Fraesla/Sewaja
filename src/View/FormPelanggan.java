@@ -32,7 +32,6 @@ public class FormPelanggan extends javax.swing.JFrame {
     ResultSet rs= null;
     PreparedStatement pst=null;
     Controller.pelanggan control;
-    
     public FormPelanggan() {
         initComponents();
         Koneksi server = new Koneksi();
@@ -44,6 +43,7 @@ public class FormPelanggan extends javax.swing.JFrame {
         control.MemberTabel();
         btnDelete.setVisible(false);
     }
+  
     private void comboBox()
     {
         try{
@@ -275,7 +275,6 @@ public class FormPelanggan extends javax.swing.JFrame {
         idtelp.setBounds(380, 270, 170, 20);
 
         cbxMember.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbxMember.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----" }));
         cbxMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxMemberActionPerformed(evt);
@@ -430,6 +429,8 @@ public class FormPelanggan extends javax.swing.JFrame {
     private void formpelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formpelangganMouseClicked
         change2plg();
         control.clear();
+        new FormPelanggan().setVisible(true);
+        dispose();
     }//GEN-LAST:event_formpelangganMouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
