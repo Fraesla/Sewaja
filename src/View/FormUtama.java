@@ -17,6 +17,18 @@ public class FormUtama extends javax.swing.JFrame {
     public FormUtama() {
         initComponents();
     }
+    public FormUtama(String s) {
+        initComponents();
+        if(s.equalsIgnoreCase("admin"))
+        {
+            report.setVisible(false);
+//            akun.setText(tipe);
+        }
+        else{
+            report.setVisible(true);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,7 +49,7 @@ public class FormUtama extends javax.swing.JFrame {
         logout = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        akun = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -139,8 +151,8 @@ public class FormUtama extends javax.swing.JFrame {
         getContentPane().add(jLabel13);
         jLabel13.setBounds(20, 190, 170, 14);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel10.setText("SELAMAT DATANG DI APLIKASI SEWAJA");
+        akun.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        akun.setText("SELAMAT DATANG DI APLIKASI SEWAJA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,14 +160,14 @@ public class FormUtama extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(91, 91, 91)
-                .addComponent(jLabel10)
+                .addComponent(akun)
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(177, 177, 177)
-                .addComponent(jLabel10)
+                .addComponent(akun)
                 .addContainerGap(201, Short.MAX_VALUE))
         );
 
@@ -239,9 +251,9 @@ public class FormUtama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel akun;
     private javax.swing.JLabel home;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

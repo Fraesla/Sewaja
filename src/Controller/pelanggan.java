@@ -139,7 +139,7 @@ public class pelanggan {
         view.getTxtNama().setText("");
         view.getTxtIdTelp().setText("");
         view.getTxtTelpAlm().setText("");
-        view.getCbxMember().setSelectedItem("-----");
+        view.getCbxMember().setSelectedItem("-");
     }
     public void PelangganTabel()
     {
