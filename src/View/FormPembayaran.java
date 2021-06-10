@@ -9,10 +9,16 @@ import Server.Koneksi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,78 +33,172 @@ public class FormPembayaran extends javax.swing.JFrame {
     ResultSet rs= null;
     PreparedStatement pst=null;
     Controller.pembayaran control;
+    DAO.pemesanan dataPesan;
+    Model.pemesanan pesan;
+    DAO.penyewaan dataSewa;
+    Model.penyewaan sewa;
     public FormPembayaran() {
         initComponents();
+        cbxPemesanan.removeAllItems();
+        cbxPenyewaan.removeAllItems();
+        tableBayar();
+        tablePesan();
+        tableSewa();
         Koneksi server = new Koneksi();
         con=server.getConnection();
         control=new Controller.pembayaran(this);
-        control.PembayaranTabel();
-        control.PemesananTabel();
-        control.PenyewaanTabel();
-        comboBox();
-        comboBox2();
+        control.clear();
+        dataPesan = new DAO.pemesanan();
+        dataSewa = new DAO.penyewaan();
+        delete.setVisible(false);
+        jLabel15.setVisible(false);
+        jLabel16.setText("Form Pembayaran");
     }
-    private void comboBox()
-    {
+    private void tablePesan(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Id Nota");
+        model.addColumn("Kode Pelanggan");
+        model.addColumn("Sub Total Pesan");
+        
         try{
-            String sql = "Select * from penyewaan";
-            pst=con.prepareStatement(sql);
-            rs=pst.executeQuery();
+            Koneksi k = new Koneksi();
+            Connection con = k.getConnection();
+            String sql = "Select *from pemesanan";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
             
             while(rs.next()){
-                String name=rs.getString("kdpem");
-                cbxPenyewaan.addItem(name);
+                model.addRow(new Object[] {
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3)
+                });
+                
+                Object[] x = new Object[1];
+                x[0] = rs.getString(1);
+                
+                cbxPemesanan.addItem(x[0].toString());
             }
-        }
-        catch(Exception e)
-        {
-           JOptionPane.showMessageDialog(null, e);
+            tablePesan.setModel(model);
+        } catch(Exception e){
+            System.out.println("Error => "+e);
         }
     }
-    private void comboBox2()
-    {
+    
+    private void tableSewa(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Kode Pemakaian");
+        model.addColumn("Kode Pelanggan");
+        model.addColumn("Sub Total Sewa");
+        
         try{
-            String sql = "Select * from pemesanan";
-            pst=con.prepareStatement(sql);
-            rs=pst.executeQuery();
+            Koneksi k = new Koneksi();
+            Connection con = k.getConnection();
+            String sql = "Select *from penyewaan";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
             
             while(rs.next()){
-                String name=rs.getString("idnota");
-                cbxPemesanan.addItem(name);
+                model.addRow(new Object[] {
+                    rs.getString(1),
+                    rs.getString(3),
+                    rs.getString(8)
+                });
+                
+                Object[] x = new Object[1];
+                x[0] = rs.getString(1);
+                
+                cbxPenyewaan.addItem((String) x[0]);
             }
-        }
-        catch(Exception e)
-        {
-           JOptionPane.showMessageDialog(null, e);
+            tableSewa.setModel(model);
+        } catch(Exception e){
+            System.out.println("Error => "+e);
         }
     }
-    public JTable getTablePembayaran() {
-        return TablePembayaran;
+    
+    private void tableBayar(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Id Transaksi");
+        model.addColumn("Kode Pemakaian");
+        model.addColumn("Id Nota");
+        model.addColumn("Total Bayar");
+        
+        try{
+            Koneksi k = new Koneksi();
+            Connection con = k.getConnection();
+            String sql = "Select *from pembayaran";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            
+            while(rs.next()){
+                model.addRow(new Object[] {
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4)                    
+                });
+            }
+            if (rs.last()) {
+                idtrans.setText(rs.getString(1));
+            }
+            tableBayar.setModel(model);
+        } catch(Exception e){
+            System.out.println("Error => "+e);
+        }
     }
-
-    public JComboBox getCbxPemesanan() {
+    
+    public JComboBox<String> getCbxPemesanan() {
         return cbxPemesanan;
     }
 
-    public JComboBox getCbxPenyewaan() {
+    public JComboBox<String> getCbxPenyewaan() {
         return cbxPenyewaan;
     }
 
+    public JTable getTableBayar() {
+        return tableBayar;
+    }
+
+    public JTable getTablePesan() {
+        return tablePesan;
+    }
+
+    public JTable getTableSewa() {
+        return tableSewa;
+    }
+
+    public JTextField getTxtIdTrans() {
+        return txtIdTrans;
+    }
+
+    public JTextField getTxtSubTotalPesan() {
+        return txtSubTotalPesan;
+    }
+
+    public JTextField getTxtSubTotalSewa() {
+        return txtSubTotalSewa;
+    }
+
     public JTextField getIntTotal() {
-        return intTotal;
+        return IntTotal;
+    }
+    
+    public JLabel getA() {
+        return a;
     }
 
-    public JTextField getTxtIdtran() {
-        return txtIdtran;
+    public JLabel getKet() {
+        return ket;
     }
 
-    public JTable getTablePemesanan() {
-        return TablePemesanan;
+    public JLabel getReport() {
+        return report;
     }
 
-    public JTable getTablePenyewaan() {
-        return TablePenyewaan;
+    public JLabel getUser() {
+        return user;
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,26 +218,39 @@ public class FormPembayaran extends javax.swing.JFrame {
         pembayaran = new javax.swing.JLabel();
         report = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtIdtran = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        intTotal = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        cbxPemesanan = new javax.swing.JComboBox();
-        cbxPenyewaan = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
-        btnReset = new javax.swing.JButton();
-        btnInsert = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TablePenyewaan = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        ket = new javax.swing.JLabel();
+        delete = new javax.swing.JButton();
+        hapus = new javax.swing.JButton();
+        insert = new javax.swing.JButton();
+        IntTotal = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        TablePembayaran = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        tableBayar = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        idtrans = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableSewa = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablePemesanan = new javax.swing.JTable();
+        tablePesan = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        txtSubTotalPesan = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        cbxPemesanan = new javax.swing.JComboBox<String>();
+        jLabel4 = new javax.swing.JLabel();
+        txtSubTotalSewa = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        cbxPenyewaan = new javax.swing.JComboBox<String>();
+        jLabel9 = new javax.swing.JLabel();
+        txtIdTrans = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        a = new javax.swing.JLabel();
+        user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1152, 688));
@@ -199,6 +312,7 @@ public class FormPembayaran extends javax.swing.JFrame {
         pemesanan.setBounds(20, 330, 130, 30);
 
         pembayaran.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pembayaran.setForeground(new java.awt.Color(255, 0, 0));
         pembayaran.setText("Pembayaran");
         pembayaran.setMaximumSize(new java.awt.Dimension(109, 29));
         pembayaran.setMinimumSize(new java.awt.Dimension(109, 29));
@@ -237,89 +351,40 @@ public class FormPembayaran extends javax.swing.JFrame {
         getContentPane().add(logout);
         logout.setBounds(20, 450, 70, 30);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Id Pemesanan");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(390, 250, 120, 22);
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("Status :");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(380, 20, 80, 20);
 
-        txtIdtran.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtIdtran);
-        txtIdtran.setBounds(390, 210, 170, 30);
+        ket.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(ket);
+        ket.setBounds(450, 20, 80, 20);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Total");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(390, 400, 110, 22);
-
-        intTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(intTotal);
-        intTotal.setBounds(390, 430, 170, 30);
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Daftar Pemesanan");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(700, 170, 150, 22);
-
-        cbxPemesanan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cbxPemesanan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----" }));
-        getContentPane().add(cbxPemesanan);
-        cbxPemesanan.setBounds(390, 280, 170, 30);
-
-        cbxPenyewaan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cbxPenyewaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----" }));
-        getContentPane().add(cbxPenyewaan);
-        cbxPenyewaan.setBounds(390, 360, 170, 30);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Kode Penyewaan");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(390, 330, 140, 22);
-
-        btnReset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnReset.setText("Reset");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
+        delete.setText("DELETE");
+        delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
+                deleteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnReset);
-        btnReset.setBounds(480, 480, 80, 30);
+        getContentPane().add(delete);
+        delete.setBounds(450, 500, 90, 23);
 
-        btnInsert.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnInsert.setText("Insert");
-        btnInsert.addActionListener(new java.awt.event.ActionListener() {
+        hapus.setText("CLEAR");
+        getContentPane().add(hapus);
+        hapus.setBounds(500, 470, 80, 23);
+
+        insert.setText("INSERT");
+        insert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsertActionPerformed(evt);
+                insertActionPerformed(evt);
             }
         });
-        getContentPane().add(btnInsert);
-        btnInsert.setBounds(390, 480, 75, 30);
+        getContentPane().add(insert);
+        insert.setBounds(420, 470, 80, 23);
+        getContentPane().add(IntTotal);
+        IntTotal.setBounds(420, 400, 160, 30);
 
-        TablePenyewaan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Kode Penyewaan", "Kode Pelanggan", "Kode Lapangan", "Tanggal Main", "Bayar Sewa", "Jam Akhir", "Jam Awal", "Total Sewa", "Uang Muka"
-            }
-        ));
-        jScrollPane2.setViewportView(TablePenyewaan);
-        if (TablePenyewaan.getColumnModel().getColumnCount() > 0) {
-            TablePenyewaan.getColumnModel().getColumn(2).setHeaderValue("Total Pesanan");
-        }
-
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(380, 50, 590, 110);
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setText("Daftar Penyewaan");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(580, 20, 150, 22);
-
-        TablePembayaran.setModel(new javax.swing.table.DefaultTableModel(
+        tableBayar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -327,77 +392,236 @@ public class FormPembayaran extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id Transaksi", "Id Pemesanan", "Kode Penyewaan", "Total"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(TablePembayaran);
+        tableBayar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBayarMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tableBayar);
 
         getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(580, 370, 390, 110);
+        jScrollPane3.setBounds(620, 450, 494, 151);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setText("Daftar Pembayaran");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(700, 340, 150, 22);
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("Daftar Pembayaran");
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(800, 420, 130, 17);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText("Id Transaksi");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(390, 180, 110, 22);
+        jLabel12.setText("ID Transaksi Terakhir :");
+        getContentPane().add(jLabel12);
+        jLabel12.setBounds(920, 610, 140, 20);
+        getContentPane().add(idtrans);
+        idtrans.setBounds(1060, 610, 50, 20);
 
-        TablePemesanan.setModel(new javax.swing.table.DefaultTableModel(
+        tableSewa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id Pemesanan", "Kode Pelanggan", "Total Pesanan"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TablePemesanan);
-        if (TablePemesanan.getColumnModel().getColumnCount() > 0) {
-            TablePemesanan.getColumnModel().getColumn(2).setHeaderValue("Total Pesanan");
-        }
+        jScrollPane2.setViewportView(tableSewa);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(620, 270, 490, 129);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Daftar Penyewaan");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(810, 240, 112, 17);
+
+        tablePesan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablePesan);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(580, 210, 390, 110);
+        jScrollPane1.setBounds(630, 90, 490, 129);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Daftar Pemesanan");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(820, 60, 112, 17);
+
+        txtSubTotalPesan.setEditable(false);
+        getContentPane().add(txtSubTotalPesan);
+        txtSubTotalPesan.setBounds(420, 350, 160, 30);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Total Bayar");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(420, 380, 69, 17);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Sub Total Pesan");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(420, 320, 98, 17);
+
+        cbxPemesanan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxPemesananItemStateChanged(evt);
+            }
+        });
+        cbxPemesanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxPemesananMouseClicked(evt);
+            }
+        });
+        getContentPane().add(cbxPemesanan);
+        cbxPemesanan.setBounds(420, 290, 160, 30);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("ID Nota");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(420, 270, 47, 17);
+
+        txtSubTotalSewa.setEditable(false);
+        getContentPane().add(txtSubTotalSewa);
+        txtSubTotalSewa.setBounds(420, 240, 160, 30);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setText("Sub Total Sewa");
+        getContentPane().add(jLabel14);
+        jLabel14.setBounds(420, 220, 94, 17);
+
+        cbxPenyewaan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxPenyewaanMouseClicked(evt);
+            }
+        });
+        cbxPenyewaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxPenyewaanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbxPenyewaan);
+        cbxPenyewaan.setBounds(420, 190, 160, 30);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("Kode Pemakaian");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(420, 170, 100, 17);
+        getContentPane().add(txtIdTrans);
+        txtIdTrans.setBounds(420, 140, 160, 30);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("ID Transaksi");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(420, 120, 74, 17);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setText("Input Pembayaran");
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel15);
+        jLabel15.setBounds(420, 530, 160, 22);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jLabel16);
+        jLabel16.setBounds(390, 70, 240, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Pelanggan (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1152, 648);
 
+        a.setText("jLabel2");
+        getContentPane().add(a);
+        a.setBounds(20, 70, 34, 14);
+
+        user.setText("jLabel2");
+        getContentPane().add(user);
+        user.setBounds(0, 0, 34, 14);
+
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
-      new FormUtama().setVisible(true);
-      dispose();
+        FormUtama utama = new FormUtama();
+        if (a.getText().equals("operator")) {
+            utama.getReport().setVisible(false);
+            utama.getA().setText(a.getText());
+            utama.getKet().setText("Operator");
+            utama.getjLabel4().setText("Edit Akun");
+            utama.getUser().setText(user.getText());
+            utama.getUser().setEnabled(false);
+        } else{
+            utama.getKet().setText("Admin");
+        }
+        utama.setVisible(true);
+        dispose();
     }//GEN-LAST:event_homeMouseClicked
 
     private void pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pelangganMouseClicked
-      new FormPelanggan().setVisible(true);
-      dispose();
+        FormPelanggan member = new FormPelanggan();
+        if (a.getText().equals("operator")) {
+            member.getReport().setVisible(false);
+            member.getKet().setText("Operator");
+            member.getA().setText(a.getText());
+            member.getUser().setText(user.getText());
+        }
+        else{
+            member.getKet().setText("Admin");
+        }
+        member.setVisible(true);
+        dispose();
     }//GEN-LAST:event_pelangganMouseClicked
 
     private void penyewaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penyewaanMouseClicked
-      new FormPenyewaan().setVisible(true);
-      dispose();
+        FormPenyewaan sewa = new FormPenyewaan();
+        if (a.getText().equals("operator")) {
+            sewa.getReport().setVisible(false);
+            sewa.getKet().setText("Operator");
+            sewa.getA().setText(a.getText());
+            sewa.getUser().setText(user.getText());
+        }
+        else{
+            sewa.getKet().setText("Admin");
+        }
+        sewa.setVisible(true);
+        dispose();
 }//GEN-LAST:event_penyewaanMouseClicked
 
     private void pemesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pemesananMouseClicked
-      new FormPemesanan().setVisible(true);
-      dispose();
+        FormPemesanan pesan = new FormPemesanan();
+        if (a.getText().equals("operator")) {
+            pesan.getReport().setVisible(false);
+            pesan.getKet().setText("Operator");
+            pesan.getA().setText(a.getText());
+            pesan.getUser().setText(user.getText());
+        }
+        else{
+            pesan.getKet().setText("Admin");
+        }
+        pesan.setVisible(true);
+        dispose();
     }//GEN-LAST:event_pemesananMouseClicked
 
     private void pembayaranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pembayaranMouseClicked
-      new FormPembayaran().setVisible(true);
-      dispose();
+      
     }//GEN-LAST:event_pembayaranMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-        // TODO add your handling code here:
+        new FormReport().setVisible(true);
+        dispose();
     }//GEN-LAST:event_reportMouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -405,15 +629,91 @@ public class FormPembayaran extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_logoutMouseClicked
 
-    private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-       control.insert();
-       control.PembayaranTabel();
-       control.clear();
-    }//GEN-LAST:event_btnInsertActionPerformed
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        control.delete();
+        insert.setText("INSERT");
+        delete.setVisible(false);
+        tableBayar();
+    }//GEN-LAST:event_deleteActionPerformed
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
+        if (insert.getText().equals("INSERT")) {
+            try {
+                control.insert();
+            }catch(SQLException ex) {
+                Logger.getLogger(FormPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tableBayar();
+        } else{
+            try {
+                control.update();
+                insert.setText("INSERT");
+                delete.setVisible(false);
+                txtIdTrans.setEnabled(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(FormPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tableBayar();
+            delete.setVisible(false);
+        }
+    }//GEN-LAST:event_insertActionPerformed
+
+    private void tableBayarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBayarMouseClicked
+        try {
+            control.onMouseClickTableBayar();
+            insert.setText("UPDATE");
+            delete.setVisible(true);
+            jLabel15.setVisible(true);
+            txtIdTrans.setEnabled(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(FormPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tableBayarMouseClicked
+
+    private void cbxPemesananItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxPemesananItemStateChanged
+
+    }//GEN-LAST:event_cbxPemesananItemStateChanged
+
+    private void cbxPemesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxPemesananMouseClicked
+        String id = cbxPemesanan.getSelectedItem().toString();
+        try {
+            pesan = new Model.pemesanan();
+            pesan = dataPesan.getPemesanan(id);
+
+            txtSubTotalPesan.setText(String.valueOf(pesan.totalPesan));
+        }catch(SQLException ex){
+            Logger.getLogger(FormPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        int a = Integer.valueOf(txtSubTotalPesan.getText());
+        int b = Integer.valueOf(txtSubTotalSewa.getText());
+        int total = a + b;
+        IntTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_cbxPemesananMouseClicked
+
+    private void cbxPenyewaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxPenyewaanMouseClicked
+        String id = cbxPenyewaan.getSelectedItem().toString();
+        try {
+            sewa = new Model.penyewaan();
+            sewa = dataSewa.getSewa(id);
+
+            txtSubTotalSewa.setText(String.valueOf(sewa.bayasewa));
+        }catch(SQLException ex) {
+            Logger.getLogger(FormPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cbxPenyewaanMouseClicked
+
+    private void cbxPenyewaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPenyewaanActionPerformed
+
+    }//GEN-LAST:event_cbxPenyewaanActionPerformed
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
        control.clear();
-    }//GEN-LAST:event_btnResetActionPerformed
+       jLabel15.setVisible(false);
+       delete.setVisible(false);
+       insert.setText("INSERT");
+       txtIdTrans.setEnabled(true);
+    }//GEN-LAST:event_jLabel15MouseClicked
 
     /**
      * @param args the command line arguments
@@ -445,23 +745,29 @@ public class FormPembayaran extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormPembayaran().setVisible(true);
+                new FormAwal().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablePembayaran;
-    private javax.swing.JTable TablePemesanan;
-    private javax.swing.JTable TablePenyewaan;
-    private javax.swing.JButton btnInsert;
-    private javax.swing.JButton btnReset;
-    private javax.swing.JComboBox cbxPemesanan;
-    private javax.swing.JComboBox cbxPenyewaan;
+    private javax.swing.JTextField IntTotal;
+    private javax.swing.JLabel a;
+    private javax.swing.JComboBox<String> cbxPemesanan;
+    private javax.swing.JComboBox<String> cbxPenyewaan;
+    private javax.swing.JButton delete;
+    private javax.swing.JButton hapus;
     private javax.swing.JLabel home;
-    private javax.swing.JTextField intTotal;
+    private javax.swing.JLabel idtrans;
+    private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -473,12 +779,19 @@ public class FormPembayaran extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel ket;
     private javax.swing.JLabel logout;
     private javax.swing.JLabel pelanggan;
     private javax.swing.JLabel pembayaran;
     private javax.swing.JLabel pemesanan;
     private javax.swing.JLabel penyewaan;
     private javax.swing.JLabel report;
-    private javax.swing.JTextField txtIdtran;
+    private javax.swing.JTable tableBayar;
+    private javax.swing.JTable tablePesan;
+    private javax.swing.JTable tableSewa;
+    private javax.swing.JTextField txtIdTrans;
+    private javax.swing.JTextField txtSubTotalPesan;
+    private javax.swing.JTextField txtSubTotalSewa;
+    private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }

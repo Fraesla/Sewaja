@@ -12,7 +12,12 @@ package Model;
 public class pemesanan {
     public String IdNota;
     public String KdPlg;
-    public Integer Total;
+    public String KdBrg;
+    public String namaBrg;
+    public int jumlah;
+    public int hargaBrg;
+    public int totalharga;
+    public int totalPesan;
 
     public String getIdNota() {
         return IdNota;
@@ -30,12 +35,56 @@ public class pemesanan {
         this.KdPlg = KdPlg;
     }
 
-    public Integer getTotal() {
-        return Total;
+    public Integer getTotalPesan() {
+        return totalPesan;
     }
 
-    public void setTotal(Integer Total) {
-        this.Total = Total;
+    public void setTotalPesan(Integer totalPesan) {
+        this.totalPesan = totalPesan;
+    }
+
+    public String getKdBrg() {
+        return KdBrg;
+    }
+
+    public void setKdBrg(String KdBrg) {
+        this.KdBrg = KdBrg;
+    }
+
+    public String getNamaBrg() {
+        return namaBrg;
+    }
+
+    public void setNamaBrg(String namaBrg) {
+        this.namaBrg = namaBrg;
+    }
+
+    public int getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(int jumlah) {
+        this.jumlah = jumlah;
+    }
+
+    public int getHargaBrg() {
+        return hargaBrg;
+    }
+
+    public void setHargaBrg(int hargaBrg) {
+        this.hargaBrg = hargaBrg;
+    }
+
+    public int getTotalharga() {
+        return totalharga;
+    }
+
+    public void setTotalharga(int totalharga) {
+        this.totalharga = totalharga;
+    }
+
+    public void setTotalPesan(int totalPesan) {
+        this.totalPesan = totalPesan;
     }
 
     

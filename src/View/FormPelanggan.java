@@ -11,12 +11,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +31,7 @@ public class FormPelanggan extends javax.swing.JFrame {
      * Creates new form FoemMember
      */
     boolean x;
+    boolean y;
     Connection con;
     ResultSet rs= null;
     PreparedStatement pst=null;
@@ -37,15 +41,34 @@ public class FormPelanggan extends javax.swing.JFrame {
         Koneksi server = new Koneksi();
         con=server.getConnection();
         change2plg();
-        comboBox();
         control=new Controller.pelanggan(this);
+        tablePelanggan();
+        tableMember();
         control.PelangganTabel();
         control.MemberTabel();
         btnDelete.setVisible(false);
+        comboBox();
     }
-  
+    private void tablePelanggan(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Kode Pelanggan");
+        model.addColumn("Nama Pelanggan");
+        model.addColumn("Id Member");
+        model.addColumn("No. Telp");
+        TablePelanggan.setModel(model);
+    }
+    
+    private void tableMember(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Id Member");
+        model.addColumn("Nama Member");
+        model.addColumn("No. Telp");
+        model.addColumn("Alamat");
+        TableMember.setModel(model);
+    }
     private void comboBox()
     {
+        cbxMember.removeAllItems();
         try{
             String sql = "Select * from member";
             pst=con.prepareStatement(sql);
@@ -61,6 +84,31 @@ public class FormPelanggan extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null, e);
         }
     }
+
+    public JLabel getMemberkd() {
+        return memberkd;
+    }
+
+    public JLabel getPelanggankd() {
+        return pelanggankd;
+    }
+    
+    public JLabel getA() {
+        return a;
+    }
+
+    public JLabel getKet() {
+        return ket;
+    }
+
+    public JLabel getUser() {
+        return user;
+    }
+
+    public JLabel getReport() {
+        return report;
+    }
+  
     private void change2member(){
         kode.setText("Id Member");
         nama.setText("Nama Member");
@@ -69,9 +117,17 @@ public class FormPelanggan extends javax.swing.JFrame {
         jLabel1.setText("MEMBER");
         cbxMember.setVisible(false);
         txtIdTelp.setVisible(true);
-        formpelanggan.setVisible(true);
-        formMember.setVisible(false);
         btnInsert.setText("INSERT");
+        btnDelete.setVisible(false);
+        form1.setVisible(true);
+        form1.setText("Input Pelanggan");
+        form2.setVisible(false);
+        txtKode.setEnabled(true);
+        txtKode.requestFocus();
+        jLabel3.setText("Form Member");
+        jLabel5.setText("Id Member Terakhir :");
+        pelanggankd.setVisible(false);
+        memberkd.setVisible(true);
         x = true;
     }
     
@@ -83,10 +139,28 @@ public class FormPelanggan extends javax.swing.JFrame {
         jLabel1.setText("PELANGGAN");
         cbxMember.setVisible(true);
         txtIdTelp.setVisible(false);
-        formpelanggan.setVisible(false);
-        formMember.setVisible(true);
+        btnDelete.setVisible(false);
+        form1.setVisible(true);
+        form1.setText("Daftar Member ?");
+        form2.setVisible(false);
         btnInsert.setText("INSERT");
+        txtKode.setEnabled(true);
+        txtKode.requestFocus();
+        jLabel3.setText("Form Pelanggan");
+        jLabel5.setText("Kode Pelanggan Terakhir :");
+        pelanggankd.setVisible(true);
+        memberkd.setVisible(false);
+        comboBox();
         x = false;
+        
+    }
+
+    public JLabel getForm1() {
+        return form1;
+    }
+
+    public JLabel getForm2() {
+        return form2;
     }
 
     public JTextField getTxtTelpAlm() {
@@ -130,7 +204,6 @@ public class FormPelanggan extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         home = new javax.swing.JLabel();
-        pelanggan = new javax.swing.JLabel();
         penyewaan = new javax.swing.JLabel();
         pemesanan = new javax.swing.JLabel();
         pembayaran = new javax.swing.JLabel();
@@ -144,18 +217,27 @@ public class FormPelanggan extends javax.swing.JFrame {
         txtIdTelp = new javax.swing.JTextField();
         telpalamat = new javax.swing.JLabel();
         txtTelpAlm = new javax.swing.JTextField();
-        formMember = new javax.swing.JLabel();
-        formpelanggan = new javax.swing.JLabel();
-        btnReset = new javax.swing.JButton();
+        form2 = new javax.swing.JLabel();
+        form1 = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JButton();
         btnInsert = new javax.swing.JButton();
-        btnDelete = new javax.swing.JToggleButton();
+        btnReset = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablePelanggan = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableMember = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        ket = new javax.swing.JLabel();
+        pelanggan = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        pelanggankd = new javax.swing.JLabel();
+        memberkd = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        user = new javax.swing.JLabel();
+        a = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1152, 688));
@@ -192,16 +274,6 @@ public class FormPelanggan extends javax.swing.JFrame {
         });
         getContentPane().add(home);
         home.setBounds(20, 210, 70, 20);
-
-        pelanggan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        pelanggan.setText("Pelanggan");
-        pelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pelangganMouseClicked(evt);
-            }
-        });
-        getContentPane().add(pelanggan);
-        pelanggan.setBounds(20, 250, 130, 30);
 
         penyewaan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         penyewaan.setText("Penyewaan");
@@ -292,43 +364,25 @@ public class FormPelanggan extends javax.swing.JFrame {
         getContentPane().add(txtTelpAlm);
         txtTelpAlm.setBounds(380, 370, 180, 30);
 
-        formMember.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        formMember.setText("Daftar Member ?");
-        formMember.addMouseListener(new java.awt.event.MouseAdapter() {
+        form2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        form2.setText(" ");
+        form2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMemberMouseClicked(evt);
+                form2MouseClicked(evt);
             }
         });
-        getContentPane().add(formMember);
-        formMember.setBounds(420, 520, 120, 17);
+        getContentPane().add(form2);
+        form2.setBounds(550, 520, 120, 17);
 
-        formpelanggan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        formpelanggan.setText("Input Pelanggan");
-        formpelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+        form1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        form1.setText(" ");
+        form1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formpelangganMouseClicked(evt);
+                form1MouseClicked(evt);
             }
         });
-        getContentPane().add(formpelanggan);
-        formpelanggan.setBounds(420, 520, 120, 17);
-
-        btnReset.setText("Reset");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReset);
-        btnReset.setBounds(490, 420, 80, 40);
-
-        btnInsert.setText("Insert");
-        btnInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsertActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnInsert);
-        btnInsert.setBounds(380, 420, 80, 40);
+        getContentPane().add(form1);
+        form1.setBounds(420, 520, 120, 17);
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -339,6 +393,24 @@ public class FormPelanggan extends javax.swing.JFrame {
         getContentPane().add(btnDelete);
         btnDelete.setBounds(430, 470, 80, 40);
 
+        btnInsert.setText("Insert");
+        btnInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnInsert);
+        btnInsert.setBounds(380, 420, 80, 40);
+
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnReset);
+        btnReset.setBounds(490, 420, 80, 40);
+
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setText("Daftar Pelanggan");
         getContentPane().add(jLabel16);
@@ -346,13 +418,10 @@ public class FormPelanggan extends javax.swing.JFrame {
 
         TablePelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Kode Pelanggan", "Nama Pelanggan", "Id Member", "No.Telepon"
+
             }
         ));
         TablePelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -372,13 +441,13 @@ public class FormPelanggan extends javax.swing.JFrame {
 
         TableMember.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Id Member", "Nama Member", "No.Telepon", "Alamat"
+
             }
         ));
         TableMember.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -391,47 +460,121 @@ public class FormPelanggan extends javax.swing.JFrame {
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(630, 310, 452, 90);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Status :");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(380, 20, 80, 20);
+
+        ket.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(ket);
+        ket.setBounds(450, 20, 80, 20);
+
+        pelanggan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pelanggan.setForeground(new java.awt.Color(255, 0, 0));
+        pelanggan.setText("Pelanggan");
+        pelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pelangganMouseClicked(evt);
+            }
+        });
+        getContentPane().add(pelanggan);
+        pelanggan.setBounds(20, 250, 130, 30);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(390, 80, 240, 40);
+
+        jLabel5.setText("Kode Pelanggan Terakhir :");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(850, 410, 160, 30);
+        getContentPane().add(pelanggankd);
+        pelanggankd.setBounds(1000, 410, 80, 30);
+        getContentPane().add(memberkd);
+        memberkd.setBounds(1000, 410, 80, 30);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Pelanggan (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, -10, 1152, 670);
 
+        user.setText("jLabel2");
+        getContentPane().add(user);
+        user.setBounds(0, 0, 34, 14);
+
+        a.setText("jLabel2");
+        getContentPane().add(a);
+        a.setBounds(20, 70, 34, 14);
+
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbxMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMemberActionPerformed
        
     }//GEN-LAST:event_cbxMemberActionPerformed
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        control.clear();
-    }//GEN-LAST:event_btnResetActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        if(x == TRUE)
+        {
+            control.deleteMember();
+            control.MemberTabel();
+            control.PelangganTabel();
+            change2member();
+        }
+        else
+        {
+            control.deletePelanggan();
+            control.PelangganTabel();
+            control.MemberTabel();
+            change2plg();
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         if(x == TRUE)
         {
-            control.insertMember();
+            if(btnInsert.getText().equalsIgnoreCase("update")){
+                control.updateMember();
+            }
+            else{
+                control.insertMember();
+            }
             control.MemberTabel();
+            change2member();
             control.clear();
         }
         else
         {
-            control.insertPelanggan();
+            if(btnInsert.getText().equalsIgnoreCase("update")){
+                control.updatePelanggan();
+            }
+            else{
+                control.insertPelanggan();
+            }
             control.PelangganTabel();
+            change2plg();
             control.clear();
         }
     }//GEN-LAST:event_btnInsertActionPerformed
 
-    private void formMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMemberMouseClicked
-        change2member();
+    private void form2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_form2MouseClicked
+        if(form2.getText().equalsIgnoreCase("input pelanggan")){
+            change2plg();
+        }
+        else{
+            change2member();
+        }
         control.clear();
-    }//GEN-LAST:event_formMemberMouseClicked
+    }//GEN-LAST:event_form2MouseClicked
 
-    private void formpelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formpelangganMouseClicked
-        change2plg();
+    private void form1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_form1MouseClicked
+        if(form1.getText().equalsIgnoreCase("input pelanggan")){
+            change2plg();
+        }
+        else{
+            change2member();
+        }
         control.clear();
-        new FormPelanggan().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_formpelangganMouseClicked
+    }//GEN-LAST:event_form1MouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         new FormAwal().setVisible(true);
@@ -439,60 +582,110 @@ public class FormPelanggan extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
-        new FormUtama().setVisible(true);
+        FormUtama utama = new FormUtama();
+        if (a.getText().equals("operator")) {
+            utama.getReport().setVisible(false);
+            utama.getA().setText(a.getText());
+            utama.getKet().setText("Operator");
+            utama.getjLabel4().setText("Edit Akun");
+            utama.getUser().setText(user.getText());
+            utama.getUser().setEnabled(false);
+        } else{
+            utama.getKet().setText("Admin");
+        }
+        utama.setVisible(true);
         dispose();
     }//GEN-LAST:event_homeMouseClicked
 
-    private void pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pelangganMouseClicked
-        new FormPelanggan().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_pelangganMouseClicked
-
     private void penyewaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penyewaanMouseClicked
-        new FormPenyewaan().setVisible(true);
+        FormPenyewaan sewa = new FormPenyewaan();
+        if (a.getText().equals("operator")) {
+            sewa.getReport().setVisible(false);
+            sewa.getKet().setText("Operator");
+            sewa.getA().setText(a.getText());
+            sewa.getUser().setText(user.getText());
+        }
+        else{
+            sewa.getKet().setText("Admin");
+        }
+        sewa.setVisible(true);
         dispose();
     }//GEN-LAST:event_penyewaanMouseClicked
 
     private void pemesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pemesananMouseClicked
-       new FormPemesanan().setVisible(true);
-       dispose();
+       FormPemesanan pesan = new FormPemesanan();
+        if (a.getText().equals("operator")) {
+            pesan.getReport().setVisible(false);
+            pesan.getKet().setText("Operator");
+            pesan.getA().setText(a.getText());
+            pesan.getUser().setText(user.getText());
+        }
+        else{
+            pesan.getKet().setText("Admin");
+        }
+        pesan.setVisible(true);
+        dispose();
     }//GEN-LAST:event_pemesananMouseClicked
 
     private void pembayaranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pembayaranMouseClicked
-        new FormPembayaran().setVisible(true);
+        FormPembayaran bayar = new FormPembayaran();
+        if (a.getText().equals("operator")) {
+            bayar.getReport().setVisible(false);
+            bayar.getKet().setText("Operator");
+            bayar.getA().setText(a.getText());
+            bayar.getUser().setText(user.getText());
+        }
+        else{
+            bayar.getKet().setText("Admin");
+        }
+        bayar.setVisible(true);
         dispose();
     }//GEN-LAST:event_pembayaranMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-        
+        new FormReport().setVisible(true);
+        dispose();
     }//GEN-LAST:event_reportMouseClicked
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if(x == TRUE)
-        {
-            control.deleteMember();
-            control.MemberTabel();
-        }
-        else
-        {
-            control.deletePelanggan();
-            control.PelangganTabel();
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void TablePelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePelangganMouseClicked
         change2plg();
         control.onMouseClickTablePelanggan();
         btnInsert.setText("UPDATE");
-        btnDelete.setVisible(true);
+        if(btnInsert.getText().equalsIgnoreCase("update")){
+            btnDelete.setVisible(true);
+            txtKode.setEnabled(false);
+            form1.setVisible(true);
+            form1.setText("Input Pelanggan");
+            form2.setVisible(true);
+            form2.setText("Daftar Member ?");
+            txtNama.requestFocus();
+            TablePelanggan.clearSelection();
+        }
     }//GEN-LAST:event_TablePelangganMouseClicked
 
     private void TableMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableMemberMouseClicked
         change2member();
         control.onMouseClickTableMember();
         btnInsert.setText("UPDATE");
-        btnDelete.setVisible(true);
+        if(btnInsert.getText().equalsIgnoreCase("update")){
+            btnDelete.setVisible(true);
+            txtKode.setEnabled(false);
+            form1.setVisible(true);
+            form1.setText("Daftar Member ?");
+            form2.setVisible(true);
+            form2.setText("Input Pelanggan");
+            txtNama.requestFocus();
+            TableMember.clearSelection();
+        }
     }//GEN-LAST:event_TableMemberMouseClicked
+
+    private void pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pelangganMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pelangganMouseClicked
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -527,7 +720,7 @@ public class FormPelanggan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormPelanggan().setVisible(true);
+                new FormAwal().setVisible(true);
             }
         });
     }
@@ -535,12 +728,13 @@ public class FormPelanggan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TableMember;
     private javax.swing.JTable TablePelanggan;
-    private javax.swing.JToggleButton btnDelete;
+    private javax.swing.JLabel a;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnReset;
     private javax.swing.JComboBox cbxMember;
-    private javax.swing.JLabel formMember;
-    private javax.swing.JLabel formpelanggan;
+    private javax.swing.JLabel form1;
+    private javax.swing.JLabel form2;
     private javax.swing.JLabel home;
     private javax.swing.JLabel idtelp;
     private javax.swing.JLabel jLabel1;
@@ -548,12 +742,18 @@ public class FormPelanggan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel ket;
     private javax.swing.JLabel kode;
     private javax.swing.JLabel logout;
+    private javax.swing.JLabel memberkd;
     private javax.swing.JLabel nama;
     private javax.swing.JLabel pelanggan;
+    private javax.swing.JLabel pelanggankd;
     private javax.swing.JLabel pembayaran;
     private javax.swing.JLabel pemesanan;
     private javax.swing.JLabel penyewaan;
@@ -563,5 +763,6 @@ public class FormPelanggan extends javax.swing.JFrame {
     private javax.swing.JTextField txtKode;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtTelpAlm;
+    private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }

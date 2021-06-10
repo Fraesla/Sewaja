@@ -6,11 +6,14 @@
 package View;
 
 import Server.Koneksi;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -21,32 +24,21 @@ public class FormLogin extends javax.swing.JFrame {
     /**
      * Creates new form FormLogin
      */
-    Connection con;
-    ResultSet rs= null;
-    PreparedStatement pst=null;
+    Controller.login control;
+    FormUtama home;
     public FormLogin() {
         initComponents();
-        Koneksi server = new Koneksi();
-        con=server.getConnection();
-        comboBox();
+        control = new Controller.login(this, home);
     }
-    private void comboBox()
-    {
-        try{
-            String sql = "Select * from login";
-            pst=con.prepareStatement(sql);
-            rs=pst.executeQuery();
-            
-            while(rs.next()){
-                String name=rs.getString("status");
-                cbxStatus.addItem(name);
-            }
-        }
-        catch(Exception e)
-        {
-           JOptionPane.showMessageDialog(null, e);
-        }
-    }  
+
+    public JTextField getTxtUser() {
+        return txtUser;
+    }
+
+    public JPasswordField getTxtpass() {
+        return txtpass;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,8 +55,6 @@ public class FormLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtpass = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        cbxStatus = new javax.swing.JComboBox();
         back = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -88,6 +78,11 @@ public class FormLogin extends javax.swing.JFrame {
                 txtpassActionPerformed(evt);
             }
         });
+        txtpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtpassKeyPressed(evt);
+            }
+        });
 
         btnLogin.setBackground(new java.awt.Color(207, 224, 243));
         btnLogin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -97,12 +92,6 @@ public class FormLogin extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Status");
-
-        cbxStatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cbxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Status" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,12 +104,10 @@ public class FormLogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(98, 98, 98)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
                     .addComponent(txtUser)
                     .addComponent(txtpass, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                    .addComponent(cbxStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -137,13 +124,9 @@ public class FormLogin extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -163,6 +146,7 @@ public class FormLogin extends javax.swing.JFrame {
         jLabel1.setBounds(0, 0, 1152, 648);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
@@ -170,51 +154,19 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtpassActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-       String uname=txtUser.getText();
-       String pass=txtpass.getText();
-       String status=cbxStatus.getSelectedItem().toString();
-       if(uname.equals("")||pass.equals("")||status.equals("Status")){
-           JOptionPane.showMessageDialog(rootPane, "Field Anda Kosong","Erorr",1);
-       }
-       else
-       {
-           String sql = "Select * from login where username=? and password=?";
-           try{
-                pst=con.prepareStatement(sql);
-                pst.setString(1, uname);
-                pst.setString(2, String.valueOf(pass));
-                rs=pst.executeQuery();
-                if(rs.next()){
-                    String s=rs.getString("status");
-                    if(status.equalsIgnoreCase("admin")&& s.equalsIgnoreCase("admin")){
-                        JOptionPane.showMessageDialog(null, "Login Berhasil");
-                        FormUtama admin = new FormUtama(s);
-                        admin.setVisible(true);
-                        setVisible(false);
-                    }
-                    if(status.equalsIgnoreCase("operator")&& s.equalsIgnoreCase("operator")){
-                        JOptionPane.showMessageDialog(null, "Login Berhasil");
-                        FormUtama operator = new FormUtama(s);
-                        operator.setVisible(true);
-                        setVisible(false);
-                    }
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Username dan Password Salah");
-                    new FormAwal().setVisible(true);
-                }
-                dispose();
-           }
-           catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Database ada belum dihidupkan");
-           }
-       }
+        control.getAkun();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
        new FormAwal().setVisible(true);
        dispose();
     }//GEN-LAST:event_backActionPerformed
+
+    private void txtpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpassKeyPressed
+       if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+            control.getAkun();
+       }
+    }//GEN-LAST:event_txtpassKeyPressed
 
     /**
      * @param args the command line arguments
@@ -246,19 +198,17 @@ public class FormLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormLogin().setVisible(true);
+                new FormAwal().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JComboBox cbxStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtUser;
     private javax.swing.JPasswordField txtpass;

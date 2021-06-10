@@ -20,16 +20,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Fraesla
  */
 public class penyewaan {
-    String kdpem;
-    String kdplg;
-    String kdlpg;
-    String nama;
-    String tgl;
-    Integer harga;
-    Integer jamakhir;
-    Integer jamawal;
-    Integer total;
-    Integer uangmuka;
+    public String kdpem;
+    public String kdlpg;
+    public String kdplg;
+    public String tglmain;
+    public String jamawal;
+    public String jamakhir;
+    public int uangmuka;
+    public int bayasewa;
+    public int totalsewa;
+    public int pemasukkan;
 
     public String getKdpem() {
         return kdpem;
@@ -37,14 +37,6 @@ public class penyewaan {
 
     public void setKdpem(String kdpem) {
         this.kdpem = kdpem;
-    }
-
-    public String getKdplg() {
-        return kdplg;
-    }
-
-    public void setKdplg(String kdplg) {
-        this.kdplg = kdplg;
     }
 
     public String getKdlpg() {
@@ -55,60 +47,68 @@ public class penyewaan {
         this.kdlpg = kdlpg;
     }
 
-    public String getNama() {
-        return nama;
+    public String getKdplg() {
+        return kdplg;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setKdplg(String kdplg) {
+        this.kdplg = kdplg;
     }
 
-    public String getTgl() {
-        return tgl;
+    public String getTglmain() {
+        return tglmain;
     }
 
-    public void setTgl(String tgl) {
-        this.tgl = tgl;
+    public void setTglmain(String tglmain) {
+        this.tglmain = tglmain;
     }
 
-    public Integer getHarga() {
-        return harga;
-    }
-
-    public void setHarga(Integer harga) {
-        this.harga = harga;
-    }
-
-    public Integer getJamakhir() {
-        return jamakhir;
-    }
-
-    public void setJamakhir(Integer jamakhir) {
-        this.jamakhir = jamakhir;
-    }
-
-    public Integer getJamawal() {
+    public String getJamawal() {
         return jamawal;
     }
 
-    public void setJamawal(Integer jamawal) {
+    public void setJamawal(String jamawal) {
         this.jamawal = jamawal;
     }
 
-    public Integer getTotal() {
-        return total;
+    public String getJamakhir() {
+        return jamakhir;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public void setJamakhir(String jamakhir) {
+        this.jamakhir = jamakhir;
     }
 
-    public Integer getUangmuka() {
+    public int getUangmuka() {
         return uangmuka;
     }
 
-    public void setUangmuka(Integer uangmuka) {
+    public void setUangmuka(int uangmuka) {
         this.uangmuka = uangmuka;
+    }
+
+    public int getBayasewa() {
+        return bayasewa;
+    }
+
+    public void setBayasewa(int bayasewa) {
+        this.bayasewa = bayasewa;
+    }
+
+    public int getTotalsewa() {
+        return totalsewa;
+    }
+
+    public void setTotalsewa(int totalsewa) {
+        this.totalsewa = totalsewa;
+    }
+
+    public int getPemasukkan() {
+        return pemasukkan;
+    }
+
+    public void setPemasukkan(int pemasukkan) {
+        this.pemasukkan = pemasukkan;
     }
     
     
