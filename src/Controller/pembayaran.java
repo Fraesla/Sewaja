@@ -7,24 +7,33 @@ package Controller;
 
 import Server.Koneksi;
 import View.FormPembayaran;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author Fraesla
  */
 public class pembayaran {
+    
     View.FormPembayaran view;
     DAO.pembayaran database;
     Model.pembayaran model;
     Connection con;
     Koneksi server;
+    
     public pembayaran(FormPembayaran view)
     {
         this.view = view;
@@ -37,13 +46,27 @@ public class pembayaran {
             JOptionPane.showMessageDialog(view, ex.getMessage());
         }
     }
-    public void insert()
+    
+    private int uang() throws SQLException{
+        int uang = 0;
+        String sql = "Select *from pembayaran";
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+            
+        if(rs.last()){
+            uang = rs.getInt(5);
+        }        
+        return uang;
+    }
+    
+    public void insert() throws SQLException
     {
         model=new Model.pembayaran();
-        model.setIdtrans(view.getTxtIdtran().getText());
+        model.setIdtrans(view.getTxtIdTrans().getText());
         model.setIdnota(view.getCbxPemesanan().getSelectedItem().toString());
         model.setKdpem(view.getCbxPenyewaan().getSelectedItem().toString());
-        model.setTotal(Integer.parseInt(view.getIntTotal().getText()));
+        model.setTotal(Integer.valueOf(view.getIntTotal().getText()));
+        model.setMasukkan(uang()+Integer.valueOf(view.getIntTotal().getText()));
         
         try{
             database.create(model);
@@ -54,78 +77,99 @@ public class pembayaran {
                     "Error"+ex.getMessage());
         }
     }
+    
+    public void update() throws SQLException{
+        model=new Model.pembayaran();
+        model.setIdtrans(view.getTxtIdTrans().getText());
+        model.setIdnota(view.getCbxPemesanan().getSelectedItem().toString());
+        model.setKdpem(view.getCbxPenyewaan().getSelectedItem().toString());
+        model.setTotal(Integer.valueOf(view.getIntTotal().getText()));
+        model.setMasukkan(uang()+Integer.valueOf(view.getIntTotal().getText()));
+        try {
+            database.update(model);
+            JOptionPane.showMessageDialog(null, "Entry OK");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+        this.clear();
+    }
+    
+    public void delete(){
+        String Id = view.getTxtIdTrans().getText();
+        try {
+            database.delete(Id);
+            JOptionPane.showMessageDialog(null, "Delete OK");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+        this.clear();
+    }
+    
     public void clear() 
     {
-        view.getTxtIdtran().setText("");
+        view.getTxtIdTrans().setText("");
+        view.getCbxPemesanan().setSelectedItem(0);
+        view.getCbxPenyewaan().setSelectedItem(0);
         view.getIntTotal().setText("");
-        view.getCbxPemesanan().setSelectedItem("-----");
-        view.getCbxPenyewaan().setSelectedItem("-----");
+        view.getTxtSubTotalPesan().setText("");
+        view.getTxtSubTotalSewa().setText("");
     }
-    public void PembayaranTabel()
-    {
+    
+    public void getBayar(){
+        String kodeCari=(String) view.getTxtIdTrans().getText();
         try{
-            DefaultTableModel model = (DefaultTableModel)view.getTablePembayaran().getModel();
-            model.setRowCount(0);
-            ResultSet rs = server.getQuery(con,"SELECT * FROM pembayaran");
-            while(rs.next())
-            {
-                Object data[]=
-                {
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getInt(4)
-                };
-                model.addRow(data);
+            model = new Model.pembayaran();
+            model = database.getBayar(kodeCari);
+            
+            if(model != null){
+                view.getCbxPemesanan().setSelectedItem(model.getIdnota());
+                view.getCbxPenyewaan().setSelectedItem(model.getKdpem());
+                view.getIntTotal().setText(String.valueOf(model.getTotal()));
             }
-        }catch (SQLException ex) {
+            else{
+                JOptionPane.showMessageDialog(view, "Data Tidak ditemukan");
+            }
+        }
+        catch(SQLException | HeadlessException e){
+        }
+    }
+    
+    public void onMouseClickTableBayar() throws SQLException{
+        String kode = view.getTableBayar().getValueAt(view.getTableBayar().getSelectedRow(), 0).toString();
+        try{
+            model = new Model.pembayaran();
+            model = database.getBayar(kode);
+            view.getTxtIdTrans().setText(model.getIdtrans());
+            view.getCbxPemesanan().setSelectedItem(model.getIdnota());
+            view.getCbxPenyewaan().setSelectedItem(model.getKdpem());
+            view.getIntTotal().setText(String.valueOf(model.getTotal()));
+        }catch(SQLException e){
+            Logger.getLogger(pembayaran.class.getName()).log(Level.SEVERE, "Eror");
+        }
+    }
+    
+    public void previewReportBulanBayar(String bulan, String tahun){
+        try {
+            HashMap parameter = new HashMap();
+            parameter.put("pbulan", bulan);
+            parameter.put("ptahun", tahun);
+            JasperPrint jasperPrint = null;
+            jasperPrint = JasperFillManager.fillReport("src/Report/Bayar/PerBulanBayar.jasper", parameter, con);
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException ex) {
             Logger.getLogger(pembayaran.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void PemesananTabel()
-    {
-        try{
-            DefaultTableModel model = (DefaultTableModel)view.getTablePemesanan().getModel();
-            model.setRowCount(0);
-            ResultSet rs = server.getQuery(con,"SELECT * FROM pemesanan");
-            while(rs.next())
-            {
-                Object data[]=
-                {
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getInt(3)
-                };
-                model.addRow(data);
-            }
-        }catch (SQLException ex) {
-            Logger.getLogger(pemesanan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void PenyewaanTabel()
-    {
-        try{
-            DefaultTableModel model = (DefaultTableModel)view.getTablePenyewaan().getModel();
-            model.setRowCount(0);
-            ResultSet rs = server.getQuery(con,"SELECT * FROM penyewaan");
-            while(rs.next())
-            {
-                Object data[]=
-                {
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getInt(5),
-                    rs.getInt(6),
-                    rs.getInt(7),
-                    rs.getInt(8),
-                    rs.getInt(9)
-                };
-                model.addRow(data);
-            }
-        }catch (SQLException ex) {
-            Logger.getLogger(Controller.penyewaan.class.getName()).log(Level.SEVERE, null, ex);
+    
+    public void previewReportTahunBayar(String tahun){
+        try {
+            HashMap parameter = new HashMap();
+            parameter.put("ptahun", tahun);
+            JasperPrint jasperPrint = null;
+            jasperPrint = JasperFillManager.fillReport("src/Report/Bayar/PerTahunBayar.jasper", parameter, con);
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException ex) {
+            Logger.getLogger(pembayaran.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

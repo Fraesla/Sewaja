@@ -6,13 +6,20 @@
 package View;
 
 import Server.Koneksi;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,50 +34,293 @@ public class FormPemesanan extends javax.swing.JFrame {
     ResultSet rs= null;
     PreparedStatement pst=null;
     Controller.pemesanan control;
+    int x;
+    boolean y;
     public FormPemesanan() {
         initComponents();
+        awal();
+        tableDetail();
+        tableMenu();
         Koneksi server = new Koneksi();
         con=server.getConnection();
         control=new Controller.pemesanan(this);
-        control.PemesananTabel();
-        control.PelangganTabel();
-        comboBox();
+        control.clear();
     }
-    private void comboBox()
-    {
-        try{
-            String sql = "Select * from pelanggan";
-            pst=con.prepareStatement(sql);
-            rs=pst.executeQuery();
-            
-            while(rs.next()){
-                String name=rs.getString("kodeplg");
-                cbxPelanggan.addItem(name);
-            }
-        }
-        catch(Exception e)
-        {
-           JOptionPane.showMessageDialog(null, e);
-        }
+    public JComboBox<String> getCbKdMenu() {
+        return cbKdMenu;
     }
-    public JComboBox getCbxPelanggan() {
+
+    public JComboBox<String> getCbxPelanggan() {
         return cbxPelanggan;
+    }
+
+    public JTable getTableMenuPesan() {
+        return tableMenuPesan;
+    }
+
+    public JTable getTablePesanan() {
+        return tablePesanan;
     }
 
     public JTextField getTxtIdNota() {
         return txtIdNota;
     }
 
-    public JTextField getTxtTotal() {
-        return txtTotal;
+    public JTextField getTxtJumlah() {
+        return txtJumlah;
     }
 
-    public JTable getTablePemesanan() {
-        return TablePemesanan;
+    public JTextField getTxtSubTotal() {
+        return txtSubTotal;
     }
 
-    public JTable getTablePelanggan() {
-        return TablePelanggan;
+    public JComboBox<String> getCbxPesanan() {
+        return cbxPesanan;
+    }
+
+    public JTextField getTxtSubTotalPesan() {
+        return txtSubTotalPesan;
+    }
+    
+    public JLabel getTambahbrg() {
+        return tambahbrg;
+    }
+    
+    public JLabel getA() {
+        return a;
+    }
+
+    public JLabel getKet() {
+        return ket;
+    }
+
+    public JLabel getReport() {
+        return report;
+    }
+
+    public JLabel getUser() {
+        return user;
+    }
+    
+    private void awal(){
+        cbxPesanan.setVisible(false);
+        cbxPelanggan.setVisible(false);
+        txtSubTotalPesan.setVisible(false);
+        Id.setVisible(false);
+        kode.setVisible(false);
+        subtotal.setVisible(false);
+        pesan.setVisible(false);
+        delete.setVisible(false);
+        
+    
+        idd.setVisible(true);
+        idd.setText("Id Nota");
+        kdm.setVisible(true);
+        j.setVisible(true);
+        j.setText("Jumlah");
+        t.setVisible(true);
+        t.setText("SubTotal");
+        jLabel1.setText("PEMESANAN");
+        txtIdNota.setVisible(true);
+        cbKdMenu.setVisible(true);
+        txtJumlah.setVisible(true);
+        txtSubTotal.setVisible(true);
+        txtSubTotal.setEnabled(false);
+        change.setVisible(true);
+        change.setText("Total Pemesanan");
+        pesan.setVisible(false);
+        brg.setVisible(false);
+        nonota.setVisible(true);
+        jLabel3.setText("Id Nonota Terakhir :");
+        tambahbrg.setVisible(true);
+        jLabel15.setText("Form Pesanan");
+        
+        x=1;
+    }
+    
+    private void akhir(){
+        idd.setVisible(false);
+        kdm.setVisible(false);
+        j.setVisible(false);
+        t.setVisible(false);
+        txtIdNota.setVisible(false);
+        cbKdMenu.setVisible(false);
+        txtJumlah.setVisible(false);
+        txtSubTotal.setVisible(false);
+        change.setVisible(false);
+        delete.setVisible(false);
+        
+        cbxPesanan.setVisible(true);
+        cbxPelanggan.setVisible(true);
+        txtSubTotalPesan.setVisible(true);
+        Id.setVisible(true);
+        kode.setVisible(true);
+        subtotal.setVisible(true);
+        change.setVisible(true);
+        change.setText("Mau memesan?");
+        pesan.setVisible(false);
+        brg.setVisible(false);
+        nonota.setVisible(true);
+        jLabel3.setText("Id Nonota Terakhir:");
+        tambahbrg.setVisible(true);
+        jLabel15.setText("Form Pemesanan");
+        
+        x=2;
+    }
+    
+    private void tambahbrg(){
+        cbxPesanan.setVisible(false);
+        cbxPelanggan.setVisible(false);
+        txtSubTotalPesan.setVisible(false);
+        Id.setVisible(false);
+        kode.setVisible(false);
+        subtotal.setVisible(false);
+        pesan.setVisible(false);
+        delete.setVisible(false);
+        
+    
+        idd.setVisible(true);
+        idd.setText("Kode Menu/Barang");
+        kdm.setVisible(false);
+        j.setVisible(true);
+        j.setText("Nama");
+        t.setVisible(true);
+        t.setText("Harga");
+        jLabel1.setText("MENU & BARANG");
+        txtIdNota.setVisible(true);
+        cbKdMenu.setVisible(false);
+        txtJumlah.setVisible(true);
+        txtSubTotal.setVisible(true);
+        txtSubTotal.setEnabled(true);
+        change.setVisible(true);
+        change.setText("Mau Memesan ?");
+        pesan.setVisible(true);
+        pesan.setText("Total Pemesanan");
+        control.clear();
+        brg.setVisible(true);
+        nonota.setVisible(false);
+        jLabel3.setText("Kode Barang Terakhir :");
+        jLabel15.setText("Form Barang");
+        
+        x=3;
+    }
+    
+    private void isiPelanggan(){
+        cbxPelanggan.removeAllItems();
+        try{
+            Koneksi k = new Koneksi();
+            Connection con = k.getConnection();
+            String sql = "Select *from pelanggan";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            
+            while(rs.next()){
+                Object[] x = new Object[1];
+                x[0] = rs.getString(1);
+                
+                cbxPelanggan.addItem(x[0].toString());
+            }
+        } catch(Exception e){
+        }
+    }
+    
+    private void tablePesan(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Id Nota");
+        model.addColumn("Kode Pelanggan");
+        model.addColumn("SubTotal Pesan");
+        
+        try{
+            Koneksi k = new Koneksi();
+            Connection con = k.getConnection();
+            String sql = "Select *from pemesanan";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            
+            while(rs.next()){
+                model.addRow(new Object[] {
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3)
+                });
+            }
+            tableMenuPesan.setModel(model);
+        } catch(Exception e){
+        }
+    }
+    
+    private void tableDetail(){
+        cbxPesanan.removeAllItems();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Id Nota");
+        model.addColumn("Kode Menu/Barang");
+        model.addColumn("Jumlah");
+        model.addColumn("Total Harga");
+        
+        try{            
+            Koneksi k = new Koneksi();
+            Connection con = k.getConnection();
+            String sql = "Select *from pesanan";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            Object[] z = new Object[4];
+            z[0]="";
+            
+            while(rs.next()){
+                model.addRow(new Object[] {
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4)
+                });
+                
+                if (z[0].equals(rs.getString(1))) {
+                    z[0]=rs.getString(1);
+                }else{
+                    cbxPesanan.addItem(rs.getString(1));
+                    z[0]=rs.getString(1);
+                }                                
+            }
+            if (rs.last()){
+                nonota.setText(rs.getString(1));
+            }
+            tablePesanan.setModel(model);
+        } catch(Exception e){
+        }
+    }
+    
+    private void tableMenu(){
+        cbKdMenu.removeAllItems();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Kode Menu/Barang");
+        model.addColumn("Nama");
+        model.addColumn("Harga");
+        
+        try{
+            Koneksi k = new Koneksi();
+            Connection con = k.getConnection();
+            String sql = "Select *from barang";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            
+            while(rs.next()){
+                model.addRow(new Object[] {
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3)
+                });
+                
+                Object[] x = new Object[1];
+                x[0] = rs.getString(1);
+                
+                cbKdMenu.addItem(x[0].toString());
+            }
+            if (rs.last()) {
+                brg.setText(rs.getString(1));
+            }
+            tableMenuPesan.setModel(model);
+        } catch(Exception e){
+        }
     }
     
     /**
@@ -91,23 +341,41 @@ public class FormPemesanan extends javax.swing.JFrame {
         pembayaran = new javax.swing.JLabel();
         report = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cbxPesanan = new javax.swing.JComboBox<String>();
+        cbxPelanggan = new javax.swing.JComboBox<String>();
+        kode = new javax.swing.JLabel();
+        kdm = new javax.swing.JLabel();
         txtIdNota = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        cbxPelanggan = new javax.swing.JComboBox();
-        btnDelete = new javax.swing.JButton();
-        btnInsert = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablePemesanan = new javax.swing.JTable();
+        tablePesanan = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
+        submit = new javax.swing.JButton();
+        txtSubTotalPesan = new javax.swing.JTextField();
+        cbKdMenu = new javax.swing.JComboBox<String>();
+        subtotal = new javax.swing.JLabel();
+        idd = new javax.swing.JLabel();
+        pesan = new javax.swing.JLabel();
+        txtSubTotal = new javax.swing.JTextField();
+        txtJumlah = new javax.swing.JTextField();
+        judulMenuPesan = new javax.swing.JLabel();
+        delete = new javax.swing.JButton();
+        j = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        change = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TablePelanggan = new javax.swing.JTable();
+        tableMenuPesan = new javax.swing.JTable();
+        Id = new javax.swing.JLabel();
+        t = new javax.swing.JLabel();
+        nonota = new javax.swing.JLabel();
+        brg = new javax.swing.JLabel();
+        tambahbrg = new javax.swing.JLabel();
+        ket = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        a = new javax.swing.JLabel();
+        user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1152, 688));
@@ -156,6 +424,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         penyewaan.setBounds(20, 290, 140, 30);
 
         pemesanan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pemesanan.setForeground(new java.awt.Color(255, 0, 0));
         pemesanan.setText("Pemesanan");
         pemesanan.setMaximumSize(new java.awt.Dimension(109, 29));
         pemesanan.setMinimumSize(new java.awt.Dimension(109, 29));
@@ -207,106 +476,41 @@ public class FormPemesanan extends javax.swing.JFrame {
         getContentPane().add(logout);
         logout.setBounds(20, 450, 70, 30);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("ID Nomor Pemesanan");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(400, 190, 173, 40);
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setText("Status :");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(380, 20, 80, 20);
 
-        txtIdNota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtIdNota);
-        txtIdNota.setBounds(400, 230, 180, 30);
+        cbxPesanan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih" }));
+        cbxPesanan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxPesananIdNotaChange(evt);
+            }
+        });
+        getContentPane().add(cbxPesanan);
+        cbxPesanan.setBounds(380, 170, 160, 30);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Kode Pelanggan");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(400, 270, 150, 40);
-
-        txtTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtTotal);
-        txtTotal.setBounds(400, 410, 180, 30);
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Total Pesanan");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(400, 370, 120, 40);
-
-        cbxPelanggan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cbxPelanggan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-----" }));
+        cbxPelanggan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih" }));
         getContentPane().add(cbxPelanggan);
-        cbxPelanggan.setBounds(400, 310, 180, 40);
+        cbxPelanggan.setBounds(380, 230, 160, 30);
 
-        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDelete);
-        btnDelete.setBounds(400, 500, 80, 25);
+        kode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        kode.setText("Kode Pelanggan");
+        getContentPane().add(kode);
+        kode.setBounds(380, 210, 127, 22);
 
-        btnInsert.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnInsert.setText("Insert");
-        btnInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsertActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnInsert);
-        btnInsert.setBounds(400, 460, 80, 25);
+        kdm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        kdm.setText("Kode Menu / Barang");
+        getContentPane().add(kdm);
+        kdm.setBounds(380, 210, 163, 22);
+        getContentPane().add(txtIdNota);
+        txtIdNota.setBounds(380, 170, 160, 30);
 
-        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnUpdate);
-        btnUpdate.setBounds(490, 460, 90, 25);
+        jButton4.setText("CLEAR");
+        getContentPane().add(jButton4);
+        jButton4.setBounds(390, 440, 80, 30);
 
-        btnReset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnReset.setText("Reset");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnReset);
-        btnReset.setBounds(490, 500, 90, 25);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Daftar Pelanggan");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(760, 320, 150, 40);
-
-        TablePemesanan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Id Nomor Pemesanan", "Kode Pelanggan", "Total Pemesanan"
-            }
-        ));
-        TablePemesanan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TablePemesananMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(TablePemesanan);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(610, 200, 452, 100);
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText("Daftar Pemesanan");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(760, 160, 150, 40);
-
-        TablePelanggan.setModel(new javax.swing.table.DefaultTableModel(
+        tablePesanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -314,48 +518,246 @@ public class FormPemesanan extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Kode Pelanggan", "Nama Pelanggan", "Id Member", "No. Telepon"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        TablePelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablePesanan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TablePelangganMouseClicked(evt);
+                tablePesananMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(TablePelanggan);
+        jScrollPane1.setViewportView(tablePesanan);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(590, 170, 450, 129);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Daftar Detail Pemesanan");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(750, 130, 149, 17);
+
+        submit.setText("INSERT");
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(submit);
+        submit.setBounds(390, 400, 80, 30);
+
+        txtSubTotalPesan.setEditable(false);
+        txtSubTotalPesan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubTotalPesanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtSubTotalPesan);
+        txtSubTotalPesan.setBounds(380, 290, 160, 30);
+
+        cbKdMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih" }));
+        getContentPane().add(cbKdMenu);
+        cbKdMenu.setBounds(380, 230, 160, 30);
+
+        subtotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        subtotal.setText("SubTotal Pesan");
+        getContentPane().add(subtotal);
+        subtotal.setBounds(380, 270, 122, 22);
+
+        idd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        idd.setText("ID Nota");
+        getContentPane().add(idd);
+        idd.setBounds(380, 150, 160, 22);
+
+        pesan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        pesan.setText("Pesan?");
+        pesan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pesanMouseClicked(evt);
+            }
+        });
+        getContentPane().add(pesan);
+        pesan.setBounds(430, 540, 110, 14);
+
+        txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubTotalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtSubTotal);
+        txtSubTotal.setBounds(380, 350, 160, 30);
+
+        txtJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtJumlahKeyPressed(evt);
+            }
+        });
+        getContentPane().add(txtJumlah);
+        txtJumlah.setBounds(380, 290, 160, 30);
+
+        judulMenuPesan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        judulMenuPesan.setText("Daftar Menu & Barang");
+        getContentPane().add(judulMenuPesan);
+        judulMenuPesan.setBounds(780, 330, 135, 17);
+
+        delete.setText("DELETE");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(delete);
+        delete.setBounds(490, 420, 80, 30);
+
+        j.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        j.setText("Jumlah");
+        getContentPane().add(j);
+        j.setBounds(380, 270, 56, 22);
+
+        jLabel3.setText("ID Nota Terakhir :");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(840, 550, 130, 20);
+
+        change.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        change.setText("Untuk Siapa?");
+        change.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                changeMouseClicked(evt);
+            }
+        });
+        getContentPane().add(change);
+        change.setBounds(430, 490, 120, 20);
+
+        tableMenuPesan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tableMenuPesan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMenuPesanMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableMenuPesan);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(610, 360, 452, 100);
+        jScrollPane2.setBounds(650, 360, 392, 137);
+
+        Id.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Id.setText("ID Nota");
+        getContentPane().add(Id);
+        Id.setBounds(380, 150, 62, 22);
+
+        t.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        t.setText("SubTotal");
+        getContentPane().add(t);
+        t.setBounds(380, 330, 70, 22);
+        getContentPane().add(nonota);
+        nonota.setBounds(980, 550, 50, 20);
+        getContentPane().add(brg);
+        brg.setBounds(980, 550, 50, 20);
+
+        tambahbrg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tambahbrg.setText("Tambah Menu & Barang");
+        tambahbrg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tambahbrgMouseClicked(evt);
+            }
+        });
+        getContentPane().add(tambahbrg);
+        tambahbrg.setBounds(840, 500, 170, 30);
+
+        ket.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        getContentPane().add(ket);
+        ket.setBounds(450, 20, 80, 20);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        getContentPane().add(jLabel15);
+        jLabel15.setBounds(390, 80, 240, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Pelanggan (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1152, 648);
 
+        a.setText("jLabel2");
+        getContentPane().add(a);
+        a.setBounds(20, 70, 34, 14);
+
+        user.setText("jLabel2");
+        getContentPane().add(user);
+        user.setBounds(0, 0, 34, 14);
+
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
-        new FormUtama().setVisible(true);
+        FormUtama utama = new FormUtama();
+        if (a.getText().equals("operator")) {
+            utama.getReport().setVisible(false);
+            utama.getA().setText(a.getText());
+            utama.getKet().setText("Operator");
+            utama.getjLabel4().setText("Edit Akun");
+            utama.getUser().setText(user.getText());
+            utama.getUser().setEnabled(false);
+        } else{
+            utama.getKet().setText("Admin");
+        }
+        utama.setVisible(true);
         dispose();
     }//GEN-LAST:event_homeMouseClicked
 
     private void pelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pelangganMouseClicked
-        new FormPelanggan().setVisible(true);
+        FormPelanggan member = new FormPelanggan();
+        if (a.getText().equals("operator")) {
+            member.getReport().setVisible(false);
+            member.getKet().setText("Operator");
+            member.getA().setText(a.getText());
+            member.getUser().setText(user.getText());
+        }
+        else{
+            member.getKet().setText("Admin");
+        }
+        member.setVisible(true);
         dispose();
     }//GEN-LAST:event_pelangganMouseClicked
 
     private void penyewaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penyewaanMouseClicked
-        new FormPenyewaan().setVisible(true);
+        FormPenyewaan sewa = new FormPenyewaan();
+        if (a.getText().equals("operator")) {
+            sewa.getReport().setVisible(false);
+            sewa.getKet().setText("Operator");
+            sewa.getA().setText(a.getText());
+            sewa.getUser().setText(user.getText());
+        }
+        else{
+            sewa.getKet().setText("Admin");
+        }
+        sewa.setVisible(true);
         dispose();
     }//GEN-LAST:event_penyewaanMouseClicked
 
     private void pemesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pemesananMouseClicked
-        new FormPemesanan().setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_pemesananMouseClicked
 
     private void pembayaranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pembayaranMouseClicked
-        new FormPembayaran().setVisible(true);
+        FormPembayaran bayar = new FormPembayaran();
+        if (a.getText().equals("operator")) {
+            bayar.getReport().setVisible(false);
+            bayar.getKet().setText("Operator");
+            bayar.getA().setText(a.getText());
+            bayar.getUser().setText(user.getText());
+        }
+        else{
+            bayar.getKet().setText("Admin");
+        }
+        bayar.setVisible(true);
         dispose();
     }//GEN-LAST:event_pembayaranMouseClicked
 
@@ -365,38 +767,226 @@ public class FormPemesanan extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-       
+        new FormReport().setVisible(true);
+        dispose();
     }//GEN-LAST:event_reportMouseClicked
 
-    private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        control.insert();
-        control.PemesananTabel();
+    private void cbxPesananIdNotaChange(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxPesananIdNotaChange
+        int z = 0;
+        try{
+            Koneksi k = new Koneksi();
+            Connection con = k.getConnection();
+            String sql = "Select *from pesanan where idnota='"+cbxPesanan.getSelectedItem().toString()+"'";
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+
+            while(rs.next()){
+                rs.getString(1);
+                rs.getString(2);
+                rs.getString(3);
+                rs.getString(4);
+
+                z = z+rs.getInt(4);
+
+            }
+            txtSubTotalPesan.setText(String.valueOf(z));
+        } catch(Exception e){
+        }
+    }//GEN-LAST:event_cbxPesananIdNotaChange
+
+    private void tablePesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePesananMouseClicked
+        try {
+            awal();
+            control.onMouseClickTablePesanan();
+            tablePesanan.clearSelection();
+            pesan.setVisible(true);
+            pesan.setText("Mau memesan?");
+            submit.setText("UPDATE");
+            delete.setVisible(true);            
+            y = true;
+        }catch(SQLException ex) {
+            Logger.getLogger(FormPemesanan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tablePesananMouseClicked
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        if (submit.getText().equals("INSERT")) {
+            switch (x) {
+                case 1:
+                    control.insertPesanan();
+                    control.clear();
+                    tableDetail();
+                    awal();
+                    break;
+                case 2:
+                    control.insertPemesanan();
+                    control.clear();
+                    tablePesan();
+                    awal();
+                    break;
+                case 3:
+                    control.insertBarang();
+                    control.clear();
+                    tableMenu();
+                    awal();
+                    break;
+                default:
+                    break;
+            }
+        } else{
+            switch (x) {
+                case 1:
+                    control.updatePesanan();
+                    control.clear();
+                    tableDetail();
+                    awal();
+                    submit.setText("INSERT");
+                    break;
+                case 2:
+                    control.updatePemesanan();
+                    control.clear();
+                    tablePesan();
+                    awal();
+                    cbxPesanan.setEnabled(true);
+                    submit.setText("INSERT");
+                    break;
+                case 3:
+                    control.updateBarang();
+                    control.clear();
+                    tableMenu();
+                    awal();
+                    submit.setText("INSERT");
+                    break;
+                default:
+                    break;
+            }
+        }
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void txtSubTotalPesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalPesanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubTotalPesanActionPerformed
+
+    private void pesanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesanMouseClicked
+        if(pesan.getText().equalsIgnoreCase("Total Pemesanan"))
+        {
+            akhir();
+            isiPelanggan();
+            tablePesan();
+            judulMenuPesan.setText("Daftar Pemesanan");
+            control.clear();
+        }
+        else{
+            awal();
+            tableMenu();
+            judulMenuPesan.setText("Daftar Menu & Barang");
+            control.clear();
+        }
+        submit.setText("INSERT");
+    }//GEN-LAST:event_pesanMouseClicked
+
+    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubTotalActionPerformed
+
+    private void txtJumlahKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJumlahKeyPressed
+        int z = 0;
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            int jum = Integer.parseInt(txtJumlah.getText());
+            try{
+                Koneksi k = new Koneksi();
+                Connection con = k.getConnection();
+                String sql = "Select * from barang where kdBrg='"
+                        +cbKdMenu.getSelectedItem().toString()+"'";
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery(sql);
+
+                while(rs.next()){
+                    rs.getString(1);
+                    rs.getString(2);
+                    rs.getString(3);
+
+                    z = rs.getInt(3)*jum;
+                }
+                txtSubTotal.setText(String.valueOf(z));
+            } catch(Exception e){
+            }
+        }
+    }//GEN-LAST:event_txtJumlahKeyPressed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        if (y == true) {
+            control.deletePesanan();
+            tableDetail();
+            awal();
+        } else{
+            if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Pemesanan")) {
+                control.deletePemesanan();
+                tablePesan();
+                awal();
+            } else if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Menu & Barang")){
+                control.deleteBarang();
+                tableMenu();
+                awal();
+            }
+        }
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void changeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeMouseClicked
+        if(change.getText().equalsIgnoreCase("Total Pemesanan"))
+        {
+            akhir();
+            isiPelanggan();
+            tablePesan();
+            judulMenuPesan.setText("Daftar Pemesanan");
+            control.clear();
+        }
+        else{
+            awal();
+            tableMenu();
+            judulMenuPesan.setText("Daftar Menu & Barang");
+            control.clear();
+        }
+        submit.setText("INSERT");
+    }//GEN-LAST:event_changeMouseClicked
+
+    private void tableMenuPesanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMenuPesanMouseClicked
+        if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Pemesanan")) {
+            try {
+                akhir();
+                control.onMouseClickTablePemesanan();
+                tableMenuPesan.clearSelection();
+                tambahbrg.setVisible(true);
+                pesan.setVisible(true);
+                pesan.setText("Total Pemesanan");
+                delete.setVisible(true);
+                cbxPesanan.setEnabled(false);
+                submit.setText("UPDATE");
+            } catch (SQLException ex) {
+                Logger.getLogger(FormPemesanan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Menu & Barang")){
+            try {
+                tambahbrg();
+                control.onMouseClickTableBarang();
+                tableMenuPesan.clearSelection();
+                tambahbrg.setVisible(true);
+                delete.setVisible(true);
+                submit.setText("UPDATE");
+            } catch (SQLException ex) {
+                Logger.getLogger(FormPemesanan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        y = false;
+    }//GEN-LAST:event_tableMenuPesanMouseClicked
+
+    private void tambahbrgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahbrgMouseClicked
+        tambahbrg();
+        judulMenuPesan.setText("Daftar Menu & Barang");
+        tableMenu();
+        tambahbrg.setVisible(false);
         control.clear();
-    }//GEN-LAST:event_btnInsertActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        control.update();
-        control.PemesananTabel();
-        control.clear();
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        control.delete();
-        control.PemesananTabel();
-        control.clear();
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        control.clear();
-    }//GEN-LAST:event_btnResetActionPerformed
-
-    private void TablePemesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePemesananMouseClicked
-        control.onMouseClickTablePemesanan();
-    }//GEN-LAST:event_TablePemesananMouseClicked
-
-    private void TablePelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePelangganMouseClicked
-       
-    }//GEN-LAST:event_TablePelangganMouseClicked
+    }//GEN-LAST:event_tambahbrgMouseClicked
 
     /**
      * @param args the command line arguments
@@ -428,37 +1018,55 @@ public class FormPemesanan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormPemesanan().setVisible(true);
+                new FormAwal().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablePelanggan;
-    private javax.swing.JTable TablePemesanan;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnInsert;
-    private javax.swing.JButton btnReset;
-    private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox cbxPelanggan;
+    private javax.swing.JLabel Id;
+    private javax.swing.JLabel a;
+    private javax.swing.JLabel brg;
+    private javax.swing.JComboBox<String> cbKdMenu;
+    private javax.swing.JComboBox<String> cbxPelanggan;
+    private javax.swing.JComboBox<String> cbxPesanan;
+    private javax.swing.JLabel change;
+    private javax.swing.JButton delete;
     private javax.swing.JLabel home;
+    private javax.swing.JLabel idd;
+    private javax.swing.JLabel j;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel judulMenuPesan;
+    private javax.swing.JLabel kdm;
+    private javax.swing.JLabel ket;
+    private javax.swing.JLabel kode;
     private javax.swing.JLabel logout;
+    private javax.swing.JLabel nonota;
     private javax.swing.JLabel pelanggan;
     private javax.swing.JLabel pembayaran;
     private javax.swing.JLabel pemesanan;
     private javax.swing.JLabel penyewaan;
+    private javax.swing.JLabel pesan;
     private javax.swing.JLabel report;
+    private javax.swing.JButton submit;
+    private javax.swing.JLabel subtotal;
+    private javax.swing.JLabel t;
+    private javax.swing.JTable tableMenuPesan;
+    private javax.swing.JTable tablePesanan;
+    private javax.swing.JLabel tambahbrg;
     private javax.swing.JTextField txtIdNota;
-    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtJumlah;
+    private javax.swing.JTextField txtSubTotal;
+    private javax.swing.JTextField txtSubTotalPesan;
+    private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }

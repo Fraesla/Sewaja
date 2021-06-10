@@ -41,6 +41,28 @@ public class pelanggan {
         ps.setString(4, pelanggan.getAlm());
         ps.executeUpdate();
     }
+    public void updatePelanggan(Model.pelanggan pelanggan) throws SQLException
+    {
+        String sql="UPDATE pelanggan SET namaplg=?, telp=?, idMem=? "
+                + "WHERE kodeplg=?";
+        PreparedStatement ps=con.prepareStatement(sql);
+        ps.setString(4, pelanggan.getKdPlg());
+        ps.setString(1, pelanggan.getNama());
+        ps.setString(2, pelanggan.getTelp());
+        ps.setString(3, pelanggan.getIdMem());
+        ps.executeUpdate();
+    }
+    public void updateMember(Model.pelanggan pelanggan) throws SQLException
+    {
+        String sql="UPDATE member SET namaMem=?, telp=?, alm=? "
+                + "WHERE idMem=?";
+        PreparedStatement ps=con.prepareStatement(sql);
+       ps.setString(4, pelanggan.getIdMem());
+        ps.setString(1, pelanggan.getNama());
+        ps.setString(2, pelanggan.getTelp());
+        ps.setString(3, pelanggan.getAlm());
+        ps.executeUpdate();
+    }
     public void deletePelanggan(String kodeplg) throws SQLException
     {
         String sql="DELETE FROM pelanggan WHERE kodeplg=?";

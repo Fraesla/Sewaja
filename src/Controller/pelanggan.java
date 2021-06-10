@@ -8,6 +8,7 @@ package Controller;
 import Server.Koneksi;
 import View.FormPelanggan;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,7 +26,8 @@ public class pelanggan {
     Model.pelanggan model;
     Connection con;
     Koneksi server;
-    
+    ResultSet rs= null;
+    PreparedStatement pst=null;
     public pelanggan(FormPelanggan view) {
         this.view = view;
         database=new DAO.pelanggan();
@@ -70,6 +72,46 @@ public class pelanggan {
             javax.swing.JOptionPane.showMessageDialog(null,
                     "Error"+ex.getMessage());
         }
+    }
+    public void updatePelanggan()
+    {
+        model=new Model.pelanggan();
+        model.setKdPlg(view.getTxtKode().getText());
+        model.setNama(view.getTxtNama().getText());
+        model.setTelp(view.getTxtTelpAlm().getText());
+        model.setIdMem(view.getCbxMember().getSelectedItem().toString());
+        
+        try{
+            database.updatePelanggan(model);
+            javax.swing.JOptionPane.showMessageDialog(view, "Update Pelanggan Berhasil");
+            view.getTxtKode().setEnabled(true);
+            view.getTxtKode().requestFocus();
+            view.getForm1().setVisible(true);
+            view.getForm1().setText("Daftar Member ?");
+            view.getForm2().setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(pemesanan.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    public void updateMember()
+    {
+        model=new Model.pelanggan();
+        model.setIdMem(view.getTxtKode().getText());
+        model.setNama(view.getTxtNama().getText());
+        model.setTelp(view.getTxtIdTelp().getText());
+        model.setAlm(view.getTxtTelpAlm().getText());
+        
+        try{
+            database.updateMember(model);
+            javax.swing.JOptionPane.showMessageDialog(view, "Update Member Berhasil");
+            view.getTxtKode().setEnabled(true);
+            view.getTxtKode().requestFocus();
+            view.getForm1().setVisible(true);
+            view.getForm1().setText("Input Pelanggan");
+            view.getForm2().setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(pemesanan.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }
     public void getPelanggan()
     {
@@ -158,6 +200,9 @@ public class pelanggan {
                 };
                 model.addRow(data);
             }
+            if (rs.last()) {
+                view.getPelanggankd().setText(rs.getString(1));
+            }
         }catch (SQLException ex) {
             Logger.getLogger(pelanggan.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,6 +223,9 @@ public class pelanggan {
                     rs.getString(4)
                 };
                 model.addRow(data);
+            }
+            if (rs.last()) {
+                view.getMemberkd().setText(rs.getString(1));
             }
         }catch (SQLException ex) {
             Logger.getLogger(pelanggan.class.getName()).log(Level.SEVERE, null, ex);

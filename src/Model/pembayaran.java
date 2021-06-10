@@ -10,10 +10,11 @@ package Model;
  * @author Fraesla
  */
 public class pembayaran {
-    String Idtrans;
-    String Idnota;
-    String kdpem;
-    int total;
+    public String Idtrans;
+    public String Idnota;
+    public String kdpem;
+    public int total;
+    public int masukkan;
 
     public String getIdtrans() {
         return Idtrans;
@@ -45,6 +46,14 @@ public class pembayaran {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public int getMasukkan() {
+        return masukkan;
+    }
+
+    public void setMasukkan(int masukkan) {
+        this.masukkan = masukkan;
     }
     
 }
