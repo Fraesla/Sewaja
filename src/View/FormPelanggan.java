@@ -655,9 +655,7 @@ public class FormPelanggan extends javax.swing.JFrame {
             btnDelete.setVisible(true);
             txtKode.setEnabled(false);
             form1.setVisible(true);
-            form1.setText("Input Pelanggan");
-            form2.setVisible(true);
-            form2.setText("Daftar Member ?");
+            form1.setText("Daftar Member ?");
             txtNama.requestFocus();
             TablePelanggan.clearSelection();
         }
@@ -671,9 +669,7 @@ public class FormPelanggan extends javax.swing.JFrame {
             btnDelete.setVisible(true);
             txtKode.setEnabled(false);
             form1.setVisible(true);
-            form1.setText("Daftar Member ?");
-            form2.setVisible(true);
-            form2.setText("Input Pelanggan");
+            form1.setText("Input Pelanggan");
             txtNama.requestFocus();
             TableMember.clearSelection();
         }
@@ -684,7 +680,9 @@ public class FormPelanggan extends javax.swing.JFrame {
     }//GEN-LAST:event_pelangganMouseClicked
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
+        control.clear();
+        btnInsert.setText("INSERT");
+        btnDelete.setVisible(false);
     }//GEN-LAST:event_btnResetActionPerformed
 
     /**

@@ -507,6 +507,11 @@ public class FormPemesanan extends javax.swing.JFrame {
         txtIdNota.setBounds(380, 170, 160, 30);
 
         jButton4.setText("CLEAR");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4);
         jButton4.setBounds(390, 440, 80, 30);
 
@@ -799,8 +804,7 @@ public class FormPemesanan extends javax.swing.JFrame {
             awal();
             control.onMouseClickTablePesanan();
             tablePesanan.clearSelection();
-            pesan.setVisible(true);
-            pesan.setText("Mau memesan?");
+            pesan.setVisible(false);
             submit.setText("UPDATE");
             delete.setVisible(true);            
             y = true;
@@ -957,8 +961,7 @@ public class FormPemesanan extends javax.swing.JFrame {
                 control.onMouseClickTablePemesanan();
                 tableMenuPesan.clearSelection();
                 tambahbrg.setVisible(true);
-                pesan.setVisible(true);
-                pesan.setText("Total Pemesanan");
+                pesan.setVisible(false);
                 delete.setVisible(true);
                 cbxPesanan.setEnabled(false);
                 submit.setText("UPDATE");
@@ -970,7 +973,7 @@ public class FormPemesanan extends javax.swing.JFrame {
                 tambahbrg();
                 control.onMouseClickTableBarang();
                 tableMenuPesan.clearSelection();
-                tambahbrg.setVisible(true);
+                tambahbrg.setVisible(false);
                 delete.setVisible(true);
                 submit.setText("UPDATE");
             } catch (SQLException ex) {
@@ -987,6 +990,20 @@ public class FormPemesanan extends javax.swing.JFrame {
         tambahbrg.setVisible(false);
         control.clear();
     }//GEN-LAST:event_tambahbrgMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        control.clear();
+        submit.setText("INSERT");
+        delete.setVisible(false);
+        if(x==3){
+            tambahbrg.setVisible(false);
+            pesan.setVisible(true);
+        }
+        else{
+            tambahbrg.setVisible(true);
+            pesan.setVisible(false);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
