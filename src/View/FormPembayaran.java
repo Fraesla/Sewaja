@@ -51,7 +51,6 @@ public class FormPembayaran extends javax.swing.JFrame {
         dataPesan = new DAO.pemesanan();
         dataSewa = new DAO.penyewaan();
         delete.setVisible(false);
-        jLabel15.setVisible(false);
         jLabel16.setText("Form Pembayaran");
     }
     private void tablePesan(){
@@ -246,7 +245,6 @@ public class FormPembayaran extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtIdTrans = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         a = new javax.swing.JLabel();
@@ -370,6 +368,11 @@ public class FormPembayaran extends javax.swing.JFrame {
         delete.setBounds(450, 500, 90, 23);
 
         hapus.setText("CLEAR");
+        hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusActionPerformed(evt);
+            }
+        });
         getContentPane().add(hapus);
         hapus.setBounds(500, 470, 80, 23);
 
@@ -524,16 +527,6 @@ public class FormPembayaran extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(420, 120, 74, 17);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel15.setText("Input Pembayaran");
-        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel15MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel15);
-        jLabel15.setBounds(420, 530, 160, 22);
-
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         getContentPane().add(jLabel16);
         jLabel16.setBounds(390, 70, 240, 40);
@@ -663,7 +656,6 @@ public class FormPembayaran extends javax.swing.JFrame {
             control.onMouseClickTableBayar();
             insert.setText("UPDATE");
             delete.setVisible(true);
-            jLabel15.setVisible(true);
             txtIdTrans.setEnabled(false);
         } catch (SQLException ex) {
             Logger.getLogger(FormPembayaran.class.getName()).log(Level.SEVERE, null, ex);
@@ -707,13 +699,11 @@ public class FormPembayaran extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cbxPenyewaanActionPerformed
 
-    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+    private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
        control.clear();
-       jLabel15.setVisible(false);
        delete.setVisible(false);
        insert.setText("INSERT");
-       txtIdTrans.setEnabled(true);
-    }//GEN-LAST:event_jLabel15MouseClicked
+    }//GEN-LAST:event_hapusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -766,7 +756,6 @@ public class FormPembayaran extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

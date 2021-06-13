@@ -265,7 +265,6 @@ public class FormPenyewaan extends javax.swing.JFrame {
         Tanggal.setVisible(true);
         hapus.setVisible(true);
         insert.setText("UPDATE");
-        inputsewa.setVisible(true);
     }
     
     private void unshowed() {
@@ -274,7 +273,6 @@ public class FormPenyewaan extends javax.swing.JFrame {
         Tanggal.setVisible(false);
         hapus.setVisible(false);
         insert.setText("INSERT");
-        inputsewa.setVisible(false);
         jLabel15.setText("Form Penyewaan");
     }
     
@@ -320,8 +318,6 @@ public class FormPenyewaan extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jamakhir = new javax.swing.JTextField();
-        inputsewa = new javax.swing.JPanel();
-        sw = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         titik2 = new javax.swing.JLabel();
         hapus = new javax.swing.JButton();
@@ -560,36 +556,6 @@ public class FormPenyewaan extends javax.swing.JFrame {
         getContentPane().add(jamakhir);
         jamakhir.setBounds(410, 460, 30, 30);
 
-        inputsewa.setBackground(new java.awt.Color(255, 255, 255));
-        inputsewa.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        inputsewa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                inputsewaMouseClicked(evt);
-            }
-        });
-
-        sw.setText("Input Penyewaan");
-
-        javax.swing.GroupLayout inputsewaLayout = new javax.swing.GroupLayout(inputsewa);
-        inputsewa.setLayout(inputsewaLayout);
-        inputsewaLayout.setHorizontalGroup(
-            inputsewaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inputsewaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(sw)
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-        inputsewaLayout.setVerticalGroup(
-            inputsewaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inputsewaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(sw)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(inputsewa);
-        inputsewa.setBounds(890, 70, 110, 30);
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Jam Akhir");
         getContentPane().add(jLabel8);
@@ -807,6 +773,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
 
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
         control.clear();
+        unshowed();
     }//GEN-LAST:event_clearActionPerformed
 
     private void txtKdPemakaianKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKdPemakaianKeyPressed
@@ -815,11 +782,6 @@ public class FormPenyewaan extends javax.swing.JFrame {
             showed();
         }
     }//GEN-LAST:event_txtKdPemakaianKeyPressed
-
-    private void inputsewaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputsewaMouseClicked
-        unshowed();
-        control.clear();
-    }//GEN-LAST:event_inputsewaMouseClicked
 
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
         control.delete();
@@ -961,7 +923,6 @@ public class FormPenyewaan extends javax.swing.JFrame {
     private javax.swing.JButton clear;
     private javax.swing.JButton hapus;
     private javax.swing.JLabel home;
-    private javax.swing.JPanel inputsewa;
     private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -994,7 +955,6 @@ public class FormPenyewaan extends javax.swing.JFrame {
     private javax.swing.JLabel pemesanan;
     private javax.swing.JLabel penyewaan;
     private javax.swing.JLabel report;
-    private javax.swing.JLabel sw;
     private javax.swing.JTable tableLapangan;
     private javax.swing.JTable tableSewa;
     private javax.swing.JLabel titik1;
