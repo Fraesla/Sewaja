@@ -49,7 +49,7 @@ WHERE
 	</background>
 	<title>
 		<band height="102" splitType="Stretch">
-			<image>
+			<image scaleImage="FillFrame">
 				<reportElement uuid="af7f5f38-ed62-405a-bde6-54fbc14b296c" x="2" y="0" width="124" height="102"/>
 				<imageExpression><![CDATA["logo.png"]]></imageExpression>
 			</image>
