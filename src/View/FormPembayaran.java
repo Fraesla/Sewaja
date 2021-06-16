@@ -118,8 +118,8 @@ public class FormPembayaran extends javax.swing.JFrame {
     private void tableBayar(){
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Id Transaksi");
-        model.addColumn("Kode Pemakaian");
         model.addColumn("Id Nota");
+        model.addColumn("Kode Pemakaian");
         model.addColumn("Total Bayar");
         
         try{

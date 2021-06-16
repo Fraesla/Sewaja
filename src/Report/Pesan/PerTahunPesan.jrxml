@@ -18,19 +18,19 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-     notadetail.`idnota` AS idnota,
-     pelanggan.`kdpelanggan` AS kdpelanggan,
+     pesanan.`idNota` AS idnota,
+     pelanggan.`kodeplg` AS kdpelanggan,
      pelanggan.`namaplg` AS nmpelanggan,
-     notadetail.`idmbrg` AS idmenubrg,
-     menubarang.`nama` AS nmmenubrg,
-     notadetail.`jumlah` AS jumlah,
-     notadetail.`totalharga` AS totalharga,
+     pesanan.`kdBrg` AS idmenubrg,
+     barang.`nama` AS nmmenubrg,
+     pesanan.`jumlah` AS jumlah,
+     pesanan.`totalharga` AS totalharga,
      pemesanan.`subtotalmesan` AS subtotalmesan
 FROM
-     `pelanggan` pelanggan INNER JOIN `pemesanan` pemesanan ON pelanggan.`kdpelanggan` = pemesanan.`kdpelanggan`
-     INNER JOIN `notadetail` notadetail ON pemesanan.`idnota` = notadetail.`idnota`
-     INNER JOIN `menubarang` menubarang ON notadetail.`idmbrg` = menubarang.`idmbrg`
-     INNER JOIN `penyewaan` penyewaan ON pelanggan.`kdpelanggan` = penyewaan.`kdpelanggan`
+     `pelanggan` pelanggan INNER JOIN `pemesanan` pemesanan ON pelanggan.`kodeplg` = pemesanan.`kdplg`
+     INNER JOIN `pesanan` pesanan ON pemesanan.`idnota` = pesanan.`idNota`
+     INNER JOIN `barang` barang ON pesanan.`kdBrg` = barang.`kdBrg`
+     INNER JOIN `penyewaan` penyewaan ON pelanggan.`kodeplg` = penyewaan.`kdplg`
 WHERE 
 	year(tglmain) = $P{ptahun}]]>
 	</queryString>
@@ -66,14 +66,14 @@ WHERE
 				<staticText>
 					<reportElement uuid="4fb456ae-b8f2-4b60-8838-8764abe25bdf" style="Title" x="0" y="0" width="370" height="66"/>
 					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
-					<textElement verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Futsal Time]]></text>
+					<text><![CDATA[SEWAJA]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="20b60d8b-fc58-4ed5-92a0-e131c6efa1fe" style="SubTitle" x="370" y="34" width="297" height="32"/>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Center">
 						<font size="26" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Pemesanan]]></text>

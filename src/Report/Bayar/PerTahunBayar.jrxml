@@ -17,15 +17,15 @@
 	<queryString>
 		<![CDATA[SELECT
      pemesanan.`subtotalmesan` AS SubTotalPesan,
-     pembayaran.`idtransaksi` AS IdTransaksi,
-     pembayaran.`kdpemakaian` AS KdPemakaian,
+     pembayaran.`idtrans` AS IdTransaksi,
+     pembayaran.`kdpem` AS KdPemakaian,
      pembayaran.`idnota` AS IdNota,
      pembayaran.`total` AS TotalBayar,
-     pembayaran.`pemasukkan` AS Pemasukkan,
+     pembayaran.`masukkan` AS Pemasukkan,
      penyewaan.`totalsewa` AS SubTotalSewa
 FROM
      `pemesanan` pemesanan INNER JOIN `pembayaran` pembayaran ON pemesanan.`idnota` = pembayaran.`idnota`
-     INNER JOIN `penyewaan` penyewaan ON pembayaran.`kdpemakaian` = penyewaan.`kdpemakaian`
+     INNER JOIN `penyewaan` penyewaan ON pembayaran.`kdpem` = penyewaan.`kdpem`
 WHERE
 	year(tglmain) = $P{ptahun}]]>
 	</queryString>
@@ -58,14 +58,14 @@ WHERE
 				<staticText>
 					<reportElement uuid="ddd7da96-2039-42fd-8926-160d88df0870" style="Title" x="0" y="0" width="370" height="66"/>
 					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
-					<textElement verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Futsal Time]]></text>
+					<text><![CDATA[SEWAJA]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="2ab51244-96bc-4c31-9eca-f03fd86632bb" style="SubTitle" x="370" y="34" width="301" height="32"/>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Center">
 						<font size="26" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Pembayaran]]></text>
