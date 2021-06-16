@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a424faf6-01fb-4bfb-83d1-5b85b3db1a4a">
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="777"/>
-	<property name="ireport.y" value="28"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -19,16 +19,16 @@
 		<![CDATA[SELECT
 	date_format(penyewaan.`tglmain`,'%M')AS bulan,
      pelanggan.`namaplg` AS pelanggan_namaplg,
-     penyewaan.`kdpemakaian` AS penyewaan_kdpemakaian,
+     penyewaan.`kdpem` AS penyewaan_kdpemakaian,
      penyewaan.`tglmain` AS penyewaan_tglmain,
      penyewaan.`jamawal` AS penyewaan_jamawal,
      penyewaan.`jamakhir` AS penyewaan_jamakhir,
      penyewaan.`totalsewa` AS penyewaan_totalsewa,
-     penyewaan.`pemasukkan` AS penyewaan_pemasukkan,
-     penyewaan.`kdlapangan` AS penyewaan_kdlapangan,
-     penyewaan.`kdpelanggan` AS penyewaan_kdpelanggan
+     penyewaan.`pemasukan` AS penyewaan_pemasukkan,
+     penyewaan.`kdlpg` AS penyewaan_kdlapangan,
+     penyewaan.`kdplg` AS penyewaan_kdpelanggan
 FROM
-     `pelanggan` pelanggan INNER JOIN `penyewaan` penyewaan ON pelanggan.`kdpelanggan` = penyewaan.`kdpelanggan`
+     `pelanggan` pelanggan INNER JOIN `penyewaan` penyewaan ON pelanggan.`kodeplg` = penyewaan.`kdplg`
 WHERE
 	month(tglmain) = $P{pbulan}
 	and year(tglmain) = $P{ptahun}]]>
@@ -57,14 +57,14 @@ WHERE
 				<staticText>
 					<reportElement uuid="7aab7c63-c2fe-4684-8747-edf72b324be5" style="Title" x="15" y="0" width="320" height="66"/>
 					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
-					<textElement verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Futsal Time]]></text>
+					<text><![CDATA[SEWAJA]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="cab49451-4afe-4383-916b-decfe0ea2257" style="SubTitle" x="350" y="33" width="316" height="33"/>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Center">
 						<font size="26" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Penyewaan]]></text>
