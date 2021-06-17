@@ -6,6 +6,8 @@
 package View;
 
 import Server.Koneksi;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,6 +47,10 @@ public class FormPemesanan extends javax.swing.JFrame {
         con=server.getConnection();
         control=new Controller.pemesanan(this);
         control.clear();
+        icon();
+    }
+    private void icon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
     public JComboBox<String> getCbKdMenu() {
         return cbKdMenu;
@@ -134,7 +140,9 @@ public class FormPemesanan extends javax.swing.JFrame {
         jLabel3.setText("Id Nonota Terakhir :");
         tambahbrg.setVisible(true);
         jLabel15.setText("Form Pesanan");
-        
+        submit.setText("INSERT");
+        submit.setForeground(Color.white);
+        submit.setBackground(Color.green);
         x=1;
     }
     
@@ -347,7 +355,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         kode = new javax.swing.JLabel();
         kdm = new javax.swing.JLabel();
         txtIdNota = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        clear = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePesanan = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -506,14 +514,17 @@ public class FormPemesanan extends javax.swing.JFrame {
         getContentPane().add(txtIdNota);
         txtIdNota.setBounds(380, 170, 160, 30);
 
-        jButton4.setText("CLEAR");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        clear.setBackground(new java.awt.Color(0, 0, 0));
+        clear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        clear.setForeground(new java.awt.Color(255, 255, 255));
+        clear.setText("CLEAR");
+        clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                clearActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(390, 440, 80, 30);
+        getContentPane().add(clear);
+        clear.setBounds(390, 440, 90, 30);
 
         tablePesanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -541,6 +552,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         getContentPane().add(jLabel7);
         jLabel7.setBounds(750, 130, 149, 17);
 
+        submit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         submit.setText("INSERT");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -548,7 +560,7 @@ public class FormPemesanan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(submit);
-        submit.setBounds(390, 400, 80, 30);
+        submit.setBounds(390, 400, 90, 30);
 
         txtSubTotalPesan.setEditable(false);
         txtSubTotalPesan.addActionListener(new java.awt.event.ActionListener() {
@@ -604,6 +616,9 @@ public class FormPemesanan extends javax.swing.JFrame {
         getContentPane().add(judulMenuPesan);
         judulMenuPesan.setBounds(780, 330, 135, 17);
 
+        delete.setBackground(new java.awt.Color(255, 0, 0));
+        delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        delete.setForeground(new java.awt.Color(255, 255, 255));
         delete.setText("DELETE");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -611,7 +626,7 @@ public class FormPemesanan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(delete);
-        delete.setBounds(490, 420, 80, 30);
+        delete.setBounds(500, 420, 90, 30);
 
         j.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         j.setText("Jumlah");
@@ -709,9 +724,16 @@ public class FormPemesanan extends javax.swing.JFrame {
             utama.getKet().setText("Operator");
             utama.getjLabel4().setText("Edit Akun");
             utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
             utama.getUser().setEnabled(false);
+            utama.getjEdit().setVisible(false);
+            utama.getjInsert().setBackground(Color.orange);
+            utama.getjLabel4().setForeground(Color.white);
         } else{
             utama.getKet().setText("Admin");
+            utama.getA().setText(a.getText());
+            utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
         }
         utama.setVisible(true);
         dispose();
@@ -727,6 +749,8 @@ public class FormPemesanan extends javax.swing.JFrame {
         }
         else{
             member.getKet().setText("Admin");
+            member.getA().setText(a.getText());
+            member.getUser().setText(user.getText());
         }
         member.setVisible(true);
         dispose();
@@ -742,6 +766,8 @@ public class FormPemesanan extends javax.swing.JFrame {
         }
         else{
             sewa.getKet().setText("Admin");
+            sewa.getA().setText(a.getText());
+            sewa.getUser().setText(user.getText());
         }
         sewa.setVisible(true);
         dispose();
@@ -761,6 +787,8 @@ public class FormPemesanan extends javax.swing.JFrame {
         }
         else{
             bayar.getKet().setText("Admin");
+            bayar.getA().setText(a.getText());
+            bayar.getUser().setText(user.getText());
         }
         bayar.setVisible(true);
         dispose();
@@ -772,7 +800,10 @@ public class FormPemesanan extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-        new FormReport().setVisible(true);
+        FormReport report = new FormReport();  
+        report.getA().setText(a.getText());
+        report.getUser().setText(user.getText());
+        report.setVisible(true);
         dispose();
     }//GEN-LAST:event_reportMouseClicked
 
@@ -804,7 +835,11 @@ public class FormPemesanan extends javax.swing.JFrame {
             awal();
             control.onMouseClickTablePesanan();
             tablePesanan.clearSelection();
+            tableMenu();
+            judulMenuPesan.setText("Daftar Menu & Barang");
             pesan.setVisible(false);
+            submit.setForeground(Color.white);
+            submit.setBackground(Color.orange);
             submit.setText("UPDATE");
             delete.setVisible(true);            
             y = true;
@@ -814,6 +849,7 @@ public class FormPemesanan extends javax.swing.JFrame {
     }//GEN-LAST:event_tablePesananMouseClicked
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        int z = JOptionPane.showConfirmDialog(this, "Yakin Data sudah Lengkap ?", "Insert Data", JOptionPane.OK_CANCEL_OPTION);
         if (submit.getText().equals("INSERT")) {
             switch (x) {
                 case 1:
@@ -823,10 +859,15 @@ public class FormPemesanan extends javax.swing.JFrame {
                     awal();
                     break;
                 case 2:
-                    control.insertPemesanan();
-                    control.clear();
-                    tablePesan();
-                    awal();
+                    if(z == 0){
+                        control.insertPemesanan();
+                        control.clear();
+                        tablePesan();
+                        awal();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Insert Pemesanan Anda di Cancel");
+                    }
                     break;
                 case 3:
                     control.insertBarang();
@@ -844,6 +885,8 @@ public class FormPemesanan extends javax.swing.JFrame {
                     control.clear();
                     tableDetail();
                     awal();
+                    submit.setForeground(Color.white);
+                    submit.setBackground(Color.green);
                     submit.setText("INSERT");
                     break;
                 case 2:
@@ -852,6 +895,8 @@ public class FormPemesanan extends javax.swing.JFrame {
                     tablePesan();
                     awal();
                     cbxPesanan.setEnabled(true);
+                    submit.setForeground(Color.white);
+                    submit.setBackground(Color.green);
                     submit.setText("INSERT");
                     break;
                 case 3:
@@ -859,6 +904,8 @@ public class FormPemesanan extends javax.swing.JFrame {
                     control.clear();
                     tableMenu();
                     awal();
+                    submit.setForeground(Color.white);
+                    submit.setBackground(Color.green);
                     submit.setText("INSERT");
                     break;
                 default:
@@ -886,6 +933,8 @@ public class FormPemesanan extends javax.swing.JFrame {
             judulMenuPesan.setText("Daftar Menu & Barang");
             control.clear();
         }
+        submit.setForeground(Color.white);
+        submit.setBackground(Color.green);
         submit.setText("INSERT");
     }//GEN-LAST:event_pesanMouseClicked
 
@@ -919,20 +968,27 @@ public class FormPemesanan extends javax.swing.JFrame {
     }//GEN-LAST:event_txtJumlahKeyPressed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        if (y == true) {
-            control.deletePesanan();
-            tableDetail();
-            awal();
-        } else{
-            if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Pemesanan")) {
-                control.deletePemesanan();
-                tablePesan();
+        int z = JOptionPane.showConfirmDialog(this, "Yakin Data mau Di Hapus?", "Delete Data", JOptionPane.OK_CANCEL_OPTION);
+        if(z == 0){
+            if (y == true) {
+                control.deletePesanan();
+                tableDetail();
                 awal();
-            } else if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Menu & Barang")){
-                control.deleteBarang();
-                tableMenu();
-                awal();
+            } else{
+                if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Pemesanan")) {
+                    control.deletePemesanan();
+                    tablePesan();
+                    awal();
+                } else if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Menu & Barang")){
+                    control.deleteBarang();
+                    tableMenu();
+                    awal();
+                }
             }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Data tidak jadi dihapus");
         }
     }//GEN-LAST:event_deleteActionPerformed
 
@@ -951,6 +1007,8 @@ public class FormPemesanan extends javax.swing.JFrame {
             judulMenuPesan.setText("Daftar Menu & Barang");
             control.clear();
         }
+        submit.setForeground(Color.white);
+        submit.setBackground(Color.green);
         submit.setText("INSERT");
     }//GEN-LAST:event_changeMouseClicked
 
@@ -964,6 +1022,8 @@ public class FormPemesanan extends javax.swing.JFrame {
                 pesan.setVisible(false);
                 delete.setVisible(true);
                 cbxPesanan.setEnabled(false);
+                submit.setForeground(Color.white);
+                submit.setBackground(Color.orange);
                 submit.setText("UPDATE");
             } catch (SQLException ex) {
                 Logger.getLogger(FormPemesanan.class.getName()).log(Level.SEVERE, null, ex);
@@ -976,6 +1036,8 @@ public class FormPemesanan extends javax.swing.JFrame {
                 tambahbrg.setVisible(false);
                 delete.setVisible(true);
                 submit.setText("UPDATE");
+                submit.setForeground(Color.white);
+                submit.setBackground(Color.orange);
             } catch (SQLException ex) {
                 Logger.getLogger(FormPemesanan.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -991,9 +1053,12 @@ public class FormPemesanan extends javax.swing.JFrame {
         control.clear();
     }//GEN-LAST:event_tambahbrgMouseClicked
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
         control.clear();
         submit.setText("INSERT");
+        cbxPesanan.setEnabled(true);
+        submit.setForeground(Color.white);
+        submit.setBackground(Color.green);
         delete.setVisible(false);
         if(x==3){
             tambahbrg.setVisible(false);
@@ -1003,7 +1068,7 @@ public class FormPemesanan extends javax.swing.JFrame {
             tambahbrg.setVisible(true);
             pesan.setVisible(false);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_clearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1048,11 +1113,11 @@ public class FormPemesanan extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxPelanggan;
     private javax.swing.JComboBox<String> cbxPesanan;
     private javax.swing.JLabel change;
+    private javax.swing.JButton clear;
     private javax.swing.JButton delete;
     private javax.swing.JLabel home;
     private javax.swing.JLabel idd;
     private javax.swing.JLabel j;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;

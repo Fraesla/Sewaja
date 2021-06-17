@@ -7,6 +7,7 @@ package Controller;
 
 import View.FormLogin;
 import View.FormUtama;
+import java.awt.Color;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -44,7 +45,9 @@ public class login {
                     views.getKet().setText("Operator");
                     views.getUser1().setText(model.getUser());
                     views.getjEdit().setVisible(false);
+                    views.getjInsert().setBackground(Color.orange);
                     views.getjLabel4().setText("Edit Akun");
+                    views.getjLabel4().setForeground(Color.white);
                 } else{
                     views.getUser1().setText(model.getUser());
                     views.getKet().setText("Admin");

@@ -6,6 +6,8 @@
 package View;
 
 import Server.Koneksi;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,6 +54,12 @@ public class FormPembayaran extends javax.swing.JFrame {
         dataSewa = new DAO.penyewaan();
         delete.setVisible(false);
         jLabel16.setText("Form Pembayaran");
+        insert.setForeground(Color.white);
+        insert.setBackground(Color.green);
+        icon();
+    }
+    private void icon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
     private void tablePesan(){
         DefaultTableModel model = new DefaultTableModel();
@@ -358,6 +366,9 @@ public class FormPembayaran extends javax.swing.JFrame {
         getContentPane().add(ket);
         ket.setBounds(450, 20, 80, 20);
 
+        delete.setBackground(new java.awt.Color(255, 0, 0));
+        delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        delete.setForeground(new java.awt.Color(255, 255, 255));
         delete.setText("DELETE");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,8 +376,11 @@ public class FormPembayaran extends javax.swing.JFrame {
             }
         });
         getContentPane().add(delete);
-        delete.setBounds(450, 500, 90, 23);
+        delete.setBounds(450, 500, 90, 25);
 
+        hapus.setBackground(new java.awt.Color(0, 0, 0));
+        hapus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        hapus.setForeground(new java.awt.Color(255, 255, 255));
         hapus.setText("CLEAR");
         hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,8 +388,9 @@ public class FormPembayaran extends javax.swing.JFrame {
             }
         });
         getContentPane().add(hapus);
-        hapus.setBounds(500, 470, 80, 23);
+        hapus.setBounds(500, 470, 80, 25);
 
+        insert.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         insert.setText("INSERT");
         insert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,7 +398,7 @@ public class FormPembayaran extends javax.swing.JFrame {
             }
         });
         getContentPane().add(insert);
-        insert.setBounds(420, 470, 80, 23);
+        insert.setBounds(410, 470, 90, 25);
         getContentPane().add(IntTotal);
         IntTotal.setBounds(420, 400, 160, 30);
 
@@ -430,6 +445,11 @@ public class FormPembayaran extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableSewa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSewaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableSewa);
 
         getContentPane().add(jScrollPane2);
@@ -451,6 +471,11 @@ public class FormPembayaran extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablePesan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePesanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablePesan);
 
         getContentPane().add(jScrollPane1);
@@ -555,9 +580,16 @@ public class FormPembayaran extends javax.swing.JFrame {
             utama.getKet().setText("Operator");
             utama.getjLabel4().setText("Edit Akun");
             utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
             utama.getUser().setEnabled(false);
+            utama.getjEdit().setVisible(false);
+            utama.getjInsert().setBackground(Color.orange);
+            utama.getjLabel4().setForeground(Color.white);
         } else{
             utama.getKet().setText("Admin");
+            utama.getA().setText(a.getText());
+            utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
         }
         utama.setVisible(true);
         dispose();
@@ -573,6 +605,8 @@ public class FormPembayaran extends javax.swing.JFrame {
         }
         else{
             member.getKet().setText("Admin");
+            member.getA().setText(a.getText());
+            member.getUser().setText(user.getText());
         }
         member.setVisible(true);
         dispose();
@@ -588,6 +622,8 @@ public class FormPembayaran extends javax.swing.JFrame {
         }
         else{
             sewa.getKet().setText("Admin");
+            sewa.getA().setText(a.getText());
+            sewa.getUser().setText(user.getText());
         }
         sewa.setVisible(true);
         dispose();
@@ -603,6 +639,8 @@ public class FormPembayaran extends javax.swing.JFrame {
         }
         else{
             pesan.getKet().setText("Admin");
+            pesan.getA().setText(a.getText());
+            pesan.getUser().setText(user.getText());
         }
         pesan.setVisible(true);
         dispose();
@@ -613,7 +651,10 @@ public class FormPembayaran extends javax.swing.JFrame {
     }//GEN-LAST:event_pembayaranMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-        new FormReport().setVisible(true);
+        FormReport report = new FormReport();  
+        report.getA().setText(a.getText());
+        report.getUser().setText(user.getText());
+        report.setVisible(true);
         dispose();
     }//GEN-LAST:event_reportMouseClicked
 
@@ -623,10 +664,19 @@ public class FormPembayaran extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseClicked
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        control.delete();
-        insert.setText("INSERT");
-        delete.setVisible(false);
-        tableBayar();
+        int z = JOptionPane.showConfirmDialog(this, "Yakin Data mau Di Hapus?", "Delete Data", JOptionPane.OK_CANCEL_OPTION);
+        if(z == 0){
+            control.delete();
+            insert.setText("INSERT");
+            insert.setForeground(Color.white);
+            insert.setBackground(Color.green);
+            delete.setVisible(false);
+            tableBayar();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Data tidak jadi dihapus");
+        }
     }//GEN-LAST:event_deleteActionPerformed
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
@@ -641,6 +691,8 @@ public class FormPembayaran extends javax.swing.JFrame {
             try {
                 control.update();
                 insert.setText("INSERT");
+                insert.setForeground(Color.white);
+                insert.setBackground(Color.green);
                 delete.setVisible(false);
                 txtIdTrans.setEnabled(true);
             } catch (SQLException ex) {
@@ -655,6 +707,9 @@ public class FormPembayaran extends javax.swing.JFrame {
         try {
             control.onMouseClickTableBayar();
             insert.setText("UPDATE");
+            insert.setForeground(Color.white);
+            insert.setBackground(Color.orange);
+            tableBayar.clearSelection();
             delete.setVisible(true);
             txtIdTrans.setEnabled(false);
         } catch (SQLException ex) {
@@ -703,7 +758,17 @@ public class FormPembayaran extends javax.swing.JFrame {
        control.clear();
        delete.setVisible(false);
        insert.setText("INSERT");
+       insert.setForeground(Color.white);
+       insert.setBackground(Color.green);
     }//GEN-LAST:event_hapusActionPerformed
+
+    private void tablePesanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePesanMouseClicked
+        tablePesan.clearSelection();
+    }//GEN-LAST:event_tablePesanMouseClicked
+
+    private void tableSewaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSewaMouseClicked
+       tableSewa.clearSelection();
+    }//GEN-LAST:event_tableSewaMouseClicked
 
     /**
      * @param args the command line arguments

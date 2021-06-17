@@ -6,6 +6,8 @@
 package View;
 
 import Server.Koneksi;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -36,8 +38,18 @@ public class FormReport extends javax.swing.JFrame {
         bayarController = new Controller.pembayaran(viewBayar);
         pesanController = new Controller.pemesanan(viewPesan);
         ket.setText("Admin");
+        sewa.setForeground(Color.black);
+        pesan.setForeground(Color.black);
+        bayar.setForeground(Color.black);
+        bulan.setVisible(false);
+        tahun.setVisible(false);
+        print.setVisible(false);
+        back.setVisible(false);
+        icon();
     }
-
+    private void icon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+    }
     public JLabel getA() {
         return a;
     }
@@ -339,18 +351,17 @@ public class FormReport extends javax.swing.JFrame {
         report = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        sewa = new javax.swing.JLabel();
+        bayar = new javax.swing.JLabel();
+        pesan = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jLabel26 = new javax.swing.JLabel();
-        txtPilihan = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         ket = new javax.swing.JLabel();
         bulan = new javax.swing.JButton();
         tahun = new javax.swing.JButton();
         print = new javax.swing.JButton();
+        back = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
@@ -446,20 +457,35 @@ public class FormReport extends javax.swing.JFrame {
         getContentPane().add(jLabel11);
         jLabel11.setBounds(400, 100, 340, 60);
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel23.setText("1. Penyewaan");
-        getContentPane().add(jLabel23);
-        jLabel23.setBounds(400, 170, 170, 50);
+        sewa.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        sewa.setText("1. Penyewaan");
+        sewa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sewaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(sewa);
+        sewa.setBounds(400, 170, 170, 50);
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel24.setText("3. Pembayaran");
-        getContentPane().add(jLabel24);
-        jLabel24.setBounds(400, 250, 170, 50);
+        bayar.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        bayar.setText("3. Pembayaran");
+        bayar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bayarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(bayar);
+        bayar.setBounds(400, 250, 170, 50);
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel25.setText("2. Pemesanan");
-        getContentPane().add(jLabel25);
-        jLabel25.setBounds(400, 210, 170, 50);
+        pesan.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        pesan.setText("2. Pemesanan");
+        pesan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pesanMouseClicked(evt);
+            }
+        });
+        getContentPane().add(pesan);
+        pesan.setBounds(400, 210, 170, 50);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -477,13 +503,6 @@ public class FormReport extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(390, 350, 740, 180);
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel26.setText("Pilihan Report :");
-        getContentPane().add(jLabel26);
-        jLabel26.setBounds(820, 170, 140, 30);
-        getContentPane().add(txtPilihan);
-        txtPilihan.setBounds(950, 170, 70, 30);
-
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("Status :");
         getContentPane().add(jLabel10);
@@ -493,7 +512,9 @@ public class FormReport extends javax.swing.JFrame {
         getContentPane().add(ket);
         ket.setBounds(450, 20, 80, 20);
 
+        bulan.setBackground(new java.awt.Color(153, 153, 0));
         bulan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bulan.setForeground(new java.awt.Color(255, 255, 255));
         bulan.setText("Bulan");
         bulan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -501,9 +522,11 @@ public class FormReport extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bulan);
-        bulan.setBounds(820, 220, 90, 40);
+        bulan.setBounds(820, 200, 90, 40);
 
+        tahun.setBackground(new java.awt.Color(153, 0, 0));
         tahun.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tahun.setForeground(new java.awt.Color(255, 255, 255));
         tahun.setText("Tahun");
         tahun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -511,9 +534,11 @@ public class FormReport extends javax.swing.JFrame {
             }
         });
         getContentPane().add(tahun);
-        tahun.setBounds(930, 220, 90, 40);
+        tahun.setBounds(930, 200, 90, 40);
 
+        print.setBackground(new java.awt.Color(102, 170, 246));
         print.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        print.setForeground(new java.awt.Color(255, 255, 255));
         print.setText("Print");
         print.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -521,7 +546,19 @@ public class FormReport extends javax.swing.JFrame {
             }
         });
         getContentPane().add(print);
-        print.setBounds(870, 270, 90, 40);
+        print.setBounds(820, 250, 90, 40);
+
+        back.setBackground(new java.awt.Color(0, 0, 0));
+        back.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        back.setForeground(new java.awt.Color(255, 255, 255));
+        back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+        getContentPane().add(back);
+        back.setBounds(930, 250, 90, 40);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         getContentPane().add(jLabel3);
@@ -551,9 +588,13 @@ public class FormReport extends javax.swing.JFrame {
             utama.getKet().setText("Operator");
             utama.getjLabel4().setText("Edit Akun");
             utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
             utama.getUser().setEnabled(false);
         } else{
             utama.getKet().setText("Admin");
+            utama.getA().setText(a.getText());
+            utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
         }
         utama.setVisible(true);
         dispose();
@@ -569,6 +610,8 @@ public class FormReport extends javax.swing.JFrame {
         }
         else{
             member.getKet().setText("Admin");
+            member.getA().setText(a.getText());
+            member.getUser().setText(user.getText());
         }
         member.setVisible(true);
         dispose();
@@ -584,6 +627,8 @@ public class FormReport extends javax.swing.JFrame {
         }
         else{
             sewa.getKet().setText("Admin");
+            sewa.getA().setText(a.getText());
+            sewa.getUser().setText(user.getText());
         }
         sewa.setVisible(true);
         dispose();
@@ -599,6 +644,8 @@ public class FormReport extends javax.swing.JFrame {
         }
         else{
             pesan.getKet().setText("Admin");
+            pesan.getA().setText(a.getText());
+            pesan.getUser().setText(user.getText());
         }
         pesan.setVisible(true);
         dispose();
@@ -614,6 +661,8 @@ public class FormReport extends javax.swing.JFrame {
         }
         else{
             bayar.getKet().setText("Admin");
+            bayar.getA().setText(a.getText());
+            bayar.getUser().setText(user.getText());
         }
         bayar.setVisible(true);
         dispose();
@@ -629,44 +678,40 @@ public class FormReport extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseClicked
 
     private void bulanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bulanActionPerformed
-        switch(txtPilihan.getText()){
-            case "1":
-                tableSewaBulan();
-                bt = 1;
-                break;
-            case "2":
-                tablePesanBulan();
-                bt = 1;
-                break;
-            case "3":
-                tableBayarBulan();
-                bt = 1;
-                break;
-            default:
-                JOptionPane.showMessageDialog(this, "Pilih Report nya dulu");
-                bt = 0;
-                break;
+        if(sewa.getForeground().equals(Color.red)){
+            tableSewaBulan();
+            bt = 1;
+        }
+        else if(pesan.getForeground().equals(Color.red)){
+            tablePesanBulan();
+            bt = 1;
+        }
+        else if(bayar.getForeground().equals(Color.red)){
+            tableBayarBulan();
+            bt = 1;
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Pilih Report nya dulu");
+            bt = 0;
         }
     }//GEN-LAST:event_bulanActionPerformed
 
     private void tahunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tahunActionPerformed
-        switch(txtPilihan.getText()){
-            case "1":
-                tableSewaTahun();
-                bt = 2;
-                break;
-            case "2":
-                tablePesanTahun();
-                bt = 2;
-                break;
-            case "3":
-                tableBayarTahun();
-                bt = 2;
-                break;
-            default:
-                JOptionPane.showMessageDialog(this, "Pilih Report nya dulu");
-                bt = 0;
-                break;
+        if(sewa.getForeground().equals(Color.red)){
+            tableSewaTahun();
+            bt = 2;
+        }
+        else if(pesan.getForeground().equals(Color.red)){
+            tablePesanTahun();
+            bt = 2;
+        }
+        else if(bayar.getForeground().equals(Color.red)){
+            tableBayarTahun();
+            bt = 2;
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Pilih Report nya dulu");
+            bt = 0;
         }
     }//GEN-LAST:event_tahunActionPerformed
 
@@ -675,35 +720,31 @@ public class FormReport extends javax.swing.JFrame {
         if (x == 0) {
             switch (bt) {
                 case 1:
-                    switch(txtPilihan.getText()){
-                        case "1":
-                            sewaController.ReportBulanSewa(Bulan, Tahun);
-                            break;
-                        case "2":
-                            pesanController.ReportBulanPesan(Bulan, Tahun);
-                            break;
-                        case "3":
-                            bayarController.previewReportBulanBayar(Bulan, Tahun);
-                            break;
-                        default:
-                            JOptionPane.showMessageDialog(this, "Pilih Periode Report nya dulu");
-                            break;
+                    if(sewa.getForeground().equals(Color.red)){
+                        sewaController.ReportBulanSewa(Bulan, Tahun);
+                    }
+                    else if(pesan.getForeground().equals(Color.red)){
+                        pesanController.ReportBulanPesan(Bulan, Tahun);
+                    }
+                    else if(bayar.getForeground().equals(Color.red)){
+                        bayarController.previewReportBulanBayar(Bulan, Tahun);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Pilih Report nya dulu");
                     }   
                     break;
                 case 2:
-                    switch(txtPilihan.getText()){
-                        case "1":
-                            sewaController.ReportTahunSewa(Tahun);
-                            break;
-                        case "2":
-                            pesanController.ReportTahunPesan(Tahun);
-                            break;
-                        case "3":
-                            bayarController.previewReportTahunBayar(Tahun);
-                        break;
-                        default:
-                            JOptionPane.showMessageDialog(this, "Pilih Periode Report nya dulu");
-                            break;
+                    if(sewa.getForeground().equals(Color.red)){
+                        sewaController.ReportTahunSewa(Tahun);
+                    }
+                    else if(pesan.getForeground().equals(Color.red)){
+                        pesanController.ReportTahunPesan(Tahun);
+                    }
+                    else if(bayar.getForeground().equals(Color.red)){
+                        bayarController.previewReportTahunBayar(Tahun);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Pilih Report nya dulu");
                     }   
                     break;
                 default:
@@ -712,6 +753,50 @@ public class FormReport extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_printActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        sewa.setForeground(Color.black);
+        pesan.setForeground(Color.black);
+        bayar.setForeground(Color.black);
+        bulan.setVisible(false);
+        tahun.setVisible(false);
+        print.setVisible(false);
+        back.setVisible(false);
+        table.setModel(new DefaultTableModel(null,new String[]{}));
+    }//GEN-LAST:event_backActionPerformed
+
+    private void sewaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sewaMouseClicked
+        sewa.setForeground(Color.red);
+        pesan.setForeground(Color.black);
+        bayar.setForeground(Color.black);
+        bulan.setVisible(true);
+        tahun.setVisible(true);
+        print.setVisible(true);
+        back.setVisible(true);
+        table.setModel(new DefaultTableModel(null,new String[]{}));
+    }//GEN-LAST:event_sewaMouseClicked
+
+    private void pesanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesanMouseClicked
+        sewa.setForeground(Color.black);
+        pesan.setForeground(Color.red);
+        bayar.setForeground(Color.black);
+        bulan.setVisible(true);
+        tahun.setVisible(true);
+        print.setVisible(true);
+        back.setVisible(true);
+        table.setModel(new DefaultTableModel(null,new String[]{}));
+    }//GEN-LAST:event_pesanMouseClicked
+
+    private void bayarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bayarMouseClicked
+        sewa.setForeground(Color.black);
+        pesan.setForeground(Color.black);
+        bayar.setForeground(Color.red);
+        bulan.setVisible(true);
+        tahun.setVisible(true);
+        print.setVisible(true);
+        back.setVisible(true);
+        table.setModel(new DefaultTableModel(null,new String[]{}));
+    }//GEN-LAST:event_bayarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -745,16 +830,14 @@ public class FormReport extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel a;
+    private javax.swing.JButton back;
+    private javax.swing.JLabel bayar;
     private javax.swing.JButton bulan;
     private javax.swing.JLabel home;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel ket;
@@ -763,11 +846,12 @@ public class FormReport extends javax.swing.JFrame {
     private javax.swing.JLabel pembayaran;
     private javax.swing.JLabel pemesanan;
     private javax.swing.JLabel penyewaan;
+    private javax.swing.JLabel pesan;
     private javax.swing.JButton print;
     private javax.swing.JLabel report;
+    private javax.swing.JLabel sewa;
     private javax.swing.JTable table;
     private javax.swing.JButton tahun;
-    private javax.swing.JTextField txtPilihan;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }
