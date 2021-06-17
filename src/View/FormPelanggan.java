@@ -6,6 +6,8 @@
 package View;
 
 import Server.Koneksi;
+import java.awt.Color;
+import java.awt.Toolkit;
 import static java.lang.Boolean.TRUE;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,6 +50,10 @@ public class FormPelanggan extends javax.swing.JFrame {
         control.MemberTabel();
         btnDelete.setVisible(false);
         comboBox();
+        icon();
+    }
+    private void icon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
     private void tablePelanggan(){
         DefaultTableModel model = new DefaultTableModel();
@@ -118,6 +124,8 @@ public class FormPelanggan extends javax.swing.JFrame {
         cbxMember.setVisible(false);
         txtIdTelp.setVisible(true);
         btnInsert.setText("INSERT");
+        btnInsert.setBackground(Color.green);
+        btnInsert.setForeground(Color.white);
         btnDelete.setVisible(false);
         form1.setVisible(true);
         form1.setText("Input Pelanggan");
@@ -144,6 +152,8 @@ public class FormPelanggan extends javax.swing.JFrame {
         form1.setText("Daftar Member ?");
         form2.setVisible(false);
         btnInsert.setText("INSERT");
+        btnInsert.setBackground(Color.green);
+        btnInsert.setForeground(Color.white);
         txtKode.setEnabled(true);
         txtKode.requestFocus();
         jLabel3.setText("Form Pelanggan");
@@ -384,6 +394,7 @@ public class FormPelanggan extends javax.swing.JFrame {
         getContentPane().add(form1);
         form1.setBounds(420, 520, 120, 17);
 
+        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -391,8 +402,9 @@ public class FormPelanggan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDelete);
-        btnDelete.setBounds(430, 470, 80, 40);
+        btnDelete.setBounds(430, 470, 90, 40);
 
+        btnInsert.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnInsert.setText("Insert");
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -400,8 +412,11 @@ public class FormPelanggan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnInsert);
-        btnInsert.setBounds(380, 420, 80, 40);
+        btnInsert.setBounds(380, 420, 90, 40);
 
+        btnReset.setBackground(new java.awt.Color(0, 0, 0));
+        btnReset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -513,19 +528,26 @@ public class FormPelanggan extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxMemberActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if(x == TRUE)
-        {
-            control.deleteMember();
-            control.MemberTabel();
-            control.PelangganTabel();
-            change2member();
+        int z = JOptionPane.showConfirmDialog(this, "Yakin Data mau Di Hapus?", "Delete Data", JOptionPane.OK_CANCEL_OPTION);
+        if(z == 0){
+            if(x == TRUE)
+            {
+                control.deleteMember();
+                control.MemberTabel();
+                control.PelangganTabel();
+                change2member();
+            }
+            else
+            {
+                control.deletePelanggan();
+                control.PelangganTabel();
+                control.MemberTabel();
+                change2plg();
+            }
         }
         else
         {
-            control.deletePelanggan();
-            control.PelangganTabel();
-            control.MemberTabel();
-            change2plg();
+            JOptionPane.showMessageDialog(this, "Data tidak jadi dihapus");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -589,9 +611,16 @@ public class FormPelanggan extends javax.swing.JFrame {
             utama.getKet().setText("Operator");
             utama.getjLabel4().setText("Edit Akun");
             utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
             utama.getUser().setEnabled(false);
+            utama.getjEdit().setVisible(false);
+            utama.getjInsert().setBackground(Color.orange);
+            utama.getjLabel4().setForeground(Color.white);
         } else{
             utama.getKet().setText("Admin");
+            utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
+            utama.getA().setText(a.getText());
         }
         utama.setVisible(true);
         dispose();
@@ -607,6 +636,8 @@ public class FormPelanggan extends javax.swing.JFrame {
         }
         else{
             sewa.getKet().setText("Admin");
+            sewa.getA().setText(a.getText());
+            sewa.getUser().setText(user.getText());
         }
         sewa.setVisible(true);
         dispose();
@@ -622,6 +653,8 @@ public class FormPelanggan extends javax.swing.JFrame {
         }
         else{
             pesan.getKet().setText("Admin");
+            pesan.getA().setText(a.getText());
+            pesan.getUser().setText(user.getText());
         }
         pesan.setVisible(true);
         dispose();
@@ -637,13 +670,18 @@ public class FormPelanggan extends javax.swing.JFrame {
         }
         else{
             bayar.getKet().setText("Admin");
+            bayar.getA().setText(a.getText());
+            bayar.getUser().setText(user.getText());
         }
         bayar.setVisible(true);
         dispose();
     }//GEN-LAST:event_pembayaranMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-        new FormReport().setVisible(true);
+        FormReport report = new FormReport();  
+        report.getA().setText(a.getText());
+        report.getUser().setText(user.getText());
+        report.setVisible(true);
         dispose();
     }//GEN-LAST:event_reportMouseClicked
 
@@ -651,8 +689,12 @@ public class FormPelanggan extends javax.swing.JFrame {
         change2plg();
         control.onMouseClickTablePelanggan();
         btnInsert.setText("UPDATE");
+        btnInsert.setBackground(Color.orange);
+        btnInsert.setForeground(Color.white);
         if(btnInsert.getText().equalsIgnoreCase("update")){
             btnDelete.setVisible(true);
+            btnDelete.setBackground(Color.red);
+            btnDelete.setForeground(Color.white);
             txtKode.setEnabled(false);
             form1.setVisible(true);
             form1.setText("Daftar Member ?");
@@ -665,8 +707,12 @@ public class FormPelanggan extends javax.swing.JFrame {
         change2member();
         control.onMouseClickTableMember();
         btnInsert.setText("UPDATE");
+        btnInsert.setBackground(Color.orange);
+        btnInsert.setForeground(Color.white);
         if(btnInsert.getText().equalsIgnoreCase("update")){
             btnDelete.setVisible(true);
+            btnDelete.setBackground(Color.red);
+            btnDelete.setForeground(Color.white);
             txtKode.setEnabled(false);
             form1.setVisible(true);
             form1.setText("Input Pelanggan");
@@ -682,6 +728,8 @@ public class FormPelanggan extends javax.swing.JFrame {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         control.clear();
         btnInsert.setText("INSERT");
+        btnInsert.setBackground(Color.green);
+        btnInsert.setForeground(Color.white);
         btnDelete.setVisible(false);
     }//GEN-LAST:event_btnResetActionPerformed
 

@@ -5,6 +5,8 @@
  */
 package View;
 
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -27,8 +29,11 @@ public class FormUtama extends javax.swing.JFrame {
         login = new FormLogin();
         control = new Controller.login(login,this);
         awal();
+        icon();
     }
-    
+    private void icon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+    }
     private void awal(){
         juser.setVisible(false);
         user.setVisible(false);
@@ -45,10 +50,16 @@ public class FormUtama extends javax.swing.JFrame {
         jLabel3.setText("");
         if(a.getText().equalsIgnoreCase("operator")){
             jEdit.setVisible(false);
+            jInsert.setBackground(Color.orange);
+            jLabel4.setForeground(Color.white);
             jLabel4.setText("Edit Akun");
         }
         else{
             jEdit.setVisible(true);
+            jEdit.setBackground(Color.orange);
+            jLabel5.setForeground(Color.white);
+            jInsert.setBackground(Color.green);
+            jLabel4.setForeground(Color.white);
             jLabel4.setText("Tambah Akun");
             jLabel5.setText("Edit Akun");
         }
@@ -73,8 +84,12 @@ public class FormUtama extends javax.swing.JFrame {
         btnInsert.setText("Insert");
         Home.setVisible(false);
         jLabel4.setText("Edit Akun");
+        jInsert.setBackground(Color.orange);
+        jLabel4.setForeground(Color.white);
         jLabel3.setText("Tambah Akun Sewaja");
         jLabel5.setText("Home");
+        jEdit.setBackground(Color.blue);
+        jEdit.setForeground(Color.white);
         user.requestFocus();
     }
     
@@ -99,11 +114,17 @@ public class FormUtama extends javax.swing.JFrame {
         btnInsert.setText("Update");
         if(a.getText().equalsIgnoreCase("Operator")){
             jEdit.setVisible(false);
+            jInsert.setBackground(Color.blue);
+            jLabel4.setForeground(Color.white);
             jLabel4.setText("Home");
         }
         else{
             jInsert.setVisible(true);
+            jInsert.setBackground(Color.green);
+            jLabel4.setForeground(Color.white);
             jEdit.setVisible(true);
+            jEdit.setBackground(Color.blue);
+            jLabel5.setForeground(Color.white);
             jLabel4.setText("Tambah Akun");
             jLabel5.setText("Home");
         }
@@ -133,6 +154,10 @@ public class FormUtama extends javax.swing.JFrame {
 
     public JLabel getjLabel5() {
         return jLabel5;
+    }
+
+    public JPanel getjInsert() {
+        return jInsert;
     }
 
     public JPanel getjEdit() {
@@ -312,7 +337,7 @@ public class FormUtama extends javax.swing.JFrame {
         );
 
         getContentPane().add(Home);
-        Home.setBounds(440, 120, 600, 400);
+        Home.setBounds(440, 120, 620, 400);
 
         ket.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         getContentPane().add(ket);
@@ -331,7 +356,7 @@ public class FormUtama extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setText("Tambah Akun");
 
         javax.swing.GroupLayout jInsertLayout = new javax.swing.GroupLayout(jInsert);
@@ -351,7 +376,7 @@ public class FormUtama extends javax.swing.JFrame {
         );
 
         getContentPane().add(jInsert);
-        jInsert.setBounds(920, 550, 120, 20);
+        jInsert.setBounds(920, 550, 140, 20);
 
         home.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         home.setForeground(new java.awt.Color(255, 0, 0));
@@ -407,7 +432,7 @@ public class FormUtama extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel5.setText("Edit Akun");
 
         javax.swing.GroupLayout jEditLayout = new javax.swing.GroupLayout(jEdit);
@@ -468,6 +493,8 @@ public class FormUtama extends javax.swing.JFrame {
         }
         else{
             member.getKet().setText("Admin");
+            member.getA().setText(a.getText());
+            member.getUser().setText(user1.getText());
         }
         member.setVisible(true);
         dispose();
@@ -483,6 +510,8 @@ public class FormUtama extends javax.swing.JFrame {
         }
         else{
             sewa.getKet().setText("Admin");
+            sewa.getA().setText(a.getText());
+            sewa.getUser().setText(user1.getText());
         }
         sewa.setVisible(true);
         dispose();
@@ -498,6 +527,8 @@ public class FormUtama extends javax.swing.JFrame {
         }
         else{
             pesan.getKet().setText("Admin");
+            pesan.getA().setText(a.getText());
+            pesan.getUser().setText(user1.getText());
         }
         pesan.setVisible(true);
         dispose();
@@ -513,13 +544,18 @@ public class FormUtama extends javax.swing.JFrame {
         }
         else{
             bayar.getKet().setText("Admin");
+            bayar.getA().setText(a.getText());
+            bayar.getUser().setText(user1.getText());
         }
         bayar.setVisible(true);
         dispose();
     }//GEN-LAST:event_pembayaranMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-        new FormReport().setVisible(true);        
+        FormReport report = new FormReport();  
+        report.getA().setText(a.getText());
+        report.getUser().setText(user1.getText());
+        report.setVisible(true);
         dispose();
     }//GEN-LAST:event_reportMouseClicked
 

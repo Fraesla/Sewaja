@@ -8,6 +8,8 @@ package View;
 import Server.Koneksi;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JYearChooser;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import static java.lang.Boolean.TRUE;
 import java.sql.Connection;
@@ -51,6 +53,12 @@ public class FormPenyewaan extends javax.swing.JFrame {
         tableLapangan();
         isiPelanggan();
         unshowed();
+        icon();
+        ceklpg.setBackground(Color.orange);
+        jLabel25.setForeground(Color.white);
+    }
+    private void icon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
     public JTextField getWaktuAkhir() {
         return WaktuAkhir;
@@ -265,6 +273,8 @@ public class FormPenyewaan extends javax.swing.JFrame {
         Tanggal.setVisible(true);
         hapus.setVisible(true);
         insert.setText("UPDATE");
+        insert.setBackground(Color.orange);
+        insert.setForeground(Color.white);
     }
     
     private void unshowed() {
@@ -273,6 +283,8 @@ public class FormPenyewaan extends javax.swing.JFrame {
         Tanggal.setVisible(false);
         hapus.setVisible(false);
         insert.setText("INSERT");
+        insert.setBackground(Color.green);
+        insert.setForeground(Color.white);
         jLabel15.setText("Form Penyewaan");
     }
     
@@ -448,6 +460,9 @@ public class FormPenyewaan extends javax.swing.JFrame {
         getContentPane().add(ket);
         ket.setBounds(430, 20, 80, 20);
 
+        clear.setBackground(new java.awt.Color(0, 0, 0));
+        clear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        clear.setForeground(new java.awt.Color(255, 255, 255));
         clear.setText("CLEAR");
         clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -455,7 +470,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(clear);
-        clear.setBounds(650, 560, 80, 30);
+        clear.setBounds(650, 560, 100, 30);
         getContentPane().add(menitawal);
         menitawal.setBounds(460, 400, 30, 30);
 
@@ -566,6 +581,9 @@ public class FormPenyewaan extends javax.swing.JFrame {
         getContentPane().add(titik2);
         titik2.setBounds(450, 470, 10, 14);
 
+        hapus.setBackground(new java.awt.Color(255, 0, 0));
+        hapus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        hapus.setForeground(new java.awt.Color(255, 255, 255));
         hapus.setText("DELETE");
         hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -573,7 +591,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(hapus);
-        hapus.setBounds(650, 530, 80, 30);
+        hapus.setBounds(650, 530, 100, 30);
 
         Hari.setModel(new javax.swing.SpinnerListModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
         getContentPane().add(Hari);
@@ -609,6 +627,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(650, 130, 470, 197);
 
+        insert.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         insert.setText("INSERT");
         insert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -616,7 +635,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(insert);
-        insert.setBounds(650, 490, 80, 30);
+        insert.setBounds(650, 490, 100, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Kode Lapangan");
@@ -654,6 +673,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
             }
         });
 
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setText("Check Lapangan");
 
         javax.swing.GroupLayout ceklpgLayout = new javax.swing.GroupLayout(ceklpg);
@@ -663,7 +683,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
             .addGroup(ceklpgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel25)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ceklpgLayout.setVerticalGroup(
             ceklpgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -674,7 +694,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
         );
 
         getContentPane().add(ceklpg);
-        ceklpg.setBounds(1010, 70, 110, 30);
+        ceklpg.setBounds(980, 70, 140, 30);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         getContentPane().add(jLabel15);
@@ -704,9 +724,16 @@ public class FormPenyewaan extends javax.swing.JFrame {
             utama.getKet().setText("Operator");
             utama.getjLabel4().setText("Edit Akun");
             utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
             utama.getUser().setEnabled(false);
+            utama.getjEdit().setVisible(false);
+            utama.getjInsert().setBackground(Color.orange);
+            utama.getjLabel4().setForeground(Color.white);
         } else{
             utama.getKet().setText("Admin");
+            utama.getA().setText(a.getText());
+            utama.getUser().setText(user.getText());
+            utama.getUser1().setText(user.getText());
         }
         utama.setVisible(true);
         dispose();
@@ -722,6 +749,8 @@ public class FormPenyewaan extends javax.swing.JFrame {
         }
         else{
             member.getKet().setText("Admin");
+            member.getA().setText(a.getText());
+            member.getUser().setText(user.getText());
         }
         member.setVisible(true);
         dispose();
@@ -741,6 +770,8 @@ public class FormPenyewaan extends javax.swing.JFrame {
         }
         else{
             pesan.getKet().setText("Admin");
+            pesan.getA().setText(a.getText());
+            pesan.getUser().setText(user.getText());
         }
         pesan.setVisible(true);
         dispose();
@@ -756,13 +787,18 @@ public class FormPenyewaan extends javax.swing.JFrame {
         }
         else{
             bayar.getKet().setText("Admin");
+            bayar.getA().setText(a.getText());
+            bayar.getUser().setText(user.getText());
         }
         bayar.setVisible(true);
         dispose();
     }//GEN-LAST:event_pembayaranMouseClicked
 
     private void reportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportMouseClicked
-        new FormReport().setVisible(true);
+        FormReport report = new FormReport();  
+        report.getA().setText(a.getText());
+        report.getUser().setText(user.getText());
+        report.setVisible(true);
         dispose();
     }//GEN-LAST:event_reportMouseClicked
 
@@ -784,9 +820,16 @@ public class FormPenyewaan extends javax.swing.JFrame {
     }//GEN-LAST:event_txtKdPemakaianKeyPressed
 
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
-        control.delete();
-        tableSewa();
-        unshowed();
+        int z = JOptionPane.showConfirmDialog(this, "Yakin Data mau Di Hapus?", "Delete Data", JOptionPane.OK_CANCEL_OPTION);
+        if(z == 0){
+            control.delete();
+            tableSewa();
+            unshowed();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Data tidak jadi dihapus");
+        }
     }//GEN-LAST:event_hapusActionPerformed
 
     private void tableSewaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSewaMouseClicked
@@ -858,12 +901,16 @@ public class FormPenyewaan extends javax.swing.JFrame {
             unshowed();
             tableLapangan();
             jLabel25.setText("Check Lapangan");
+            ceklpg.setBackground(Color.orange);
+            jLabel25.setForeground(Color.white);
             jLabel10.setText("Daftar Lapangan");
         }
         else
         {
             unshowed();
             tableCheckLapangan();
+            ceklpg.setBackground(Color.blue);
+            jLabel25.setForeground(Color.white);
             jLabel25.setText("Back");
             jLabel10.setText("Daftar Lapangan yang digunakan");
         }

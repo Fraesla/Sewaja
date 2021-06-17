@@ -5,6 +5,8 @@
  */
 package View;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author Lenovo
@@ -16,8 +18,11 @@ public class FormAwal extends javax.swing.JFrame {
      */
     public FormAwal() {
         initComponents();
+        icon();
     }
-
+    private void icon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +40,9 @@ public class FormAwal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1152, 648));
         getContentPane().setLayout(null);
 
+        btnLogin.setBackground(new java.awt.Color(102, 170, 246));
         btnLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("LOGIN");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,7 +77,7 @@ public class FormAwal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_exitActionPerformed
 
     /**
