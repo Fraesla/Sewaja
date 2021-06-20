@@ -23,11 +23,12 @@ public class pemesanan {
     }
     public void createPesan(Model.pemesanan pemesanan) throws SQLException
     {
-        String sql="INSERT INTO pemesanan VALUE(?,?,?)";
+        String sql="INSERT INTO pemesanan VALUE(?,?,?,?)";
         PreparedStatement ps=con.prepareStatement(sql);
         ps.setString(1, pemesanan.getIdNota());
         ps.setString(2, pemesanan.getKdPlg());
-        ps.setInt(3, pemesanan.getTotalPesan());
+        ps.setString(3, pemesanan.getTglpesan());
+        ps.setInt(4, pemesanan.getTotalPesan());
         ps.executeUpdate();
     }
     public void createPesanan(Model.pemesanan pesanan) throws SQLException {
@@ -49,12 +50,13 @@ public class pemesanan {
     }
     public void updatePesan(Model.pemesanan pemesanan) throws SQLException
     {
-        String sql="UPDATE pemesanan SET kdplg=?, subtotalmesan=? "
+        String sql="UPDATE pemesanan SET kdplg=?, tglpesan=?, subtotalmesan=? "
                 + "WHERE idnota=?";
         PreparedStatement ps=con.prepareStatement(sql);
-        ps.setString(3, pemesanan.getIdNota());
+        ps.setString(4, pemesanan.getIdNota());
         ps.setString(1, pemesanan.getKdPlg());
-        ps.setInt(2, pemesanan.getTotalPesan());;
+        ps.setString(2, pemesanan.getTglpesan());
+        ps.setInt(3, pemesanan.getTotalPesan());;
         ps.executeUpdate();
     }
     public void updatePesanan(Model.pemesanan pesanan) throws SQLException {
@@ -106,7 +108,8 @@ public class pemesanan {
             pemesanan = new Model.pemesanan();
             pemesanan.setIdNota(rs.getString(1));
             pemesanan.setKdPlg(rs.getString(2));
-            pemesanan.setTotalPesan(rs.getInt(3));
+            pemesanan.setTglpesan(rs.getString(3));
+            pemesanan.setTotalPesan(rs.getInt(4));
         }
         return pemesanan;
     }

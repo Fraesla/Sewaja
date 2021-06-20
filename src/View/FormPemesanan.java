@@ -6,6 +6,8 @@
 package View;
 
 import Server.Koneksi;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JYearChooser;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -19,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -52,6 +55,27 @@ public class FormPemesanan extends javax.swing.JFrame {
     private void icon(){
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
+    
+    public JSpinner getBulan() {
+        return Bulan;
+    }
+
+    public JSpinner getHari() {
+        return Hari;
+    }
+
+    public JDateChooser getTanggal() {
+        return Tanggal;
+    }
+
+    public JYearChooser getTahun() {
+        return Tahun;
+    }
+
+    public JTextField getTgl() {
+        return tgl;
+    }
+    
     public JComboBox<String> getCbKdMenu() {
         return cbKdMenu;
     }
@@ -141,6 +165,12 @@ public class FormPemesanan extends javax.swing.JFrame {
         tambahbrg.setVisible(true);
         jLabel15.setText("Form Pesanan");
         submit.setText("INSERT");
+        jLabel5.setVisible(false);
+        Tanggal.setVisible(false);
+        tgl.setVisible(false);
+        Hari.setVisible(false);
+        Bulan.setVisible(false);
+        Tahun.setVisible(false);
         submit.setForeground(Color.white);
         submit.setBackground(Color.green);
         x=1;
@@ -172,7 +202,12 @@ public class FormPemesanan extends javax.swing.JFrame {
         jLabel3.setText("Id Nonota Terakhir:");
         tambahbrg.setVisible(true);
         jLabel15.setText("Form Pemesanan");
-        
+        jLabel5.setVisible(true);
+        Tanggal.setVisible(false);
+        tgl.setVisible(false);
+        Hari.setVisible(true);
+        Bulan.setVisible(true);
+        Tahun.setVisible(true);
         x=2;
     }
     
@@ -209,7 +244,12 @@ public class FormPemesanan extends javax.swing.JFrame {
         nonota.setVisible(false);
         jLabel3.setText("Kode Barang Terakhir :");
         jLabel15.setText("Form Barang");
-        
+        jLabel5.setVisible(false);
+        Tanggal.setVisible(false);
+        tgl.setVisible(false);
+        Hari.setVisible(false);
+        Bulan.setVisible(false);
+        Tahun.setVisible(false);
         x=3;
     }
     
@@ -236,6 +276,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Id Nota");
         model.addColumn("Kode Pelanggan");
+        model.addColumn("Tanggal Pesan");
         model.addColumn("SubTotal Pesan");
         
         try{
@@ -249,7 +290,8 @@ public class FormPemesanan extends javax.swing.JFrame {
                 model.addRow(new Object[] {
                     rs.getString(1),
                     rs.getString(2),
-                    rs.getString(3)
+                    rs.getString(3),
+                    rs.getString(4)
                 });
             }
             tableMenuPesan.setModel(model);
@@ -381,7 +423,13 @@ public class FormPemesanan extends javax.swing.JFrame {
         tambahbrg = new javax.swing.JLabel();
         ket = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        Hari = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        Bulan = new javax.swing.JSpinner();
+        Tahun = new com.toedter.calendar.JYearChooser();
+        tgl = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        Tanggal = new com.toedter.calendar.JDateChooser();
         a = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
 
@@ -545,12 +593,12 @@ public class FormPemesanan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablePesanan);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(590, 170, 450, 129);
+        jScrollPane1.setBounds(650, 140, 460, 129);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Daftar Detail Pemesanan");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(750, 130, 149, 17);
+        jLabel7.setBounds(800, 110, 149, 17);
 
         submit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         submit.setText("INSERT");
@@ -569,7 +617,7 @@ public class FormPemesanan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtSubTotalPesan);
-        txtSubTotalPesan.setBounds(380, 290, 160, 30);
+        txtSubTotalPesan.setBounds(380, 350, 160, 30);
 
         cbKdMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih" }));
         getContentPane().add(cbKdMenu);
@@ -578,7 +626,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         subtotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         subtotal.setText("SubTotal Pesan");
         getContentPane().add(subtotal);
-        subtotal.setBounds(380, 270, 122, 22);
+        subtotal.setBounds(380, 330, 122, 22);
 
         idd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         idd.setText("ID Nota");
@@ -614,7 +662,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         judulMenuPesan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         judulMenuPesan.setText("Daftar Menu & Barang");
         getContentPane().add(judulMenuPesan);
-        judulMenuPesan.setBounds(780, 330, 135, 17);
+        judulMenuPesan.setBounds(810, 330, 135, 17);
 
         delete.setBackground(new java.awt.Color(255, 0, 0));
         delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -635,7 +683,7 @@ public class FormPemesanan extends javax.swing.JFrame {
 
         jLabel3.setText("ID Nota Terakhir :");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(840, 550, 130, 20);
+        jLabel3.setBounds(920, 550, 130, 20);
 
         change.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         change.setText("Untuk Siapa?");
@@ -666,7 +714,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tableMenuPesan);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(650, 360, 392, 137);
+        jScrollPane2.setBounds(650, 360, 460, 137);
 
         Id.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Id.setText("ID Nota");
@@ -678,9 +726,9 @@ public class FormPemesanan extends javax.swing.JFrame {
         getContentPane().add(t);
         t.setBounds(380, 330, 70, 22);
         getContentPane().add(nonota);
-        nonota.setBounds(980, 550, 50, 20);
+        nonota.setBounds(1060, 550, 50, 20);
         getContentPane().add(brg);
-        brg.setBounds(980, 550, 50, 20);
+        brg.setBounds(1060, 550, 50, 20);
 
         tambahbrg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tambahbrg.setText("Tambah Menu & Barang");
@@ -690,7 +738,7 @@ public class FormPemesanan extends javax.swing.JFrame {
             }
         });
         getContentPane().add(tambahbrg);
-        tambahbrg.setBounds(840, 500, 170, 30);
+        tambahbrg.setBounds(940, 500, 170, 30);
 
         ket.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         getContentPane().add(ket);
@@ -700,9 +748,36 @@ public class FormPemesanan extends javax.swing.JFrame {
         getContentPane().add(jLabel15);
         jLabel15.setBounds(390, 80, 240, 40);
 
+        Hari.setModel(new javax.swing.SpinnerListModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+        getContentPane().add(Hari);
+        Hari.setBounds(380, 290, 50, 30);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Tanggal Pesan");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(380, 270, 120, 22);
+
+        Bulan.setModel(new javax.swing.SpinnerListModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
+        getContentPane().add(Bulan);
+        Bulan.setBounds(430, 290, 50, 30);
+        getContentPane().add(Tahun);
+        Tahun.setBounds(480, 290, 60, 30);
+
+        tgl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tglKeyPressed(evt);
+            }
+        });
+        getContentPane().add(tgl);
+        tgl.setBounds(560, 290, 130, 30);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Pelanggan (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1152, 648);
+
+        Tanggal.setEnabled(false);
+        getContentPane().add(Tanggal);
+        Tanggal.setBounds(560, 290, 130, 30);
 
         a.setText("jLabel2");
         getContentPane().add(a);
@@ -849,7 +924,6 @@ public class FormPemesanan extends javax.swing.JFrame {
     }//GEN-LAST:event_tablePesananMouseClicked
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        int z = JOptionPane.showConfirmDialog(this, "Yakin Data sudah Lengkap ?", "Insert Data", JOptionPane.OK_CANCEL_OPTION);
         if (submit.getText().equals("INSERT")) {
             switch (x) {
                 case 1:
@@ -859,6 +933,7 @@ public class FormPemesanan extends javax.swing.JFrame {
                     awal();
                     break;
                 case 2:
+                    int z = JOptionPane.showConfirmDialog(this, "Yakin Data sudah Lengkap ?", "Insert Data", JOptionPane.OK_CANCEL_OPTION);
                     if(z == 0){
                         control.insertPemesanan();
                         control.clear();
@@ -1000,12 +1075,14 @@ public class FormPemesanan extends javax.swing.JFrame {
             tablePesan();
             judulMenuPesan.setText("Daftar Pemesanan");
             control.clear();
+            cbxPesanan.setEnabled(true);
         }
         else{
             awal();
             tableMenu();
             judulMenuPesan.setText("Daftar Menu & Barang");
             control.clear();
+            cbxPesanan.setEnabled(true);
         }
         submit.setForeground(Color.white);
         submit.setBackground(Color.green);
@@ -1016,6 +1093,9 @@ public class FormPemesanan extends javax.swing.JFrame {
         if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Pemesanan")) {
             try {
                 akhir();
+//                Tanggal.setVisible(true);
+                tgl.setVisible(true);
+                tgl.setEnabled(false);
                 control.onMouseClickTablePemesanan();
                 tableMenuPesan.clearSelection();
                 tambahbrg.setVisible(true);
@@ -1057,6 +1137,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         control.clear();
         submit.setText("INSERT");
         cbxPesanan.setEnabled(true);
+        tgl.setVisible(false);
         submit.setForeground(Color.white);
         submit.setBackground(Color.green);
         delete.setVisible(false);
@@ -1069,6 +1150,10 @@ public class FormPemesanan extends javax.swing.JFrame {
             pesan.setVisible(false);
         }
     }//GEN-LAST:event_clearActionPerformed
+
+    private void tglKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tglKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tglKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1106,7 +1191,11 @@ public class FormPemesanan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner Bulan;
+    private javax.swing.JSpinner Hari;
     private javax.swing.JLabel Id;
+    private com.toedter.calendar.JYearChooser Tahun;
+    private com.toedter.calendar.JDateChooser Tanggal;
     private javax.swing.JLabel a;
     private javax.swing.JLabel brg;
     private javax.swing.JComboBox<String> cbKdMenu;
@@ -1123,6 +1212,7 @@ public class FormPemesanan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1145,6 +1235,7 @@ public class FormPemesanan extends javax.swing.JFrame {
     private javax.swing.JTable tableMenuPesan;
     private javax.swing.JTable tablePesanan;
     private javax.swing.JLabel tambahbrg;
+    private javax.swing.JTextField tgl;
     private javax.swing.JTextField txtIdNota;
     private javax.swing.JTextField txtJumlah;
     private javax.swing.JTextField txtSubTotal;

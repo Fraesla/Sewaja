@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2021 at 03:25 PM
+-- Generation Time: Jun 20, 2021 at 05:25 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -127,8 +127,11 @@ CREATE TABLE `pelanggan` (
 --
 
 INSERT INTO `pelanggan` (`kodeplg`, `namaplg`, `telp`, `idMem`) VALUES
-('P0001', 'Ega', '0853212', 'M0001'),
-('P0002', 'Yudi', '0843271241', '-');
+('PL001', 'Ega', '0853212', 'M0001'),
+('PL002', 'Yudi', '0843271241', '-'),
+('PL003', 'Randi', '084324', 'M0002'),
+('PL004', 'Martin', '0831235', 'M0001'),
+('PL005', 'Tirto', '083213', '-');
 
 -- --------------------------------------------------------
 
@@ -160,6 +163,7 @@ INSERT INTO `pembayaran` (`idtrans`, `idnota`, `kdpem`, `total`, `masukkan`) VAL
 CREATE TABLE `pemesanan` (
   `idnota` varchar(5) NOT NULL,
   `kdplg` varchar(5) NOT NULL,
+  `tglpesan` date NOT NULL,
   `subtotalmesan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -167,9 +171,10 @@ CREATE TABLE `pemesanan` (
 -- Dumping data for table `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`idnota`, `kdplg`, `subtotalmesan`) VALUES
-('P0001', 'P0001', 22000),
-('P0002', 'P0001', 12000);
+INSERT INTO `pemesanan` (`idnota`, `kdplg`, `tglpesan`, `subtotalmesan`) VALUES
+('P0001', 'PL001', '2021-06-01', 22000),
+('P0002', 'PL003', '2021-03-01', 12000),
+('P0003', 'PL002', '2021-01-01', 16000);
 
 -- --------------------------------------------------------
 
@@ -195,9 +200,9 @@ CREATE TABLE `penyewaan` (
 --
 
 INSERT INTO `penyewaan` (`kdpem`, `kdplg`, `kdlpg`, `tglmain`, `bayarsewa`, `jamakhir`, `jamawal`, `totalsewa`, `uangmuka`, `pemasukan`) VALUES
-('S0001', 'P0001', 'L0001', '2021-06-01', 50000, '18:00:00', '17:00:00', 150000, 100000, 150000),
-('S0002', 'P0001', 'L0002', '2021-01-01', 100000, '16:00:00', '15:00:00', 150000, 50000, 450000),
-('S003', 'P0001', 'L0001', '2021-01-01', 30000, '16:00:00', '15:00:00', 130000, 100000, 580000);
+('S0001', 'PL001', 'L0001', '2021-06-01', 50000, '18:00:00', '17:00:00', 150000, 100000, 150000),
+('S0002', 'PL002', 'L0002', '2021-02-01', 100000, '16:00:00', '15:00:00', 150000, 50000, 730000),
+('S003', 'PL003', 'L0001', '2021-03-01', 30000, '16:00:00', '15:00:00', 130000, 100000, 710000);
 
 -- --------------------------------------------------------
 
@@ -221,7 +226,9 @@ INSERT INTO `pesanan` (`idNota`, `kdBrg`, `jumlah`, `totalharga`) VALUES
 ('P0001', 'MN001', 1, 10000),
 ('P0002', 'B0001', 1, 4000),
 ('P0002', 'B0003', 1, 4000),
-('P0002', 'B0004', 1, 4000);
+('P0002', 'B0004', 1, 4000),
+('P0003', 'B0001', 4, 16000),
+('P0004', 'B0001', 2, 8000);
 
 --
 -- Indexes for dumped tables
