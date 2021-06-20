@@ -65,8 +65,8 @@ public class FormReport extends javax.swing.JFrame {
     private void tableSewaBulan(){
         Bulan = JOptionPane.showInputDialog(this, "Masukkan Bulan \n Contoh : 01", 
                 "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
-        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2014", 
-                "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
+        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2021", 
+                "Laporan Penyewaan Per-Tahun", JOptionPane.QUESTION_MESSAGE);
         
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Kode Pemakaian");
@@ -110,7 +110,7 @@ public class FormReport extends javax.swing.JFrame {
     }
     
     private void tableSewaTahun(){
-        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2014", 
+        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2021", 
                 "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
         
         DefaultTableModel model = new DefaultTableModel();
@@ -156,9 +156,9 @@ public class FormReport extends javax.swing.JFrame {
     
     private void tableBayarBulan(){
         Bulan = JOptionPane.showInputDialog(this, "Masukkan Bulan \n Contoh : 01", 
-                "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
-        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2014", 
-                "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
+                "Laporan Pembayaran Per-Bulan", JOptionPane.QUESTION_MESSAGE);
+        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2021", 
+                "Laporan Pembayaran Per-Tahun", JOptionPane.QUESTION_MESSAGE);
         
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID Transaksi");
@@ -198,8 +198,8 @@ public class FormReport extends javax.swing.JFrame {
     }
     
     private void tableBayarTahun(){
-        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2014", 
-                "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
+        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2021", 
+                "Laporan Pembayaran Per-Tahun", JOptionPane.QUESTION_MESSAGE);
         
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID Transaksi");
@@ -240,9 +240,9 @@ public class FormReport extends javax.swing.JFrame {
     
     private void tablePesanBulan(){
         Bulan = JOptionPane.showInputDialog(this, "Masukkan Bulan \n Contoh : 01", 
-                "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
-        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2014", 
-                "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
+                "Laporan Pemesanan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
+        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2021", 
+                "Laporan Pemesanan Per-Tahun", JOptionPane.QUESTION_MESSAGE);
         
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID Nota");
@@ -265,7 +265,7 @@ public class FormReport extends javax.swing.JFrame {
                         "INNER JOIN `pesanan` pesanan ON pemesanan.`idnota` = pesanan.`idNota`\n" +
                         "INNER JOIN `barang` barang ON pesanan.`kdBrg` = barang.`kdBrg`\n" +
                         "INNER JOIN `penyewaan` penyewaan ON pelanggan.`kodeplg` = penyewaan.`kdplg` " +
-                        "WHERE month(tglmain) = '"+Bulan+"' and year(tglmain) = '"+Tahun+"'";
+                        "WHERE month(tglpesan) = '"+Bulan+"' and year(tglpesan) = '"+Tahun+"'";
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             
@@ -287,8 +287,8 @@ public class FormReport extends javax.swing.JFrame {
     }
     
     private void tablePesanTahun(){
-        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2014", 
-                "Laporan Penyewaan Per-Bulan", JOptionPane.QUESTION_MESSAGE);
+        Tahun = JOptionPane.showInputDialog(this, "Masukkan Tahun \n Contoh : 2021", 
+                "Laporan Pemesanan Per-Tahun", JOptionPane.QUESTION_MESSAGE);
         
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID Nota");
@@ -311,7 +311,7 @@ public class FormReport extends javax.swing.JFrame {
                         "INNER JOIN `pesanan` pesanan ON pemesanan.`idnota` = pesanan.`idNota`\n" +
                         "INNER JOIN `barang` barang ON pesanan.`kdBrg` = barang.`kdBrg`\n" +
                         "INNER JOIN `penyewaan` penyewaan ON pelanggan.`kodeplg` = penyewaan.`kdplg` " +
-                        "WHERE year(tglmain) = '"+Tahun+"'";
+                        "WHERE year(tglpesan) = '"+Tahun+"'";
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             

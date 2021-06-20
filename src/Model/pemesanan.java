@@ -14,6 +14,7 @@ public class pemesanan {
     public String KdPlg;
     public String KdBrg;
     public String namaBrg;
+    public String tglpesan;
     public int jumlah;
     public int hargaBrg;
     public int totalharga;
@@ -37,6 +38,14 @@ public class pemesanan {
 
     public Integer getTotalPesan() {
         return totalPesan;
+    }
+
+    public String getTglpesan() {
+        return tglpesan;
+    }
+
+    public void setTglpesan(String tglpesan) {
+        this.tglpesan = tglpesan;
     }
 
     public void setTotalPesan(Integer totalPesan) {

@@ -9,6 +9,7 @@ import Server.Koneksi;
 import View.FormPemesanan;
 import java.awt.HeadlessException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -50,6 +51,7 @@ public class pemesanan {
         model=new Model.pemesanan();
         model.setIdNota(view.getCbxPesanan().getSelectedItem().toString());
         model.setKdPlg(view.getCbxPelanggan().getSelectedItem().toString());
+        model.setTglpesan(String.valueOf(view.getTahun().getValue()+"-"+view.getBulan().getValue()+"-"+view.getHari().getValue()));
         model.setTotalPesan(Integer.valueOf(view.getTxtSubTotalPesan().getText()));
         
         try{
@@ -97,6 +99,7 @@ public class pemesanan {
         model=new Model.pemesanan();
         model.setIdNota(view.getCbxPesanan().getSelectedItem().toString());
         model.setKdPlg(view.getCbxPelanggan().getSelectedItem().toString());
+        model.setTglpesan(String.valueOf(view.getTahun().getValue()+"-"+view.getBulan().getValue()+"-"+view.getHari().getValue()));
         model.setTotalPesan(Integer.valueOf(view.getTxtSubTotalPesan().getText()));
         
         try{
@@ -181,6 +184,8 @@ public class pemesanan {
             if(model!=null)
             {
                 view.getCbxPelanggan().setSelectedItem(model.getKdPlg());
+//                view.getTanggal().setDate(Date.valueOf(model.getTglpesan()));
+                view.getTgl().setText(String.valueOf(model.getTglpesan()));
                 view.getTxtSubTotalPesan().setText(Integer.toString(model.getTotalPesan()));
             }
             else
@@ -237,6 +242,7 @@ public class pemesanan {
         view.getCbxPesanan().setSelectedItem(0);
         view.getCbKdMenu().setSelectedItem(0);
         view.getCbxPelanggan().setSelectedItem(0);
+        view.getTanggal().setDateFormatString("");
         view.getTxtJumlah().setText("");
         view.getTxtSubTotal().setText("");
     }
@@ -248,7 +254,9 @@ public class pemesanan {
             model = new Model.pemesanan();
             model = database.getPemesanan(kode);
             view.getCbxPesanan().setSelectedItem(model.getIdNota());
-            view.getCbxPelanggan().setSelectedItem(model.getKdPlg());
+//            view.getTanggal().setDate(Date.valueOf(model.getTglpesan()));
+            view.getTgl().setText(String.valueOf(model.getTglpesan()));
+            view.getTanggal().setDate(Date.valueOf(model.getTglpesan()));
             view.getTxtSubTotalPesan().setText(String.valueOf(model.getTotalPesan()));
         }catch(SQLException e){
             Logger.getLogger(Controller.pemesanan.class.getName()).log(Level.SEVERE, "Eror");
