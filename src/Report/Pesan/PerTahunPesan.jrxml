@@ -30,9 +30,10 @@ FROM
      `pelanggan` pelanggan INNER JOIN `pemesanan` pemesanan ON pelanggan.`kodeplg` = pemesanan.`kdplg`
      INNER JOIN `pesanan` pesanan ON pemesanan.`idnota` = pesanan.`idNota`
      INNER JOIN `barang` barang ON pesanan.`kdBrg` = barang.`kdBrg`
-     INNER JOIN `penyewaan` penyewaan ON pelanggan.`kodeplg` = penyewaan.`kdplg`
 WHERE 
-	year(tglmain) = $P{ptahun}]]>
+	year(tglpesan) = $P{ptahun}
+ORDER BY
+	idNota ASC]]>
 	</queryString>
 	<field name="idnota" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
