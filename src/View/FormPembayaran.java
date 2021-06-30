@@ -78,7 +78,7 @@ public class FormPembayaran extends javax.swing.JFrame {
                 model.addRow(new Object[] {
                     rs.getString(1),
                     rs.getString(2),
-                    rs.getString(3)
+                    rs.getString(4)
                 });
                 
                 Object[] x = new Object[1];
@@ -109,7 +109,7 @@ public class FormPembayaran extends javax.swing.JFrame {
                 model.addRow(new Object[] {
                     rs.getString(1),
                     rs.getString(3),
-                    rs.getString(8)
+                    rs.getString(5)
                 });
                 
                 Object[] x = new Object[1];
