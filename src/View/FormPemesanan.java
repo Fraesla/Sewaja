@@ -55,6 +55,11 @@ public class FormPemesanan extends javax.swing.JFrame {
     private void icon(){
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
+
+
+    public JComboBox<String> getCbxPesan() {
+        return cbxPesan;
+    }
     
     public JSpinner getBulan() {
         return Bulan;
@@ -76,9 +81,6 @@ public class FormPemesanan extends javax.swing.JFrame {
         return tgl;
     }
     
-    public JComboBox<String> getCbKdMenu() {
-        return cbKdMenu;
-    }
 
     public JComboBox<String> getCbxPelanggan() {
         return cbxPelanggan;
@@ -152,7 +154,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         t.setText("SubTotal");
         jLabel1.setText("PEMESANAN");
         txtIdNota.setVisible(true);
-        cbKdMenu.setVisible(true);
+        cbxPesan.setVisible(true);
         txtJumlah.setVisible(true);
         txtSubTotal.setVisible(true);
         txtSubTotal.setEnabled(false);
@@ -182,7 +184,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         j.setVisible(false);
         t.setVisible(false);
         txtIdNota.setVisible(false);
-        cbKdMenu.setVisible(false);
+        cbxPesan.setVisible(false);
         txtJumlah.setVisible(false);
         txtSubTotal.setVisible(false);
         change.setVisible(false);
@@ -231,7 +233,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         t.setText("Harga");
         jLabel1.setText("MENU & BARANG");
         txtIdNota.setVisible(true);
-        cbKdMenu.setVisible(false);
+        cbxPesan.setVisible(false);
         txtJumlah.setVisible(true);
         txtSubTotal.setVisible(true);
         txtSubTotal.setEnabled(true);
@@ -340,7 +342,7 @@ public class FormPemesanan extends javax.swing.JFrame {
     }
     
     private void tableMenu(){
-        cbKdMenu.removeAllItems();
+        cbxPesan.removeAllItems();
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Kode Menu/Barang");
         model.addColumn("Nama");
@@ -363,7 +365,7 @@ public class FormPemesanan extends javax.swing.JFrame {
                 Object[] x = new Object[1];
                 x[0] = rs.getString(1);
                 
-                cbKdMenu.addItem(x[0].toString());
+                cbxPesan.addItem(x[0].toString());
             }
             if (rs.last()) {
                 brg.setText(rs.getString(1));
@@ -403,7 +405,6 @@ public class FormPemesanan extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         txtSubTotalPesan = new javax.swing.JTextField();
-        cbKdMenu = new javax.swing.JComboBox<String>();
         subtotal = new javax.swing.JLabel();
         idd = new javax.swing.JLabel();
         pesan = new javax.swing.JLabel();
@@ -428,6 +429,7 @@ public class FormPemesanan extends javax.swing.JFrame {
         Bulan = new javax.swing.JSpinner();
         Tahun = new com.toedter.calendar.JYearChooser();
         tgl = new javax.swing.JTextField();
+        cbxPesan = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         Tanggal = new com.toedter.calendar.JDateChooser();
         a = new javax.swing.JLabel();
@@ -547,6 +549,11 @@ public class FormPemesanan extends javax.swing.JFrame {
         cbxPesanan.setBounds(380, 170, 160, 30);
 
         cbxPelanggan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih" }));
+        cbxPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxPelangganActionPerformed(evt);
+            }
+        });
         getContentPane().add(cbxPelanggan);
         cbxPelanggan.setBounds(380, 230, 160, 30);
 
@@ -618,10 +625,6 @@ public class FormPemesanan extends javax.swing.JFrame {
         });
         getContentPane().add(txtSubTotalPesan);
         txtSubTotalPesan.setBounds(380, 350, 160, 30);
-
-        cbKdMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih" }));
-        getContentPane().add(cbKdMenu);
-        cbKdMenu.setBounds(380, 230, 160, 30);
 
         subtotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         subtotal.setText("SubTotal Pesan");
@@ -771,6 +774,10 @@ public class FormPemesanan extends javax.swing.JFrame {
         getContentPane().add(tgl);
         tgl.setBounds(560, 290, 130, 30);
 
+        cbxPesan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pilih" }));
+        getContentPane().add(cbxPesan);
+        cbxPesan.setBounds(380, 230, 160, 30);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/Pelanggan (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 1152, 648);
@@ -908,14 +915,15 @@ public class FormPemesanan extends javax.swing.JFrame {
     private void tablePesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePesananMouseClicked
         try {
             awal();
+            tableMenu();
             control.onMouseClickTablePesanan();
             tablePesanan.clearSelection();
-            tableMenu();
             judulMenuPesan.setText("Daftar Menu & Barang");
             pesan.setVisible(false);
             submit.setForeground(Color.white);
             submit.setBackground(Color.orange);
             submit.setText("UPDATE");
+            txtIdNota.setEnabled(false);
             delete.setVisible(true);            
             y = true;
         }catch(SQLException ex) {
@@ -957,6 +965,7 @@ public class FormPemesanan extends javax.swing.JFrame {
             switch (x) {
                 case 1:
                     control.updatePesanan();
+                    txtIdNota.setEnabled(true);
                     control.clear();
                     tableDetail();
                     awal();
@@ -966,6 +975,7 @@ public class FormPemesanan extends javax.swing.JFrame {
                     break;
                 case 2:
                     control.updatePemesanan();
+                    txtIdNota.setEnabled(true);
                     control.clear();
                     tablePesan();
                     awal();
@@ -976,6 +986,7 @@ public class FormPemesanan extends javax.swing.JFrame {
                     break;
                 case 3:
                     control.updateBarang();
+                    txtIdNota.setEnabled(true);
                     control.clear();
                     tableMenu();
                     awal();
@@ -1025,7 +1036,7 @@ public class FormPemesanan extends javax.swing.JFrame {
                 Koneksi k = new Koneksi();
                 Connection con = k.getConnection();
                 String sql = "Select * from barang where kdBrg='"
-                        +cbKdMenu.getSelectedItem().toString()+"'";
+                        +cbxPesan.getSelectedItem().toString()+"'";
                 Statement stm = con.createStatement();
                 ResultSet rs = stm.executeQuery(sql);
 
@@ -1046,15 +1057,18 @@ public class FormPemesanan extends javax.swing.JFrame {
         int z = JOptionPane.showConfirmDialog(this, "Yakin Data mau Di Hapus?", "Delete Data", JOptionPane.OK_CANCEL_OPTION);
         if(z == 0){
             if (y == true) {
+                txtIdNota.setEnabled(true);
                 control.deletePesanan();
                 tableDetail();
                 awal();
             } else{
                 if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Pemesanan")) {
+                    txtIdNota.setEnabled(true);
                     control.deletePemesanan();
                     tablePesan();
                     awal();
                 } else if (judulMenuPesan.getText().equalsIgnoreCase("Daftar Menu & Barang")){
+                    txtIdNota.setEnabled(true);
                     control.deleteBarang();
                     tableMenu();
                     awal();
@@ -1105,6 +1119,7 @@ public class FormPemesanan extends javax.swing.JFrame {
                 submit.setForeground(Color.white);
                 submit.setBackground(Color.orange);
                 submit.setText("UPDATE");
+                txtIdNota.setEnabled(false);
             } catch (SQLException ex) {
                 Logger.getLogger(FormPemesanan.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1136,6 +1151,7 @@ public class FormPemesanan extends javax.swing.JFrame {
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
         control.clear();
         submit.setText("INSERT");
+        txtIdNota.setEnabled(true);
         cbxPesanan.setEnabled(true);
         tgl.setVisible(false);
         submit.setForeground(Color.white);
@@ -1154,6 +1170,10 @@ public class FormPemesanan extends javax.swing.JFrame {
     private void tglKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tglKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_tglKeyPressed
+
+    private void cbxPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPelangganActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxPelangganActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1198,8 +1218,8 @@ public class FormPemesanan extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser Tanggal;
     private javax.swing.JLabel a;
     private javax.swing.JLabel brg;
-    private javax.swing.JComboBox<String> cbKdMenu;
     private javax.swing.JComboBox<String> cbxPelanggan;
+    private javax.swing.JComboBox<String> cbxPesan;
     private javax.swing.JComboBox<String> cbxPesanan;
     private javax.swing.JLabel change;
     private javax.swing.JButton clear;

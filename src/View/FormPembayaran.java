@@ -668,6 +668,7 @@ public class FormPembayaran extends javax.swing.JFrame {
         if(z == 0){
             control.delete();
             insert.setText("INSERT");
+            txtIdTrans.setEnabled(true);
             insert.setForeground(Color.white);
             insert.setBackground(Color.green);
             delete.setVisible(false);
@@ -691,6 +692,7 @@ public class FormPembayaran extends javax.swing.JFrame {
             try {
                 control.update();
                 insert.setText("INSERT");
+                txtIdTrans.setEnabled(true);
                 insert.setForeground(Color.white);
                 insert.setBackground(Color.green);
                 delete.setVisible(false);
@@ -758,6 +760,7 @@ public class FormPembayaran extends javax.swing.JFrame {
        control.clear();
        delete.setVisible(false);
        insert.setText("INSERT");
+       txtIdTrans.setEnabled(true);
        insert.setForeground(Color.white);
        insert.setBackground(Color.green);
     }//GEN-LAST:event_hapusActionPerformed

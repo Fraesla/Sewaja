@@ -181,7 +181,7 @@ public class pelanggan {
         view.getTxtNama().setText("");
         view.getTxtIdTelp().setText("");
         view.getTxtTelpAlm().setText("");
-        view.getCbxMember().setSelectedItem("-");
+        view.getCbxMember().setSelectedIndex(0);
     }
     public void PelangganTabel()
     {
