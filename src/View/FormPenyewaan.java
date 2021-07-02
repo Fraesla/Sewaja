@@ -270,6 +270,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
     private void showed() {
         WaktuAwal.setVisible(true);
         WaktuAkhir.setVisible(true);
+        txtKdPemakaian.setEnabled(false);
         Tanggal.setVisible(true);
         hapus.setVisible(true);
         insert.setText("UPDATE");
@@ -282,6 +283,7 @@ public class FormPenyewaan extends javax.swing.JFrame {
         WaktuAkhir.setVisible(false);
         Tanggal.setVisible(false);
         hapus.setVisible(false);
+        txtKdPemakaian.setEnabled(true);
         insert.setText("INSERT");
         insert.setBackground(Color.green);
         insert.setForeground(Color.white);

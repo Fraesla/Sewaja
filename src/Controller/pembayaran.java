@@ -108,8 +108,8 @@ public class pembayaran {
     public void clear() 
     {
         view.getTxtIdTrans().setText("");
-        view.getCbxPemesanan().setSelectedItem(0);
-        view.getCbxPenyewaan().setSelectedItem(0);
+        view.getCbxPemesanan().setSelectedIndex(0);
+        view.getCbxPenyewaan().setSelectedIndex(0);
         view.getIntTotal().setText("");
         view.getTxtSubTotalPesan().setText("");
         view.getTxtSubTotalSewa().setText("");

@@ -68,7 +68,7 @@ public class pemesanan {
     public void insertPesanan(){
         model = new Model.pemesanan();
         model.setIdNota((String) view.getTxtIdNota().getText());
-        model.setKdBrg((String) view.getCbKdMenu().getSelectedItem());
+        model.setKdBrg((String) view.getCbxPesan().getSelectedItem());
         model.setJumlah(Integer.parseInt(view.getTxtJumlah().getText()));
         model.setTotalharga(Integer.parseInt(view.getTxtSubTotal().getText()));
         try {
@@ -114,7 +114,7 @@ public class pemesanan {
     public void updatePesanan(){
         model = new Model.pemesanan();
         model.setIdNota((String) view.getTxtIdNota().getText());
-        model.setKdBrg((String) view.getCbKdMenu().getSelectedItem());
+        model.setKdBrg((String) view.getCbxPesan().getSelectedItem());
         model.setJumlah(Integer.parseInt(view.getTxtJumlah().getText()));
         model.setTotalharga(Integer.parseInt(view.getTxtSubTotal().getText()));
         try {
@@ -155,7 +155,7 @@ public class pemesanan {
     
     public void deletePesanan(){
         String Id = view.getTxtIdNota().getText();
-        String kode = view.getCbKdMenu().getSelectedItem().toString();
+        String kode = view.getCbxPesan().getSelectedItem().toString();
         try {
             database.deletePesanan(Id, kode);
             JOptionPane.showMessageDialog(null, "Delete OK");
@@ -198,14 +198,14 @@ public class pemesanan {
     
     public void getPesanan(){
         String kodeCari=(String) view.getTxtIdNota().getText();
-        String kode=(String) view.getCbKdMenu().getSelectedItem();
+        String kode=(String) view.getCbxPesan().getSelectedItem();
         try{
             model = new Model.pemesanan();
             model = database.getPesanan(kodeCari, kode);
             
             if(model != null){
                 view.getTxtIdNota().setText(model.getIdNota());
-                view.getCbKdMenu().setSelectedItem(model.getKdBrg());
+                view.getCbxPesan().setSelectedItem(model.getKdBrg());
                 view.getTxtJumlah().setText(String.valueOf(model.getJumlah()));
                 view.getTxtSubTotal().setText(String.valueOf(model.getTotalharga()));
             }
@@ -239,9 +239,9 @@ public class pemesanan {
     public void clear() 
     {
         view.getTxtIdNota().setText("");
-        view.getCbxPesanan().setSelectedItem(0);
-        view.getCbKdMenu().setSelectedItem(0);
-        view.getCbxPelanggan().setSelectedItem(0);
+        view.getCbxPesanan().setSelectedIndex(0);
+        view.getCbxPesan().setSelectedIndex(0);
+        view.getCbxPelanggan().setSelectedIndex(0);
         view.getTanggal().setDateFormatString("");
         view.getTxtJumlah().setText("");
         view.getTxtSubTotal().setText("");
@@ -254,6 +254,7 @@ public class pemesanan {
             model = new Model.pemesanan();
             model = database.getPemesanan(kode);
             view.getCbxPesanan().setSelectedItem(model.getIdNota());
+            view.getCbxPelanggan().setSelectedItem(model.getKdPlg());
 //            view.getTanggal().setDate(Date.valueOf(model.getTglpesan()));
             view.getTgl().setText(String.valueOf(model.getTglpesan()));
             view.getTanggal().setDate(Date.valueOf(model.getTglpesan()));
@@ -272,7 +273,7 @@ public class pemesanan {
             model = new Model.pemesanan();
             model = database.getPesanan(id, kd);
             view.getTxtIdNota().setText(model.getIdNota());
-            view.getCbKdMenu().setSelectedItem(model.getKdBrg());
+            view.getCbxPesan().setSelectedItem(model.getKdBrg());
             view.getTxtJumlah().setText(String.valueOf(model.getJumlah()));
             view.getTxtSubTotal().setText(String.valueOf(model.getTotalharga()));
         }catch(SQLException e){

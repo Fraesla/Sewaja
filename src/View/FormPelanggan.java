@@ -535,6 +535,7 @@ public class FormPelanggan extends javax.swing.JFrame {
                 control.deleteMember();
                 control.MemberTabel();
                 control.PelangganTabel();
+                txtKode.setEnabled(true);
                 change2member();
             }
             else
@@ -542,6 +543,7 @@ public class FormPelanggan extends javax.swing.JFrame {
                 control.deletePelanggan();
                 control.PelangganTabel();
                 control.MemberTabel();
+                txtKode.setEnabled(true);
                 change2plg();
             }
         }
@@ -556,6 +558,7 @@ public class FormPelanggan extends javax.swing.JFrame {
         {
             if(btnInsert.getText().equalsIgnoreCase("update")){
                 control.updateMember();
+                txtKode.setEnabled(true);
             }
             else{
                 control.insertMember();
@@ -568,6 +571,7 @@ public class FormPelanggan extends javax.swing.JFrame {
         {
             if(btnInsert.getText().equalsIgnoreCase("update")){
                 control.updatePelanggan();
+                txtKode.setEnabled(true);
             }
             else{
                 control.insertPelanggan();
@@ -689,6 +693,7 @@ public class FormPelanggan extends javax.swing.JFrame {
         change2plg();
         control.onMouseClickTablePelanggan();
         btnInsert.setText("UPDATE");
+        txtKode.setEnabled(false);
         btnInsert.setBackground(Color.orange);
         btnInsert.setForeground(Color.white);
         if(btnInsert.getText().equalsIgnoreCase("update")){
@@ -707,6 +712,7 @@ public class FormPelanggan extends javax.swing.JFrame {
         change2member();
         control.onMouseClickTableMember();
         btnInsert.setText("UPDATE");
+        txtKode.setEnabled(false);
         btnInsert.setBackground(Color.orange);
         btnInsert.setForeground(Color.white);
         if(btnInsert.getText().equalsIgnoreCase("update")){
@@ -728,6 +734,7 @@ public class FormPelanggan extends javax.swing.JFrame {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         control.clear();
         btnInsert.setText("INSERT");
+        txtKode.setEnabled(true);
         btnInsert.setBackground(Color.green);
         btnInsert.setForeground(Color.white);
         btnDelete.setVisible(false);
